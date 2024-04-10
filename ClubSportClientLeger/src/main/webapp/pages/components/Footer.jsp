@@ -7,6 +7,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div class="footer">
+  <div>
+    <ul>
+      <li>Présentation</li>
+      <li>Fonctionnalités</li>
+      <li>Offres</li>
+      <li>Inscription</li>
+      <li>Qui sommes-nous ?</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
+      <li>Portail Sports regions</li>
+      <li>Annuaire des clubs</li>
+      <li>Accès club abonnés</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
+      <li>Une question ?</li>
+      <li>Consulter notre FAQ</li>
+      <li>Questions fréquentes</li>
+      <li>Nous contacter</li>
+    </ul>
+  </div>
+</div>
 </body>
 </html>
