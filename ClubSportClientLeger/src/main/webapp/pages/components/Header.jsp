@@ -10,8 +10,8 @@
 <body>
 <nav class="navbar">
 	    <div class="navbar-links">
-	        <a href="#login">Se connecter</a>
-	        <a href="#signup">S'inscrire</a>
+	        <a href="components/LoginForm.jsp">Se connecter</a>
+	        <a href="components/AddUserForm.jsp">S'inscrire</a>
 	    </div>
 </nav>
 </body>
