@@ -68,7 +68,7 @@ button {
 			personnel</div>
 	</div>
 
-	<form action="././AddUser" method="post">
+	<form action="AddUser.jsp" method="post">
 		<h2>Inscription</h2>
 
 		<div class="form-group">

@@ -19,7 +19,7 @@ public class ConnexionDao {
 	// final static String URL = "jdbc:oracle:thin:@oracle.esigelec.fr:1521:orcl";
 
 	// � utiliser si vous �tes sur une machine de l'�cole :
-	final static String URL = "jdbc:mysql://localhost/club_de_sport";
+	final static String URL = "jdbc:mysql://localhost/projet";
 
 	final static String LOGIN = "root"; // remplacer les ********. Exemple C##BDD1_1
 	final static String PASS = "root"; // remplacer les ********. Exemple BDD11
