@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajouter un utilisateur</title>
-</head>
 <body>
     <%
         String nom = request.getParameter("nom");
@@ -25,21 +24,21 @@
                 || email.isEmpty() || motdepasse.isEmpty()) {
             String message = "Veuillez fournir toutes les informations requises";
             request.setAttribute("message", message);
-            request.getRequestDispatcher("/AddUserForm.jsp").forward(request, response);
+            request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
         } else {
             if (db.utilisateurExists(email)) {
                 String message = "Un utilisateur avec cet e-mail existe déjà";
                 request.setAttribute("message", message);
-                request.getRequestDispatcher("/AddUserForm.jsp").forward(request, response);
+                request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
             } else {
                 if (db.add(nom, prenom, email, hashedPass) == 0) {
                     String message = "L'utilisateur est ajouté";
                     request.setAttribute("message", message);
-                    request.getRequestDispatcher("/AddUserForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
                 } else {
                     String message = "L'utilisateur n'a pas pu être ajouté";
                     request.setAttribute("message", message);
-                    request.getRequestDispatcher("/AddUserForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
                 }
             }
         }

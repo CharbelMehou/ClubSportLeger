@@ -74,11 +74,11 @@ public class UtilisateurDAO extends ConnexionDao {
 		    
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        ps = con.prepareStatement("INSERT INTO utilisateur (Nom, Prenom, Mail, mdp,Role) VALUES (?, ?, ?, ?,1)");
-		        ps.setString(1, nom);
-		        ps.setString(2, prenom);
-		        ps.setString(3, email);
-		        ps.setString(4, password);
+		        ps = con.prepareStatement("INSERT INTO utilisateur (UtilisateurId,Mail,Mdp,Role,Nom,Prenom) VALUES (1,?,?,1,?,?)");
+		        ps.setString(2, email);
+		        ps.setString(3, password);
+		        ps.setString(4, nom);
+		        ps.setString(5, prenom);
 		        
 		        int rowsAffected = ps.executeUpdate();
 		        

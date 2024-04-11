@@ -68,17 +68,17 @@ button {
 			personnel</div>
 	</div>
 
-	<form action="././AddUser" method="post">
+	<form action="AddUser.jsp" method="post">
 		<h2>Inscription</h2>
 
 		<div class="form-group">
-			<label for="email">Nom</label> <input type="text"
+			<label for="nom">Nom</label> <input type="text"
 				class="form-control" id="nom" name="nom"
 				aria-describedby="emailHelp"
 				placeholder="Entrez votre nom">
 		</div>
 		<div class="form-group">
-			<label for="motdepasse">Prenom</label> <input type="text"
+			<label for="prenom">Prenom</label> <input type="text"
 				class="form-control" id="prenom" name="prenom"
 				placeholder="Prenom">
 		</div>
