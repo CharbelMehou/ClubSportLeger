@@ -38,13 +38,14 @@ public class UtilisateurDAO extends ConnexionDao {
 		        rs = ps.executeQuery();
 		        
 		        if (rs.next()) {
+		        	int UtilisateurId=rs.getInt("UtilisateurId");
 		            String Nom=rs.getString("Nom");
 		            String Prenom =rs.getString("Prenom");
 		            String Email=rs.getString("Mail");
 		            String Password=rs.getString("Mdp");
 		            int role=rs.getInt("Role");
 		            
-		            utilisateur = new Utilisateur(Nom,Prenom,Email,Password,role);
+		            utilisateur = new Utilisateur(UtilisateurId,Nom,Prenom,Email,Password,role);
 		            // Ajouter d'autres attributs de l'utilisateur si nécessaire
 		        }
 		    } catch (SQLException ee) {
@@ -73,12 +74,12 @@ public class UtilisateurDAO extends ConnexionDao {
 		    PreparedStatement ps = null;
 		    
 		    try {
-		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        ps = con.prepareStatement("INSERT INTO utilisateur (UtilisateurId,Mail,Mdp,Role,Nom,Prenom) VALUES (1,?,?,1,?,?)");
-		        ps.setString(2, email);
-		        ps.setString(3, password);
-		        ps.setString(4, nom);
-		        ps.setString(5, prenom);
+		    	con = DriverManager.getConnection(URL, LOGIN, PASS);
+		    	ps = con.prepareStatement("INSERT INTO utilisateur (UtilisateurId, Mail, Mdp, Role, Nom, Prenom) VALUES (1, ?, ?, '1', ?, ?)");
+		    	ps.setString(1, email);
+		    	ps.setString(2, password);
+		    	ps.setString(3, nom);
+		    	ps.setString(4, prenom);
 		        
 		        int rowsAffected = ps.executeUpdate();
 		        
