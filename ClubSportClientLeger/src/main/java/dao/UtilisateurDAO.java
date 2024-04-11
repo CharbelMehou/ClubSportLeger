@@ -32,17 +32,17 @@ public class UtilisateurDAO extends ConnexionDao {
 		    
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        ps = con.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND motdepasse = ?");
+		        ps = con.prepareStatement("SELECT * FROM utilisateur WHERE Mail = ? AND Mdp = ?");
 		        ps.setString(1, email);
 		        ps.setString(2, password);
 		        rs = ps.executeQuery();
 		        
 		        if (rs.next()) {
-		            String Nom=rs.getString("nom");
-		            String Prenom =rs.getString("prenom");
-		            String Email=rs.getString("email");
-		            String Password=rs.getString("motdepasse");
-		            int role=rs.getInt("role");
+		            String Nom=rs.getString("Nom");
+		            String Prenom =rs.getString("Prenom");
+		            String Email=rs.getString("Mail");
+		            String Password=rs.getString("Mdp");
+		            int role=rs.getInt("Role");
 		            
 		            utilisateur = new Utilisateur(Nom,Prenom,Email,Password,role);
 		            // Ajouter d'autres attributs de l'utilisateur si nécessaire
@@ -74,7 +74,7 @@ public class UtilisateurDAO extends ConnexionDao {
 		    
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        ps = con.prepareStatement("INSERT INTO utilisateur (nom, prenom, email, motdepasse,role) VALUES (?, ?, ?, ?,1)");
+		        ps = con.prepareStatement("INSERT INTO utilisateur (Nom, Prenom, Mail, mdp,Role) VALUES (?, ?, ?, ?,1)");
 		        ps.setString(1, nom);
 		        ps.setString(2, prenom);
 		        ps.setString(3, email);
@@ -112,7 +112,7 @@ public class UtilisateurDAO extends ConnexionDao {
 	        
 	        try {
 	            con = DriverManager.getConnection(URL, LOGIN, PASS);
-	            ps = con.prepareStatement("SELECT COUNT(*) FROM utilisateur WHERE email = ?");
+	            ps = con.prepareStatement("SELECT COUNT(*) FROM utilisateur WHERE Mail = ?");
 	            ps.setString(1, email);
 	            rs = ps.executeQuery();
 	            
