@@ -52,23 +52,38 @@
 	     </button>
 	   </div>
 	</div>
-	 <table class="table-federation-commune">
-      <thead>
+	<table class="table-federation-commune">
+    <thead>
         <tr>
-          <th>Departement</th>
-          <th>Federation</th>
-          <th>Region</th>
+            <th>Departement</th>
+            <th>Federation</th>
+            <th>Region</th>
         </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+            <td>01 - Ain</td>
+            <td>Fédération des Sports</td>
+            <td>Auvergne-Rhône-Alpes</td>
         </tr>
         <tr>
-      </tbody>
-    </table>
+            <td>75 - Paris</td>
+            <td>Fédération de Musique</td>
+            <td>Île-de-France</td>
+        </tr>
+        <tr>
+            <td>33 - Gironde</td>
+            <td>Fédération de Danse</td>
+            <td>Nouvelle-Aquitaine</td>
+        </tr>
+        <tr>
+            <td>59 - Nord</td>
+            <td>Fédération des Arts</td>
+            <td>Hauts-de-France</td>
+        </tr>
+     </tbody>
+</table>
+
 	<jsp:include page="./components/Footer.jsp" />
 	
 </body>
