@@ -81,6 +81,67 @@
             <td>Fédération des Arts</td>
             <td>Hauts-de-France</td>
         </tr>
+        <tr>
+            <td>67 - Bas-Rhin</td>
+            <td>Fédération Scientifique</td>
+            <td>Grand Est</td>
+        </tr>
+
+         <tr>
+            <td>31 - Sud</td>
+            <td>Fédération de Basket</td>
+            <td>Auvergne-Rhône-Alpes</td>
+        </tr>
+        <tr>
+            <td>76 - Nord</td>
+            <td>Fédération des Arts</td>
+            <td>Normandie</td>
+        </tr>
+        <tr>
+            <td>01 - Ain</td>
+            <td>Fédération des Sports</td>
+            <td>Auvergne-Rhône-Alpes</td>
+        </tr>
+        <tr>
+            <td>75 - Paris</td>
+            <td>Fédération de Musique</td>
+            <td>Île-de-France</td>
+        </tr>
+        <tr>
+            <td>33 - Gironde</td>
+            <td>Fédération de Danse</td>
+            <td>Nouvelle-Aquitaine</td>
+        </tr>
+        <tr>
+            <td>01 - Ain</td>
+            <td>Fédération des Sports</td>
+            <td>Auvergne-Rhône-Alpes</td>
+        </tr>
+        <tr>
+            <td>75 - Paris</td>
+            <td>Fédération de Musique</td>
+            <td>Île-de-France</td>
+        </tr>
+        <tr>
+            <td>33 - Gironde</td>
+            <td>Fédération de Danse</td>
+            <td>Nouvelle-Aquitaine</td>
+        </tr>
+        <tr>
+            <td>01 - Ain</td>
+            <td>Fédération des Sports</td>
+            <td>Auvergne-Rhône-Alpes</td>
+        </tr>
+        <tr>
+            <td>75 - Paris</td>
+            <td>Fédération de Musique</td>
+            <td>Île-de-France</td>
+        </tr>
+        <tr>
+            <td>33 - Gironde</td>
+            <td>Fédération de Danse</td>
+            <td>Nouvelle-Aquitaine</td>
+        </tr>
      </tbody>
 </table>
 
