@@ -78,7 +78,23 @@ body {
   font-size: 20px;
 }
 /*Style du tableau des fédérations par commune*/
-.table-federation-commune{
-	heigth:500px;
-}
+.table-federation-commune {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px 0;
+        margin: 20px 0;
+    }
+
+    .table-federation-commune th {
+        background-color: #11559C;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table-federation-commune td {
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
 

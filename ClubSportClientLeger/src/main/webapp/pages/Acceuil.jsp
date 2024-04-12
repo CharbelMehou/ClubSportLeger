@@ -16,14 +16,14 @@
 	
 	<div class="sub-part-navbar">
         <h1>LE PORTAIL DES CLUBS ET FEDERATION</h1>
-        <p>DECOUVRER TOUTE L'ACTUALITÉ DES CLUBS ET FEDERATION PROCHE DE CHEZ VOUS</p>
+        <p>DECOUVRER TOUTE L'ACTUALITï¿½ DES CLUBS ET FEDERATION PROCHE DE CHEZ VOUS</p>
 	    <div class="sub-part-navbar-bottom-side">
 	    	<p>Affinez votre recherche</p>
 	    </div>
     </div>
     
     <div class="search-box"> 
-	    <!-- Premier menu déroulant -->
+	    <!-- Premier menu dï¿½roulant -->
 		<jsp:include page="./components/DropDown.jsp">
 		    <jsp:param name="buttonLabel" value="Departement" />
 		    <jsp:param name="link1" value="value 1.1" />
@@ -31,7 +31,7 @@
 		    <jsp:param name="link3" value="value 1.3" />
 		</jsp:include>
 		
-		<!-- Deuxième menu déroulant -->
+		<!-- Deuxiï¿½me menu dï¿½roulant -->
 		<jsp:include page="./components/DropDown.jsp">
 		    <jsp:param name="buttonLabel" value="Federation" />
 		    <jsp:param name="link1" value="value 2.1" />
@@ -39,7 +39,7 @@
 		    <jsp:param name="link3" value="value 2.3" />
 		</jsp:include>
 		
-		<!-- Troisième menu déroulant -->
+		<!-- Troisiï¿½me menu dï¿½roulant -->
 		<jsp:include page="./components/DropDown.jsp">
 		    <jsp:param name="buttonLabel" value="Region" />
 		    <jsp:param name="link1" value="value 3.1" />
@@ -58,9 +58,9 @@
 	 <table class="table-federation-commune">
         <thead>
             <tr>
-                <th>Département</th>
-                <th>Fédération</th>
-                <th>Région</th>
+                <th>Dï¿½partement</th>
+                <th>Fï¿½dï¿½ration</th>
+                <th>Rï¿½gion</th>
             </tr>
         </thead>
         <tbody>
