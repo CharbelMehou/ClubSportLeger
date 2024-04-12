@@ -1,0 +1,100 @@
+
+/* Reset de base pour éviter les inconsistences entre navigateurs */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+}
+.sub-part-navbar{
+	background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image: radial-gradient(#11559C 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
+    background-size: 17px 17px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top:10px;
+}
+.sub-part-navbar h1,	
+.sub-part-navbar p{
+	margin-left: 40px;
+	font-weight:bold;
+	font-size:30px;
+	color: #11559C;
+}
+.sub-part-navbar-bottom-side{
+    background-color: #1E1E1E;
+    color: #ffffff;
+    height: 40px;
+    width: 250px;
+    display:flex;
+    align-items:center;
+ }
+ .sub-part-navbar-bottom-side p{
+     color: #ffffff;
+     font-size:15px;
+ }
+ .search-box{
+	background-color: #4B4B4B;
+	display:flex;
+	flex-direction:row;
+    justify-content: space-between;
+    height:100px;
+    padding-top:20px;
+}
+.search-bar{
+  margin-left:20px;
+  width: 50%;
+  display: flex;
+  flex-direction:row; 
+}
+
+.search-input {
+  width: 100%;
+  border: 3px solid #11559C;
+  border-right: none;
+  padding: 5px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: black;
+}
+
+.searchButton {
+  width: 200px;
+  height: 50px;
+  border: 1px solid #11559C;
+  background: #11559C;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+/*Style du tableau des fédérations par commune*/
+.table-federation-commune {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px 0;
+        margin: 20px 0;
+    }
+
+    .table-federation-commune th {
+        background-color: #11559C;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table-federation-commune td {
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
