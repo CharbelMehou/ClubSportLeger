@@ -29,7 +29,7 @@
         if (email == null || motdepasse == null || email.isEmpty() || motdepasse.isEmpty()) {
             String message = "Veuillez fournir votre adresse e-mail et votre mot de passe";
             request.setAttribute("message", message);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
             dispatcher.forward(request, response);
         } else {
             if (db.getUtilisateur(email, hashedPass) != null) {
@@ -37,12 +37,12 @@
                 session.setAttribute("motdepasse", hashedPass);
                 String message = "Vous êtes connecté";
                 request.setAttribute("message", message);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
                 dispatcher.forward(request, response);
             } else {
                 String message = "Adresse e-mail ou mot de passe invalide";
                 request.setAttribute("message", message);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
                 dispatcher.forward(request, response);
             }
         }

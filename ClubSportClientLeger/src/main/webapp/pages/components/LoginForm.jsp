@@ -67,7 +67,7 @@ button {
         <div class="card-body">Veuillez saisir vos informations personnel</div>
     </div>
 
-    <form action="././Login" method="post">
+    <form action="Login.jsp" method="post">
         <h2>Connexion</h2>
       
         <div class="form-group">
