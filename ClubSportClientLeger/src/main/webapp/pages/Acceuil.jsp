@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="model.Federation"%>
+<%@ page import="dao.FederationDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,21 +56,28 @@
 	   </div>
 	</div>
 	 <table class="table-federation-commune">
-      <thead>
-        <tr>
-          <th>Departement</th>
-          <th>Federation</th>
-          <th>Region</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>Département</th>
+                <th>Fédération</th>
+                <th>Région</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% 
+                FederationDAO dao = new FederationDAO();
+                ArrayList<Federation> federations = dao.getFederationsSortedByRegion();
+                for (Federation federation : federations) {
+            %>
+            <tr>
+                <td><%= federation.getNomDepartement() %></td>
+                <td><%= federation.getLibelleFederation() %></td>
+                <td><%= federation.getNomRegion() %></td>
+            </tr>
+            <% 
+                }
+            %>
+        </tbody>
     </table>
 	<jsp:include page="./components/Footer.jsp" />
 	
