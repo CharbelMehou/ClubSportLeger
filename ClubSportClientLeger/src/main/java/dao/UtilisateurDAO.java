@@ -18,11 +18,10 @@ public class UtilisateurDAO extends ConnexionDao {
 	    }
 	    
 	    /**
-	     * Permet de récupérer l'INSEE d'une commune à partir de son code postal
-	     * 
-	     * @param codepostal le code postal de la commune à récupérer
-	     * @return l'INSEE de la commune trouvée;
-	     *         null si aucune commune ne correspond à ce code postal 
+	     * Permet de récupérer un utlisateur
+	     * @param email
+	     * @param password
+	     * @return utilisateur
 	     */
 	 public Utilisateur getUtilisateur(String email, String password) {
 		    Utilisateur utilisateur = null;
@@ -68,7 +67,14 @@ public class UtilisateurDAO extends ConnexionDao {
 		    return utilisateur;
 		}
     
-	 
+	 /**
+	  * Permet d'ajouter un utilsateur
+	  * @param nom
+	  * @param prenom
+	  * @param email
+	  * @param password
+	  * @return 0
+	  */
 	 public int add(String nom, String prenom, String email, String password) {
 		    Connection con = null;
 		    PreparedStatement ps = null;
@@ -104,7 +110,11 @@ public class UtilisateurDAO extends ConnexionDao {
 		    }
 		    return 0;
 		}
-	
+	/**
+	 * Pour verifier 
+	 * @param email
+	 * @return
+	 */
 	 public boolean utilisateurExists(String email) {
 	        boolean exists = false;
 	        Connection con = null;
