@@ -26,6 +26,15 @@ public class Commune {
 	private int POPH60_74;
 	private int POPH75;
 	
+	public Commune(int codeCommune, String nomCommune, int codePostal, String nomDepartement, String nomRegion) {
+		super();
+		CodeCommune = codeCommune;
+		NomCommune = nomCommune;
+		CodePostal = codePostal;
+		NomDepartement = nomDepartement;
+		NomRegion = nomRegion;
+	}
+
 	public Commune(int codeCommune, String nomCommune, int codePostal, float latitude, float longitude,
 			String nomDepartement, String nomRegion, int pOPF0_4, int pOPF5_9, int pOPF10_14, int pOPF015_19,
 			int pOPF20_29, int pOPF30_44, int pOPF45_59, int pOPF60_74, int pOPF75, int pOPH10_4, int pOPH15_9,
