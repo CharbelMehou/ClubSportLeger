@@ -156,3 +156,37 @@
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
     }
+ /*Styel de la pagination*/
+ .pagination {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    background-color: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    background-color: #007BFF;
+    color: white;
+    border-color: #007BFF;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+/* Responsive touch */
+@media screen and (max-width: 600px) {
+    .pagination a {
+        padding: 8px 12px; /* Smaller padding for small screens */
+    }
+}
+ 
