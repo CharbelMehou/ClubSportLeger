@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <form action="Accueil.jsp" method="GET" id="searchForm">
+    <form action="Acceuil.jsp" method="GET" id="searchForm">
         <div class="search-box">
             <!-- Barre de recherche -->
             <div class="search-bar">
