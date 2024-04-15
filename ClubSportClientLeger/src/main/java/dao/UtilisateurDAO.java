@@ -12,7 +12,10 @@ import java.time.LocalDateTime;
 import model.Utilisateur;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class UtilisateurDAO extends ConnexionDao {
 	
@@ -29,48 +32,68 @@ public class UtilisateurDAO extends ConnexionDao {
 	     * @return l'objet Utilisateur correspondant aux informations fournies;
 	     *         null si aucun utilisateur ne correspond aux informations fournies
 	     */
-	    public Utilisateur getUtilisateur(String email, String password) {
-	        Utilisateur utilisateur = null;
-	        Connection con = null;
-	        PreparedStatement ps = null;
-	        ResultSet rs = null;
-	        try {
-	            // Connexion à la base de données
-	            con = DriverManager.getConnection(URL, LOGIN, PASS);
-	            ps = con.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND motdepasse = ?");
-	            ps.setString(1, email);
-	            ps.setString(2, password);
-	            rs = ps.executeQuery();
-	            // Si un utilisateur correspondant est trouvé, on crée un objet Utilisateur avec ses informations
-	            if (rs.next()) {
-	                String nom = rs.getString("nom");
-	                String prenom = rs.getString("prenom");
-	                int role = rs.getInt("role");
-	                utilisateur = new Utilisateur(nom, prenom, email, password, role);
-	                // Ajouter d'autres attributs de l'utilisateur si nécessaire
-	            }
-	        } catch (SQLException ee) {
-	            // Gestion des exceptions
-	            ee.printStackTrace();
-	        } finally {
-	            // Fermeture des ressources
-	            try {
-	                if (rs != null) {
-	                    rs.close();
-	                }
-	                if (ps != null) {
-	                    ps.close();
-	                }
-	                if (con != null) {
-	                    con.close();
-	                }
-	            } catch (SQLException ignore) {
-	                ignore.printStackTrace();
-	            }
-	        }
-	        // Retourne l'utilisateur trouvé ou null s'il n'y en a pas
-	        return utilisateur;
-	    }
+	 public Utilisateur getUtilisateur(String email, String password) {
+		    Utilisateur utilisateur = null;
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    PreparedStatement logStmt = null;
+		    ResultSet rs = null;
+		    String logInsertSQL = "INSERT INTO logs (Email, Statut, Date, Ip) VALUES (?, ?, ?, ?)";
+		    Date date = new Date();
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		    InetAddress address = null;
+		    try {
+		        address = InetAddress.getLocalHost();
+		    } catch (UnknownHostException e) {
+		        e.printStackTrace();
+		    }
+		    try {
+		        // Connexion à la base de données
+		        con = DriverManager.getConnection(URL, LOGIN, PASS);
+		        ps = con.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND motdepasse = ?");
+		        ps.setString(1, email);
+		        ps.setString(2, password);
+		        rs = ps.executeQuery();
+
+		        // Préparation de la déclaration pour les logs
+		        logStmt = con.prepareStatement(logInsertSQL);
+		        logStmt.setString(1, email);
+		        logStmt.setString(3, formatter.format(date));
+		        logStmt.setString(4, address.getHostAddress());
+
+		        // Si un utilisateur correspondant est trouvé
+		        if (rs.next()) {
+		            String nom = rs.getString("nom");
+		            String prenom = rs.getString("prenom");
+		            int role = rs.getInt("role");
+		            utilisateur = new Utilisateur(nom, prenom, email, password, role);
+
+		            // Log successful login
+		            logStmt.setString(2, "success");
+		            logStmt.executeUpdate();
+		        } else {
+		            // Log failed login
+		            logStmt.setString(2, "failed");
+		            logStmt.executeUpdate();
+		        }
+		    } catch (SQLException ee) {
+		        // Gestion des exceptions
+		        ee.printStackTrace();
+		    } finally {
+		        // Fermeture des ressources
+		        try {
+		            if (rs != null) rs.close();
+		            if (ps != null) ps.close();
+		            if (logStmt != null) logStmt.close();
+		            if (con != null) con.close();
+		        } catch (SQLException ignore) {
+		            ignore.printStackTrace();
+		        }
+		    }
+		    // Retourne l'utilisateur trouvé ou null s'il n'y en a pas
+		    return utilisateur;
+		}
+
 	    /**
 	     * Méthode permettant d'ajouter un nouvel utilisateur à la base de données
 	     * 
