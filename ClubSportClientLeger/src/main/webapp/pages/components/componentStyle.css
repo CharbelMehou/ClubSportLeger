@@ -3,24 +3,45 @@
     background-color: #11559C; /* Bleu de l'en-tête */
     color: #ffffff;
     padding: 0 20px;
-    /* Autres styles de la navbar */
+    min-height: 50px;
 }
 
 .navbar-links {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    min-height: 50px;
+    width: 100%;
 }
 
-.navbar a {
+.navbar-link1, .navbar-link2 {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-link1 {
+    justify-content: flex-start;
+}
+
+.navbar-link2 {
+    justify-content: flex-end;
+}
+.navbar a{
     text-decoration: none;
     color: #ffffff;
     margin-left: 20px;
     padding: 10px;
+    font-weight:bold;
     transition: background-color 0.3s ease;
 }
-
+.navbar span{
+    text-decoration: none;
+    color: #ffffff;
+    margin-left: 20px;
+    padding: 10px;
+    font-size:20px;
+    font-weight:bold;
+    transition: background-color 0.3s ease;
+}
 .navbar a:hover,
 .navbar a:focus {
     background-color: #ffffff;
