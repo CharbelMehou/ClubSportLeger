@@ -48,24 +48,24 @@ public class AddUser extends HttpServlet {
 	                || email.isEmpty() || motdepasse.isEmpty()) {
 	            String message = "Please provide all the required information";
 	            request.setAttribute("message", message);
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/AddUserForm.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	            dispatcher.forward(request, response);
 	        } else {
 	            if (db.utilisateurExists(email)) {
 	                String message = "User with this email already exists";
 	                request.setAttribute("message", message);
-	                RequestDispatcher dispatcher = request.getRequestDispatcher("/AddUserForm.jsp");
+	                RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	                dispatcher.forward(request, response);
 	            } else {
 	                if (db.add(nom, prenom, email, hashedPass) == 0) {
 	                    String message = "The user is added";
 	                    request.setAttribute("message", message);
-	                    RequestDispatcher dispatcher = request.getRequestDispatcher("/AddUserForm.jsp");
+	                    RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	                    dispatcher.forward(request, response);
 	                } else {
 	                    String message = "The user could not be added";
 	                    request.setAttribute("message", message);
-	                    RequestDispatcher dispatcher = request.getRequestDispatcher("/AddUserForm.jsp");
+	                    RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	                    dispatcher.forward(request, response);
 	                }
 	            }

@@ -3,7 +3,6 @@ package model;
  * 
  */
 public class Utilisateur {
-	private int utilsateurId;
 	private String nom;
 	private String prenom;
 	private String email;
@@ -16,21 +15,15 @@ public class Utilisateur {
 	 * @param email
 	 * @param motDePasse
 	 */
-	public Utilisateur(int utilsateurId,String nom, String prenom, String email, String motDePasse,int role) {
+	public Utilisateur(String nom, String prenom, String email, String motDePasse,int role) {
 		super();
-		this.utilsateurId=utilsateurId;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.motDePasse = motDePasse;
 		this.role=role;
 	}
-	public int getUtilsateurId() {
-		return utilsateurId;
-	}
-	public void setUtilsateurId(int utilsateurId) {
-		this.utilsateurId = utilsateurId;
-	}
+	
 	/**
 	 * 
 	 * @return

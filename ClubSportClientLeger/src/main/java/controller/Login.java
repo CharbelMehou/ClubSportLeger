@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
 	    if (email == null || motdepasse == null || email.isEmpty() || motdepasse.isEmpty()) {
 	        String message = "Please provide both email and password";
 	        request.setAttribute("message", message);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/LoginForm.jsp");
 	        dispatcher.forward(request, response);
 	    } else {
 	        if (db.getUtilisateur(email, hashedPass) != null) {
@@ -59,14 +59,14 @@ public class Login extends HttpServlet {
 	            // Ajoutez d'abord le message à la requête
 	            request.setAttribute("message", message);
 	            // Puis effectuez la redirection vers la page de formulaire de connexion
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	            dispatcher.forward(request, response);
 	        } else {
 	            String message = "Invalid email or password";
 	            // Ajoutez d'abord le message à la requête
 	            request.setAttribute("message", message);
 	            // Puis effectuez la redirection vers la page de formulaire de connexion
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginForm.jsp");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("pages/components/AddUserForm.jsp");
 	            dispatcher.forward(request, response);
 	        }
 	    }

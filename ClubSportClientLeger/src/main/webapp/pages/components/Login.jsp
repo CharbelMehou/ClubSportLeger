@@ -37,13 +37,12 @@
                 session.setAttribute("motdepasse", hashedPass);
                 String message = "Vous êtes connecté";
                 request.setAttribute("message", message);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("../Acceuil.jsp");
             } else {
                 String message = "Adresse e-mail ou mot de passe invalide";
                 request.setAttribute("message", message);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("../Acceuil.jsp");
+
             }
         }
     %>
