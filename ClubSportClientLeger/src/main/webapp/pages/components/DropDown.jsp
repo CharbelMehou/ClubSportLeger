@@ -14,8 +14,8 @@
 	    ArrayList<String> links = (ArrayList<String>) request.getAttribute("links");
 	%>
 	<div class="dropdown">
-	    <label  for="<%=buttonLabel.toLowerCase()%>"><%=buttonLabel%></label>
-	    <select id="<%=buttonLabel.toLowerCase()%>" name="<%=buttonLabel.toLowerCase()%>" onchange="document.forms['searchForm'].submit();">
+	    <label for="<%=buttonLabel.toLowerCase()%>"><%=buttonLabel%></label>
+	    <select id="<%=buttonLabel.toLowerCase()%>" name="<%=buttonLabel.toLowerCase()%>">
 	        <option value="">Choisir un <%=buttonLabel%></option>
 	        <% 
 	        if (links != null) {

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.Commune;
 
@@ -48,5 +49,19 @@ public class CommuneDAO extends ConnexionDao {
 		        }
 		    }
 		    return commune;
-		}	
+		}
+	 
+	 public ArrayList<String> getAllCommunes() {
+		    ArrayList<String> communes = new ArrayList<>();
+		    try (Connection con = DriverManager.getConnection(URL, LOGIN, PASS);
+		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT NomCommune FROM commune ORDER BY NomCommune ASC");
+		         ResultSet rs = ps.executeQuery()) {
+		        while (rs.next()) {
+		            communes.add(rs.getString("NomCommune"));
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return communes;
+		}
 }

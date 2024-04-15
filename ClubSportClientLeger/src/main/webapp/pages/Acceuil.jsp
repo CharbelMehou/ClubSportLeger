@@ -24,62 +24,81 @@
         </div>
     </div>
 
-    <form action="Acceuil.jsp" method="GET" id="searchForm">
-        <div class="search-box">
-            <!-- Barre de recherche -->
-            <div class="search-bar">
-                <input type="text" name="searchTerm" class="search-input" placeholder="Rechercher une Fédération" onchange="this.form.submit()">
-                <button type="submit" class="searchButton">Rechercher</button>
-            </div>
-            <% 
+    <form action="Acceuil.jsp" method="POST" id="searchForm">
+    <div class="search-box">
+        <!-- Sélection de fédération -->
+        <div class="dropdown">
+            <label for="federationSelect">Fédération :</label>
+            <select id="federationSelect" name="federation" class="form-control">
+                <option value="">Toutes les fédérations</option>
+                <% 
                 FederationDAO dao = new FederationDAO();
-                String searchTerm = request.getParameter("searchTerm") != null ? request.getParameter("searchTerm").trim() : "";
-                int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-                int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
-
-                ArrayList<Federation> federations = dao.getFederationsSortedByRegion(currentPage, pageSize);
-
-                Set<String> departements = new HashSet<>();
-                Set<String> regions = new HashSet<>();
-                Set<String> communes = new HashSet<>();
-                for (Federation federation : federations) {
-                    departements.add(federation.getNomDepartement());
-                    regions.add(federation.getNomRegion());
-                    communes.add(federation.getNomCommune());
-                }
-                List<String> departementList = new ArrayList<>(departements);
-                List<String> regionList = new ArrayList<>(regions);
-                List<String> communeList = new ArrayList<>(communes);
-            %>
-            <!-- Dropdown Département -->
-            <%
-                request.setAttribute("links", departementList);
-            %>
-            <jsp:include page="./components/DropDown.jsp">
-                <jsp:param name="buttonLabel" value="Departement" />
-                <jsp:param name="onchange" value="this.form.submit()" />
-            </jsp:include>
-
-            <!-- Dropdown Région -->
-            <%
-                request.setAttribute("links", regionList);
-            %>
-            <jsp:include page="./components/DropDown.jsp">
-                <jsp:param name="buttonLabel" value="Region" />
-                <jsp:param name="onchange" value="this.form.submit()" />
-            </jsp:include>
-
-            <!-- Dropdown Commune -->
-            <%
-                request.setAttribute("links", communeList);
-            %>
-            <jsp:include page="./components/DropDown.jsp">
-                <jsp:param name="buttonLabel" value="Commune" />
-                <jsp:param name="onchange" value="this.form.submit()" />
-            </jsp:include>     
+                List<String> federationList = dao.getFederations();
+                for (String federation : federationList) { %>
+                    <option value="<%= federation %>"><%= federation %></option>
+                <% } %>
+            </select>
         </div>
-    </form>
 
+        <% 
+        // Récupération du terme de recherche
+        String federation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
+        int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
+
+
+        %>
+                    <div class="dropdown">
+						<label for="searchTypeSelect">Rechercher par :</label> <select
+							id="searchTypeSelect" name="searchType" class="form-control"
+							onchange="toggleSearchType()">
+							<option value="region">Région</option>
+							<option value="codePostal">Code Postal</option>
+						</select>
+	                </div>
+       						
+					<div  class="dropdown" id="regionGroup">
+						<label for="regionSelect">Région :</label> <select
+							id="regionSelect" name="region" class="form-control">
+							<option value="">Toute la France</option>
+							<% List<String> regions = dao.getCommunes();
+                           for (String region : regions) { %>
+							<option value="<%= region %>"><%= region %></option>
+							<% } %>
+						</select>
+					</div>
+					
+					<div class="dropdown" id="codePostalGroup" style="display: none;">
+						<label for="codePostalInput">Code Postal :</label> <input
+							type="text" id="codePostalInput" name="codePostal"
+							class="form-control">
+					</div>
+							
+					 <div class="submit-group">
+			            <button type="submit" class="submitButton">Rechercher</button>
+			            <a type="button" class="mapLink">Voir les résultats sur la map >>></a>
+			        </div>			
+    </div>
+</form>
+<script>
+    function toggleSearchType() {
+        var searchType = document.getElementById('searchTypeSelect').value;
+        if (searchType === 'region') {
+            document.getElementById('regionGroup').style.display = 'block';
+            document.getElementById('codePostalGroup').style.display = 'none';
+        } else if (searchType === 'codePostal') {
+            document.getElementById('regionGroup').style.display = 'none';
+            document.getElementById('codePostalGroup').style.display = 'block';
+        }
+    }
+
+    function searchClubs() {
+        var searchType = document.getElementById('searchTypeSelect').value;
+        var federation = document.getElementById('federation').value;
+        var region = document.getElementById('regionSelect').value;
+        var codePostal = document.getElementById('codePostalInput').value;
+    }
+</script>
     <jsp:include page="./components/FederationTable.jsp" />
     <jsp:include page="./components/Footer.jsp" />
 </body>
