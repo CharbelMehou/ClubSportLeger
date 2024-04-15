@@ -34,11 +34,11 @@
                 if (db.add(nom, prenom, email, hashedPass) == 0) {
                     String message = "L'utilisateur est ajouté";
                     request.setAttribute("message", message);
-                    request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
+                   // request.getRequestDispatcher("../Acceuil.jsp").forward(request, response);
                 } else {
                     String message = "L'utilisateur n'a pas pu être ajouté";
                     request.setAttribute("message", message);
-                    request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("../Acceuil.jsp").forward(request, response);
                 }
             }
         }

@@ -2,39 +2,90 @@ package model;
 
 public class Federation {
 	
-	private int CodeFederation;
-	private String LibelleFederation;
-	private String NomDepartement;
-	private String NomRegion;
+	private String CodeCommune;
+	private String Commune;
+	private String Departement;
+	private String Region;
+	private String StatutGeo;
+	private String Code;
+	private String Federation;
+	private int clubs;
+	private int EPA;
+	private int Total;
 	
-	public Federation(int codeFederation, String libelleFederation, String nomDepartement, String nomRegion) {
-		CodeFederation = codeFederation;
-		LibelleFederation = libelleFederation;
-		NomDepartement = nomDepartement;
-		NomRegion = nomRegion;
+	public Federation(String codeCommune, String commune, String departement, String region, String statutGeo,
+			String code, String federation, int clubs, int ePA, int total) {
+		CodeCommune = codeCommune;
+		Commune = commune;
+		Departement = departement;
+		Region = region;
+		StatutGeo = statutGeo;
+		Code = code;
+		Federation = federation;
+		this.clubs = clubs;
+		EPA = ePA;
+		Total = total;
 	}
-	public int getCodeFederation() {
-		return CodeFederation;
+	public String getCodeCommune() {
+		return CodeCommune;
 	}
-	public void setCodeFederation(int codeFederation) {
-		CodeFederation = codeFederation;
+	public void setCodeCommune(String codeCommune) {
+		CodeCommune = codeCommune;
 	}
-	public String getLibelleFederation() {
-		return LibelleFederation;
+	public String getCommune() {
+		return Commune;
 	}
-	public void setLibelleFederation(String libelleFederation) {
-		LibelleFederation = libelleFederation;
+	public void setCommune(String commune) {
+		Commune = commune;
 	}
-	public String getNomDepartement() {
-		return NomDepartement;
+	public String getDepartement() {
+		return Departement;
 	}
-	public void setNomDepartement(String nomDepartement) {
-		NomDepartement = nomDepartement;
+	public void setDepartement(String departement) {
+		Departement = departement;
 	}
-	public String getNomRegion() {
-		return NomRegion;
+	public String getRegion() {
+		return Region;
 	}
-	public void setNomRegion(String nomRegion) {
-		NomRegion = nomRegion;
+	public void setRegion(String region) {
+		Region = region;
 	}
+	public String getStatutGeo() {
+		return StatutGeo;
+	}
+	public void setStatutGeo(String statutGeo) {
+		StatutGeo = statutGeo;
+	}
+	public String getCode() {
+		return Code;
+	}
+	public void setCode(String code) {
+		Code = code;
+	}
+	public String getFederation() {
+		return Federation;
+	}
+	public void setFederation(String federation) {
+		Federation = federation;
+	}
+	public int getClubs() {
+		return clubs;
+	}
+	public void setClubs(int clubs) {
+		this.clubs = clubs;
+	}
+	public int getEPA() {
+		return EPA;
+	}
+	public void setEPA(int ePA) {
+		EPA = ePA;
+	}
+	public int getTotal() {
+		return Total;
+	}
+	public void setTotal(int total) {
+		Total = total;
+	}
+	
+	
 }

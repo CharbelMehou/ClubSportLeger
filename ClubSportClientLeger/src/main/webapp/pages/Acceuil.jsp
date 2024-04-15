@@ -1,75 +1,105 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="model.Federation" %>
+<%@ page import="dao.FederationDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceuil</title>
+    <title>Accueil</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<jsp:include page="./components/Header.jsp" />
-	
-	<div class="sub-part-navbar">
-        <h1>LE PORTAIL DES CLUBS ET FEDERATION</h1>
-        <p>DECOUVRER TOUTE L'ACTUALITÉ DES CLUBS ET FEDERATION PROCHE DE CHEZ VOUS</p>
-	    <div class="sub-part-navbar-bottom-side">
-	    	<p>Affinez votre recherche</p>
-	    </div>
+    <jsp:include page="./components/Header.jsp" />
+
+    <div class="sub-part-navbar">
+        <h1>LE PORTAIL DES CLUBS ET FEDERATIONS</h1>
+        <p>DECOUVREZ TOUTE L'ACTUALITE DES CLUBS ET FEDERATIONS PROCHE DE CHEZ VOUS</p>
+        <div class="sub-part-navbar-bottom-side">
+            <p>Affinez votre recherche</p>
+        </div>
     </div>
-    
-    <div class="search-box"> 
-	    <!-- Premier menu déroulant -->
-		<jsp:include page="./components/DropDown.jsp">
-		    <jsp:param name="buttonLabel" value="Departement" />
-		    <jsp:param name="link1" value="value 1.1" />
-		    <jsp:param name="link2" value="value 1.2" />
-		    <jsp:param name="link3" value="value 1.3" />
-		</jsp:include>
-		
-		<!-- Deuxième menu déroulant -->
-		<jsp:include page="./components/DropDown.jsp">
-		    <jsp:param name="buttonLabel" value="Federation" />
-		    <jsp:param name="link1" value="value 2.1" />
-		    <jsp:param name="link2" value="value 2.2" />
-		    <jsp:param name="link3" value="value 2.3" />
-		</jsp:include>
-		
-		<!-- Troisième menu déroulant -->
-		<jsp:include page="./components/DropDown.jsp">
-		    <jsp:param name="buttonLabel" value="Region" />
-		    <jsp:param name="link1" value="value 3.1" />
-		    <jsp:param name="link2" value="value 3.2" />
-		    <jsp:param name="link3" value="value 3.3" />
-		</jsp:include>
-		
-	   <!-- Barre de recherche -->
-	   <div class="search-bar">
-	      <input type="text" class="search-input" placeholder="What are you looking for?">
-	      <button type="submit" class="searchButton">
-	        Rechercher
-	     </button>
-	   </div>
-	</div>
-	 <table class="table-federation-commune">
-      <thead>
-        <tr>
-          <th>Departement</th>
-          <th>Federation</th>
-          <th>Region</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-      </tbody>
-    </table>
-	<jsp:include page="./components/Footer.jsp" />
-	
+
+    <form action="Acceuil.jsp" method="POST" id="searchForm">
+    <div class="search-box">
+        <!-- Sélection de fédération -->
+        <div class="dropdown">
+            <label for="federationSelect">Fédération :</label>
+            <select id="federationSelect" name="federation" class="form-control">
+                <option value="">Toutes les fédérations</option>
+                <% 
+                FederationDAO dao = new FederationDAO();
+                List<String> federationList = dao.getFederations();
+                for (String federation : federationList) { %>
+                    <option value="<%= federation %>"><%= federation %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <% 
+        // Récupération du terme de recherche
+        String federation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
+        int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
+
+
+        %>
+                    <div class="dropdown">
+						<label for="searchTypeSelect">Rechercher par :</label> <select
+							id="searchTypeSelect" name="searchType" class="form-control"
+							onchange="toggleSearchType()">
+							<option value="region">Région</option>
+							<option value="codePostal">Code Postal</option>
+						</select>
+	                </div>
+       						
+					<div  class="dropdown" id="regionGroup">
+						<label for="regionSelect">Région :</label> <select
+							id="regionSelect" name="region" class="form-control">
+							<option value="">Toute la France</option>
+							<% List<String> regions = dao.getCommunes();
+                           for (String region : regions) { %>
+							<option value="<%= region %>"><%= region %></option>
+							<% } %>
+						</select>
+					</div>
+					
+					<div class="dropdown" id="codePostalGroup" style="display: none;">
+						<label for="codePostalInput">Code Postal :</label> <input
+							type="text" id="codePostalInput" name="codePostal"
+							class="form-control">
+					</div>
+							
+					 <div class="submit-group">
+			            <button type="submit" class="submitButton">Rechercher</button>
+			            <a type="button" class="mapLink">Voir les résultats sur la map >>></a>
+			        </div>			
+    </div>
+</form>
+<script>
+    function toggleSearchType() {
+        var searchType = document.getElementById('searchTypeSelect').value;
+        if (searchType === 'region') {
+            document.getElementById('regionGroup').style.display = 'block';
+            document.getElementById('codePostalGroup').style.display = 'none';
+        } else if (searchType === 'codePostal') {
+            document.getElementById('regionGroup').style.display = 'none';
+            document.getElementById('codePostalGroup').style.display = 'block';
+        }
+    }
+
+    function searchClubs() {
+        var searchType = document.getElementById('searchTypeSelect').value;
+        var federation = document.getElementById('federation').value;
+        var region = document.getElementById('regionSelect').value;
+        var codePostal = document.getElementById('codePostalInput').value;
+    }
+</script>
+    <jsp:include page="./components/FederationTable.jsp" />
+    <jsp:include page="./components/Footer.jsp" />
 </body>
 </html>

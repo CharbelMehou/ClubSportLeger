@@ -15,20 +15,16 @@ public class ConnexionDao {
 	 * Parametres de connexion a la base de donnees oracle URL, LOGIN et PASS sont
 	 * des constantes
 	 */
-	// � utiliser si vous �tes sur une machine personnelle :
-	// final static String URL = "jdbc:oracle:thin:@oracle.esigelec.fr:1521:orcl";
 
-	// � utiliser si vous �tes sur une machine de l'�cole :
-	final static String URL = "jdbc:mysql://localhost/clubsport";
-	final static String LOGIN = "root"; // remplacer les ********. Exemple C##BDD1_1
-	final static String PASS = "root"; // remplacer les ********. Exemple BDD11
+	final static String URL = "jdbc:mysql://localhost/club_de_sport";
+	final static String LOGIN = "root";
+	final static String PASS = "root";
 
 	/**
 	 * Constructor
 	 * 
 	 */
 	public ConnexionDao() {
-		// chargement du pilote de bases de donnees
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {

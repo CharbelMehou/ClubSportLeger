@@ -48,8 +48,6 @@
   justify-content: space-between;
   padding: 20px; 
   font-size: 0.8em;
-  position: absolute;
-  bottom: 0;
   width:100vw;
 }
 
@@ -67,42 +65,128 @@
 }
 
 /*Style de la dropdown*/
-.dropbtn {
-  background-color: #11559C;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+
+/* Style pour le select */
+.dropdown select {
+  width: 100%;              /* Ensure select fills container */
+  padding: 8px 12px;        /* Adequate padding for usability */
+  font-size: 16px;          /* Readable font size */
+  border: 1px solid #ccc;   /* Subtle, refined border styling */
+  border-radius: 4px;       /* Rounded corners for a modern look */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Light shadow for depth */
+  background-color: white;  /* White background */
+  color: #333;              /* Dark grey text for high contrast */
+  margin-top: 5px;          /* Space from label or previous content */
+  cursor: pointer;          /* Pointer to indicate it's selectable */
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+/* Focus style for select */
+.dropdown select:focus {
+  border-color: #11559C;    /* Highlight focus with a blue border */
+  outline: none;            /* Remove default focus outline */
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+/* Style for the label associated with select */
+.dropdown label {
+  display: block;           /* Block display to enforce new line */
+  font-weight: bold;        /* Bold label text */
+  margin-bottom: 5px;       /* Space between label and select box */
+  color: #333;              /* Dark grey text for visibility */
+}
+/*Style de la search bar*/
+.search-box{
+	background-color: #4B4B4B;
+	display:flex;
+	flex-direction:row;
+    justify-content: space-between;
+    height:140px;
+    padding:20px;
+    
+}
+.search-box label{
+	color:white;
+}
+.search-bar{
+  width: 50%;
+  display: flex;
+  flex-direction:row; 
+  margin-top:20px;
 }
 
-.dropdown-content a {
+.search-input {
+  width: 100%;
+  border: 3px solid #11559C;
+  border-right: none;
+  padding: 5px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
   color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
+.searchButton {
+  width: 200px;
+  height: 50px;
+  border: 1px solid #11559C;
+  background: #11559C;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+/*Style du tableau des fédérations par commune*/
+.table-federation-commune {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px 0;
+        margin: 20px 0;
+    }
+
+.table-federation-commune th {
+        background-color: #11559C;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+.table-federation-commune td {
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+ /*Style de la pagination*/
+ .pagination {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    background-color: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    background-color: #007BFF;
+    color: white;
+    border-color: #007BFF;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+/* Responsive touch */
+@media screen and (max-width: 600px) {
+    .pagination a {
+        padding: 8px 12px; /* Smaller padding for small screens */
+    }
+}
+ 

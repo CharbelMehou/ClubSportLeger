@@ -15,7 +15,7 @@ body {
     opacity: 0.8;
     background-image: radial-gradient(#11559C 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
     background-size: 17px 17px;
-    min-height: 200px;
+    min-height: 170px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,45 +40,36 @@ body {
      color: #ffffff;
      font-size:15px;
  }
- .search-box{
-	background-color: #4B4B4B;
+ 
+.submit-group{
 	display:flex;
-	flex-direction:row;
-    justify-content: space-between;
-    height:100px;
-    padding-top:20px;
-}
-.search-bar{
-  margin-left:20px;
-  width: 50%;
-  display: flex;
-  flex-direction:row; 
+	flex-direction:column;
 }
 
-.search-input {
-  width: 100%;
-  border: 3px solid #11559C;
-  border-right: none;
-  padding: 5px;
-  height: 50px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: black;
-}
-
-.searchButton {
+.submitButton {
   width: 200px;
   height: 50px;
   border: 1px solid #11559C;
   background: #11559C;
   text-align: center;
+  margin-top: 30px;
   color: #fff;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 20px;
 }
-/*Style du tableau des fédérations par commune*/
-.table-federation-commune{
-	heigth:500px;
+.mapLink {
+    color: white;
+    font-weight:bold;
+    margin-top: 20px; 
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.mapButton:hover {
+    background-color: white;
+    color: #4B4B4B;
 }
 

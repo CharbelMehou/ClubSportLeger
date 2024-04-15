@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,22 @@
 <link rel="stylesheet" href="./components/componentStyle.css">
 </head>
 <body>
+	<%
+	    String buttonLabel = request.getParameter("buttonLabel");
+	    ArrayList<String> links = (ArrayList<String>) request.getAttribute("links");
+	%>
 	<div class="dropdown">
-	    <button class="dropbtn"><%= request.getParameter("buttonLabel") %></button>
-	    <div class="dropdown-content">
-	        <a href="#"><%= request.getParameter("link1") %></a>
-	        <a href="#"><%= request.getParameter("link2") %></a>
-	        <a href="#"><%= request.getParameter("link3") %></a>
-	    </div>
-    </div>
+	    <label for="<%=buttonLabel.toLowerCase()%>"><%=buttonLabel%></label>
+	    <select id="<%=buttonLabel.toLowerCase()%>" name="<%=buttonLabel.toLowerCase()%>">
+	        <option value="">Choisir un <%=buttonLabel%></option>
+	        <% 
+	        if (links != null) {
+	            for (String link : links) {
+	                out.println("<option value='" + link + "'>" + link + "</option>");
+	            }
+	        }
+	        %>
+	    </select>
+	</div>
 </body>
 </html>
