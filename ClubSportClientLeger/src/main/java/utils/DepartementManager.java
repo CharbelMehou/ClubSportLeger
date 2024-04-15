@@ -11,15 +11,15 @@ public class DepartementManager {
     }
 
     private void initialize() {
-        departements.put("1", "Ain");
-        departements.put("2", "Aisne");
-        departements.put("3", "Allier");
-        departements.put("4", "Alpes-de-Haute-Provence");
-        departements.put("5", "Hautes-Alpes");
-        departements.put("6", "Alpes-Maritimes");
-        departements.put("7", "Ardèche");
-        departements.put("8", "Ardennes");
-        departements.put("9", "Ariège");
+        departements.put("01", "Ain");
+        departements.put("02", "Aisne");
+        departements.put("03", "Allier");
+        departements.put("04", "Alpes-de-Haute-Provence");
+        departements.put("05", "Hautes-Alpes");
+        departements.put("06", "Alpes-Maritimes");
+        departements.put("07", "Ardèche");
+        departements.put("08", "Ardennes");
+        departements.put("09", "Ariège");
         departements.put("10", "Aube");
         departements.put("11", "Aude");
         departements.put("12", "Aveyron");

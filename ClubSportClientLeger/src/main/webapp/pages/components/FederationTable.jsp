@@ -4,6 +4,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Federation" %>
 <%@ page import="dao.FederationDAO" %>
+<%@ page import="utils.DepartementManager" %>
+
 <%
     // Récupération des paramètres du formulaire
     int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -11,7 +13,9 @@
     FederationDAO dao = new FederationDAO();
     int totalRecords = dao.countFederations();
     int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
-
+	
+    DepartementManager manager=new DepartementManager();
+    
     String critere = request.getParameter("searchType");
     String region = request.getParameter("region");
     String federation = request.getParameter("federation");
@@ -45,7 +49,7 @@
         <% for (Federation eachfederation : federations) { %>
         <tr>
             <td><%= eachfederation.getFederation() %></td>
-            <td><%= eachfederation.getDepartement() %></td>
+            <td><%= manager.getDepartementName(eachfederation.getDepartement()) %></td>
             <td><%= eachfederation.getRegion() %></td>
             <td><%= eachfederation.getCommune() %></td>
         </tr>
