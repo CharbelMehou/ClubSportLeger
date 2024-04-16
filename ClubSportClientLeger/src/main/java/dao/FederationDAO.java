@@ -25,7 +25,158 @@ public class FederationDAO extends ConnexionDao {
 	  * @return ArrayList<Federation>
 	  */
 	 
+<<<<<<< HEAD
 	 
+=======
+	    /**
+	     * Pour recupérer une liste de federation en fonction des filtres 
+	     * @param codeFederation
+	     * @param libelleFederation
+	     * @param nomDepartement
+	     * @param nomRegion
+	     * @param codeCommune
+	     * @return ArrayList<Federation>
+	     */
+	 public ArrayList<Federation> getListFederation(String libelleFederation, String nomDepartement, String nomRegion, String nomCommune, int page, int pageSize) {
+		    ArrayList<Federation> federations = new ArrayList<>();
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    CommuneDAO communeDao = new CommuneDAO();
+		    Commune commune = null;
+		    int offset = (page - 1) * pageSize;
+
+		    try {
+		        con = DriverManager.getConnection(URL, LOGIN, PASS);
+		        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM federation WHERE ");
+		        ArrayList<String> conditions = new ArrayList<>();
+		        ArrayList<Object> parameters = new ArrayList<>();
+
+		        if (libelleFederation != null && !libelleFederation.isEmpty()) {
+		            conditions.add("LibelleFederation LIKE ?");
+		            parameters.add("%" + libelleFederation + "%");
+		        }
+		        if (nomDepartement != null && !nomDepartement.isEmpty()) {
+		            conditions.add("NomDepartement LIKE ?");
+		            parameters.add("%" + nomDepartement + "%");
+		        }
+		        if (nomRegion != null && !nomRegion.isEmpty()) {
+		            conditions.add("NomRegion LIKE ?");
+		            parameters.add("%" + nomRegion + "%");
+		        }
+		        if (nomCommune != null && !nomCommune.isEmpty()) {
+		            conditions.add("CodeCommune IN (SELECT CodeCommune FROM commune WHERE NomCommune LIKE ?)");
+		            parameters.add("%" + nomCommune + "%");
+		        }
+
+		        queryBuilder.append(String.join(" AND ", conditions));
+		        queryBuilder.append(" ORDER BY NomRegion ASC LIMIT ? OFFSET ?");
+		        ps = con.prepareStatement(queryBuilder.toString());
+
+		        int index = 1;
+		        for (Object param : parameters) {
+		            ps.setObject(index++, param);
+		        }
+		        ps.setInt(index++, pageSize);
+		        ps.setInt(index, offset);
+
+		        rs = ps.executeQuery();
+
+		        while (rs.next()) {
+		            commune = communeDao.getCommuneByCommuneCode(rs.getInt("CodeCommune"));
+		            Federation federation = new Federation(
+			                rs.getString("Code_Commune"),
+			                rs.getString("Commune"),
+			                rs.getString("Departement"),
+			                rs.getString("Region"),
+			                rs.getString("Statut_geo"),
+			                rs.getString("Code"),
+			                rs.getString("Federation"),
+			                rs.getInt("Clubs"),
+			                rs.getInt("EPA"),
+			                rs.getInt("Total")
+			            );
+		            federations.add(federation);
+		        }
+		    } catch (SQLException ee) {
+		        ee.printStackTrace();
+		    } finally {
+		        close(con, ps, rs);
+		    }
+		    return federations;
+		}
+
+		private void close(Connection con, PreparedStatement ps, ResultSet rs) {
+		    try {
+		        if (rs != null) rs.close();
+		        if (ps != null) ps.close();
+		        if (con != null) con.close();
+		    } catch (SQLException ex) {
+		        ex.printStackTrace();
+		    }
+		}
+
+	 
+	/**
+	 * Pour recupérerer une federation en fonction des filtres
+	 * @param nomFederation
+	 * @param nomDepartement
+	 * @param nomRegion
+	 * @param nomCommune
+	 * @return federation
+	 */
+	 public Federation getFederationByDepartementAndRegionAndCommune(String nomFederation,String nomDepartement,String nomRegion,String nomCommune) {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    Federation federation = null;
+		           
+		    try {
+		        con = DriverManager.getConnection(URL, LOGIN, PASS);
+		        String query = "SELECT * FROM federation WHERE Federation = ? AND Departement=? AND Region=? AND Commune=?";
+		        ps = con.prepareStatement(query);
+		        ps.setString(1, nomFederation);
+		        ps.setString(2, nomDepartement);
+		        ps.setString(3, nomRegion);
+		        ps.setString(4, nomCommune);
+		        System.out.println("FedeQuery: " + query);
+		        System.out.println("Federation: " + nomFederation + ", Departement: " + nomDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
+
+		        rs = ps.executeQuery();
+
+		        if (rs.next()) {
+	            	 federation = new Federation(
+			                rs.getString("Code_Commune"),
+			                rs.getString("Commune"),
+			                rs.getString("Departement"),
+			                rs.getString("Region"),
+			                rs.getString("Statut_geo"),
+			                rs.getString("Code"),
+			                rs.getString("Federation"),
+			                rs.getInt("Clubs"),
+			                rs.getInt("EPA"),
+			                rs.getInt("Total")
+			            );
+		        }
+		    } catch (SQLException ee) {
+		        ee.printStackTrace();
+		    } finally {
+		        try {
+		            if (rs != null) rs.close();
+		            if (ps != null) ps.close();
+		            if (con != null) con.close();
+		        } catch (SQLException ignore) {
+		            ignore.printStackTrace();
+		        }
+		    }
+		    
+		    return federation;
+		}
+	 /**
+	  * Pour avoir le nombres de federations en base pour la pagination
+	  * @return le nombre de federation
+	  */
+>>>>>>> ac01ac872bb7ac24c2502308841894d312de850e
 	 public int countFederations() {
 		    int count = 0;
 		    Connection con = null;
@@ -73,6 +224,7 @@ public class FederationDAO extends ConnexionDao {
 		    }
 		    return departements;
 		}
+	 
 	 /**
 	  * Permet de récupérer toutes les régions présentes dans la table des fédérations
 	  * @return regions
@@ -114,64 +266,67 @@ public class FederationDAO extends ConnexionDao {
 	     * @param nomFederation le nom de la fédération
 	     * @return une liste de clubs correspondant aux critères spécifiés
 	     */
-	    public ArrayList<Federation> getClubsLites(String nomRegion, String nomFederation,int page, int pageSize) {
-	        Connection con = null;
-	        PreparedStatement ps = null;
-	        ResultSet rs = null;
-	        ArrayList<Federation> federations = new ArrayList<Federation>();
-	        int offset = (page - 1) * pageSize;
-	        try {
-	            
-	            con = DriverManager.getConnection(URL, LOGIN, PASS);
-	            if (!nomRegion.isEmpty()) {
-	                ps = con.prepareStatement("SELECT * FROM federation WHERE Region = ? AND Federation = ? LIMIT ? OFFSET ?");
-	                ps.setString(1, nomRegion);
-	                ps.setString(2, nomFederation);
-	                ps.setInt(3, pageSize);
-			        ps.setInt(4, offset);
-	            } else {
-	                ps = con.prepareStatement("SELECT * FROM federation WHERE  Federation = ? LIMIT ? OFFSET ?");
-	                ps.setString(1, nomFederation);
-	                ps.setInt(2, pageSize);
-			        ps.setInt(3, offset);
-	            }
-	            rs = ps.executeQuery();
-	            while (rs.next()) {
-	            	federations.add(new Federation(
-	            			rs.getString("Code_Commune"),
-	            			rs.getString("Commune"), 
-	            			rs.getString("Departement"),
-	            			rs.getString("Region"),
-	            			rs.getString("Statut_geo"),
-	            			rs.getString("code"),
-	            			rs.getString("Federation"),
-	            			rs.getInt("Clubs"),
-	            			rs.getInt("EPA"),
-	            			rs.getInt("Total"))
-	            			);
-	            		}
-	           
-	        } catch (Exception ee) {
-	            ee.printStackTrace();
-	        } finally {
-	            try {
-	                if (rs != null)
-	                    rs.close();
-	            } catch (Exception ignore) {
-	            }
-	            try {
-	                if (ps != null)
-	                    ps.close();
-	            } catch (Exception ignore) {
-	            }
-	            try {
-	                if (con != null)
-	                    con.close();
-	            } catch (Exception ignore) {
-	            }
-	        }
-	        return federations;
-	    }
+		public ArrayList<Federation> getClubsLites(String nomRegion, String nomFederation, int page, int pageSize) {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    ArrayList<Federation> federations = new ArrayList<>();
+		    int offset = (page - 1) * pageSize;
+
+		    StringBuilder query = new StringBuilder("SELECT * FROM federation WHERE 1=1");
+		    ArrayList<Object> parameters = new ArrayList<>();
+
+		    // Add region condition if provided
+		    if (nomRegion != null && !nomRegion.isEmpty()) {
+		        query.append(" AND Region = ?");
+		        parameters.add(nomRegion);
+		    }
+
+		    // Add federation condition if provided
+		    if (nomFederation != null && !nomFederation.isEmpty()) {
+		        query.append(" AND Federation = ?");
+		        parameters.add(nomFederation);
+		    }
+
+		    // Add pagination
+		    query.append(" LIMIT ? OFFSET ?");
+		    parameters.add(pageSize);
+		    parameters.add(offset);
+
+		    try {
+		        con = DriverManager.getConnection(URL, LOGIN, PASS);
+		        ps = con.prepareStatement(query.toString());
+
+		        // Set the parameters for the prepared statement
+		        for (int i = 0; i < parameters.size(); i++) {
+		            ps.setObject(i + 1, parameters.get(i));
+		        }
+
+		        rs = ps.executeQuery();
+		        while (rs.next()) {
+		            federations.add(new Federation(
+		                rs.getString("Code_Commune"),
+		                rs.getString("Commune"), 
+		                rs.getString("Departement"),
+		                rs.getString("Region"),
+		                rs.getString("Statut_geo"),
+		                rs.getString("code"),
+		                rs.getString("Federation"),
+		                rs.getInt("Clubs"),
+		                rs.getInt("EPA"),
+		                rs.getInt("Total")));
+		        }
+		    } catch (SQLException ee) {
+		        ee.printStackTrace();
+		    } finally {
+		        try {
+		            if (rs != null) rs.close();
+		            if (ps != null) ps.close();
+		            if (con != null) con.close();
+		        } catch (SQLException ignore) {}
+		    }
+		    return federations;
+		}
 	    /**
 	     * 
 	     * @param CodePostal
@@ -179,66 +334,77 @@ public class FederationDAO extends ConnexionDao {
 	     * @return
 	     */
 	    
-	    public ArrayList<Federation> getClubsLitesByCodePostal(String CodePostal, String nomFederation,int page, int pageSize) {
+	    public ArrayList<Federation> getClubsLitesByCodePostal(String CodePostal, String nomFederation, int page, int pageSize) {
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        ResultSet rs = null;
 	        ArrayList<Federation> returnValue = new ArrayList<Federation>();
 	        int offset = (page - 1) * pageSize;
-	        try {
-	            // Connexion à la base de données
-	            con = DriverManager.getConnection(URL, LOGIN, PASS);
-	            // Requête SQL pour récupérer les codes de coordonnées en fonction de la région et de la fédération
-	            if (!CodePostal.isEmpty()) {
-	                ps = con.prepareStatement("SELECT * FROM federation WHERE Code_Commune IN (SELECT insee FROM commune WHERE codepostal =?)   AND Federation = ? LIMIT ? OFFSET ?");
-	                ps.setString(1, CodePostal);
-	                ps.setString(2, nomFederation);
-	                ps.setInt(3, pageSize);
-			        ps.setInt(4, offset);
+	        StringBuilder query = new StringBuilder("SELECT * FROM federation");
+
+	        ArrayList<Object> parameters = new ArrayList<>();
+
+	        // Construire la condition WHERE basée sur les paramètres fournis
+	        boolean hasCondition = false;
+	        if (CodePostal != null && !CodePostal.isEmpty()) {
+	            query.append(" WHERE Code_Commune IN (SELECT insee FROM commune WHERE codepostal = ?)");
+	            parameters.add(CodePostal);
+	            hasCondition = true;
+	        }
+	        
+	        if (nomFederation != null && !nomFederation.isEmpty()) {
+	            if (hasCondition) {
+	                query.append(" AND Federation = ?");
 	            } else {
-	                ps = con.prepareStatement("SELECT * FROM federation WHERE  Federation = ? LIMIT ? OFFSET ?");
-	                ps.setString(1, nomFederation);
-	                ps.setInt(2, pageSize);
-			        ps.setInt(3, offset);
+	                query.append(" WHERE Federation = ?");
+	                hasCondition = true;
 	            }
-	            // Exécution de la requête et traitement des résultats
+	            parameters.add(nomFederation);
+	        }
+
+	        // Ajouter pagination
+	        query.append(" LIMIT ? OFFSET ?");
+	        parameters.add(pageSize);
+	        parameters.add(offset);
+
+	        try {
+	            con = DriverManager.getConnection(URL, LOGIN, PASS);
+	            ps = con.prepareStatement(query.toString());
+
+	            // Assigner les paramètres à la requête préparée
+	            for (int i = 0; i < parameters.size(); i++) {
+	                ps.setObject(i + 1, parameters.get(i));
+	            }
+
 	            rs = ps.executeQuery();
 	            while (rs.next()) {
-	                // Création d'un objet CodeCoordonnees à partir des données de la base de données
-	            	 returnValue.add(new Federation(rs.getString("Code_Commune"),
-	            			 rs.getString("Commune"),
-	            			 rs.getString("Departement"),
-	            			 rs.getString("Region"),
-	            			 rs.getString("Statut_geo"),
-	            			 rs.getString("code"),
-	            			 rs.getString("Federation"),
-	            			 rs.getInt("Clubs"),
-	            			 rs.getInt("EPA"),
-	            			 rs.getInt("Total")));            }
-	        } catch (Exception ee) {
-	            // Gestion des exceptions
+	                returnValue.add(new Federation(
+	                    rs.getString("Code_Commune"),
+	                    rs.getString("Commune"),
+	                    rs.getString("Departement"),
+	                    rs.getString("Region"),
+	                    rs.getString("Statut_geo"),
+	                    rs.getString("code"),
+	                    rs.getString("Federation"),
+	                    rs.getInt("Clubs"),
+	                    rs.getInt("EPA"),
+	                    rs.getInt("Total")));
+	            }
+	        } catch (SQLException ee) {
 	            ee.printStackTrace();
 	        } finally {
-	            // Fermeture des ressources
 	            try {
-	                if (rs != null)
-	                    rs.close();
-	            } catch (Exception ignore) {
-	            }
-	            try {
-	                if (ps != null)
-	                    ps.close();
-	            } catch (Exception ignore) {
-	            }
-	            try {
-	                if (con != null)
-	                    con.close();
-	            } catch (Exception ignore) {
-	            }
+	                if (rs != null) rs.close();
+	                if (ps != null) ps.close();
+	                if (con != null) con.close();
+	            } catch (SQLException ignore) {}
 	        }
-	        // Retourne la liste de codes de coordonnées obtenue
 	        return returnValue;
 	    }
+	    /**
+	     * Pour récupérer la liste des communes des fédérationss
+	     * @return listes des communes 
+	     */
 	    public ArrayList<String> getCommunes() {
 	        Connection con = null;
 	        PreparedStatement ps = null;
@@ -281,6 +447,10 @@ public class FederationDAO extends ConnexionDao {
 	        // Retourne la liste de clubs obtenue
 	        return returnValue;
 	    }
+	    /**
+	     * Pour récupérer la liste des fedérations 
+	     * @return federations
+	     */
 	    public ArrayList<String> getFederations() {
 	        Connection con = null;
 	        PreparedStatement ps = null;

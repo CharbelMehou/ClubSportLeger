@@ -71,7 +71,11 @@
 					</div>
 					
 					<div class="dropdown" id="codePostalGroup" style="display: none;">
+<<<<<<< HEAD
 						<label for="codePostalInput">Code Postal :</label>
+=======
+						<label for="codePostalInput">Code Postal :</label> 
+>>>>>>> ac01ac872bb7ac24c2502308841894d312de850e
 						<input
 							type="text" id="codePostalInput" name="codePostal"
 							class="form-control">
