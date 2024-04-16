@@ -16,7 +16,7 @@ public class ConnexionDao {
 	 * des constantes
 	 */
 
-	final static String URL = "jdbc:mysql://localhost/club_de_sport";
+	final static String URL = "jdbc:mysql://localhost/club_de_sport?useUnicode=yes&characterEncoding=UTF-8";
 	final static String LOGIN = "root";
 	final static String PASS = "root";
 
