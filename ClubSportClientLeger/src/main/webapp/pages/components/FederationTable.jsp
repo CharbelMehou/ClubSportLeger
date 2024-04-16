@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Federation" %>
@@ -7,7 +6,7 @@
 <%@ page import="utils.DepartementManager" %>
 
 <%
-    // Récupération des paramètres du formulaire
+    // RÃ©cupÃ©ration des paramÃ¨tres du formulaire
     int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
     int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
     FederationDAO dao = new FederationDAO();
@@ -39,16 +38,22 @@
 <table class="table-federation-commune">
     <thead>
         <tr>
-            <th>Fédération</th>
-            <th>Département</th>
-            <th>Région</th>
-            <th>Commune</th>
+            <th><strong>FÃ©deration</strong></th>
+            <th><strong>DÃ©partement</strong></th>
+            <th><strong>RÃ©gion</strong></th>
+            <th><strong>Commune</strong></th>
         </tr>
     </thead>
     <tbody>
         <% for (Federation eachfederation : federations) { %>
         <tr>
-            <td><%= eachfederation.getFederation() %></td>
+            <td><form action="DataVisualisationPage.jsp" method="GET" accept-charset="UTF-8">
+                <input type="hidden" name="federation" value="<%= eachfederation.getFederation() %>">
+                <input type="hidden" name="departement" value="<%= eachfederation.getDepartement() %>">
+                <input type="hidden" name="region" value="<%= eachfederation.getRegion() %>">
+                <input type="hidden" name="commune" value="<%= eachfederation.getCommune() %>">
+                <button type="submit" class="link-button"><%= eachfederation.getFederation() %></button>
+            </form></td>
             <td><%= manager.getDepartementName(eachfederation.getDepartement()) %></td>
             <td><%= eachfederation.getRegion() %></td>
             <td><%= eachfederation.getCommune() %></td>
@@ -58,7 +63,7 @@
 </table>
 <div class="pagination">
     <% 
-    // Récupération et encodage des valeurs actuelles des filtres
+    // RÃ©cupÃ©ration et encodage des valeurs actuelles des filtres
     String currentFederation = request.getParameter("federation") != null ? URLEncoder.encode(request.getParameter("federation"), "ISO-8859-1") : "";
     String currentSearchType = request.getParameter("searchType") != null ? URLEncoder.encode(request.getParameter("searchType"), "ISO-8859-1") : "";
     String currentRegion = request.getParameter("region") != null ? URLEncoder.encode(request.getParameter("region"), "ISO-8859-1") : "";
@@ -69,7 +74,7 @@
 
     if (currentPage > 1) {
     %>
-        <a href="./Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Précédente</a>
+        <a href="./Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">PrÃ¯Â¿Â½cÃ¯Â¿Â½dente</a>
     <% 
     }
     for (int i = startPage; i <= endPage; i++) {

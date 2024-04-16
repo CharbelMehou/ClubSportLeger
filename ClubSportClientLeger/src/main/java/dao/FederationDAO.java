@@ -154,28 +154,34 @@ public class FederationDAO extends ConnexionDao {
 		}
 
 	 
-	 /**
-	  * Pour recupérerer une federation
-	  * @param libelleFederation
-	  * @return federation
-	  */
-	 public Federation getFederation(String libelleFederation) {
+	/**
+	 * Pour recupérerer une federation en fonction des filtres
+	 * @param nomFederation
+	 * @param nomDepartement
+	 * @param nomRegion
+	 * @param nomCommune
+	 * @return federation
+	 */
+	 public Federation getFederationByDepartementAndRegionAndCommune(String nomFederation,String nomDepartement,String nomRegion,String nomCommune) {
 		    Connection con = null;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
 		    Federation federation = null;
-		    CommuneDAO communeDao=new CommuneDAO();
-	        Commune commune =null;
-	        
+		           
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        String query = "SELECT * FROM federation WHERE LibelleFederation = ?";
+		        String query = "SELECT * FROM federation WHERE Federation = ? AND Departement=? AND Region=? AND Commune=?";
 		        ps = con.prepareStatement(query);
-		        ps.setString(1, libelleFederation);
+		        ps.setString(1, nomFederation);
+		        ps.setString(2, nomDepartement);
+		        ps.setString(3, nomRegion);
+		        ps.setString(4, nomCommune);
+		        System.out.println("FedeQuery: " + query);
+		        System.out.println("Federation: " + nomFederation + ", Departement: " + nomDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
+
 		        rs = ps.executeQuery();
 
 		        if (rs.next()) {
-	            	commune=communeDao.getCommuneByCommuneCode(rs.getInt("CodeCommune")); 
 	            	 federation = new Federation(
 			                rs.getString("Code_Commune"),
 			                rs.getString("Commune"),
@@ -200,9 +206,13 @@ public class FederationDAO extends ConnexionDao {
 		            ignore.printStackTrace();
 		        }
 		    }
+		    
 		    return federation;
 		}
-	 
+	 /**
+	  * Pour avoir le nombres de federations en base pour la pagination
+	  * @return le nombre de federation
+	  */
 	 public int countFederations() {
 		    int count = 0;
 		    Connection con = null;
@@ -250,6 +260,7 @@ public class FederationDAO extends ConnexionDao {
 		    }
 		    return departements;
 		}
+	 
 	 /**
 	  * Permet de récupérer toutes les régions présentes dans la table des fédérations
 	  * @return regions
@@ -426,7 +437,10 @@ public class FederationDAO extends ConnexionDao {
 	        }
 	        return returnValue;
 	    }
-
+	    /**
+	     * Pour récupérer la liste des communes des fédérationss
+	     * @return listes des communes 
+	     */
 	    public ArrayList<String> getCommunes() {
 	        Connection con = null;
 	        PreparedStatement ps = null;
@@ -469,6 +483,10 @@ public class FederationDAO extends ConnexionDao {
 	        // Retourne la liste de clubs obtenue
 	        return returnValue;
 	    }
+	    /**
+	     * Pour récupérer la liste des fedérations 
+	     * @return federations
+	     */
 	    public ArrayList<String> getFederations() {
 	        Connection con = null;
 	        PreparedStatement ps = null;
