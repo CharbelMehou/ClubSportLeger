@@ -13,9 +13,16 @@
         <button type="submit" class="back-button">&#x2190; Retour</button>
     </form>
 
-<jsp:include page="./components/FederationDataDisplayer.jsp" />
-<div class="licenseRepartitionGraph">
- <jsp:include page="./components/LicenseRepartitionGraph.jsp" />
+<div class="datadisplayer">
+	<jsp:include page="./components/FederationDataDisplayer.jsp" />
+	<div class="diagramsdisplayer">
+		<div class="licenseRepartitionGraph">
+		  <jsp:include page="./components/LicenseRepartitionGraph.jsp" />
+		</div>
+		<div class="statsIndicatorDiagram">
+		   <jsp:include page="./components/StatsIndicatorDiagram.jsp" />
+		</div>
+	</div>
 </div>
 
 <jsp:include page="./components/Footer.jsp" />

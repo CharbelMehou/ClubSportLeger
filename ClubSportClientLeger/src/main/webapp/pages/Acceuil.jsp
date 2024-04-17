@@ -28,11 +28,11 @@
  
     <form action="Acceuil.jsp" method="POST" id="searchForm">
     <div class="search-box">
-        <!-- Sélection de fédération -->
+        <!-- Sï¿½lection de fï¿½dï¿½ration -->
         <div class="dropdown">
-            <label for="federationSelect">Fédération :</label>
+            <label for="federationSelect">Fï¿½dï¿½ration :</label>
             <select id="federationSelect" name="federation" class="form-control">
-                <option value="">Toutes les fédérations</option>
+                <option value="">Toutes les fï¿½dï¿½rations</option>
                 <%
                 FederationDAO dao = new FederationDAO();
                 List<String> federationList = dao.getFederations();
@@ -43,7 +43,7 @@
         </div>
  
         <%
-        // Récupération du terme de recherche
+        // Rï¿½cupï¿½ration du terme de recherche
         String federation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
         int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
@@ -54,13 +54,13 @@
 						<label for="searchTypeSelect">Rechercher par :</label> <select
 							id="searchTypeSelect" name="searchType" class="form-control"
 							onchange="toggleSearchType()">
-							<option value="region">Région</option>
+							<option value="region">Rï¿½gion</option>
 							<option value="codePostal">Code Postal</option>
 						</select>
 	                </div>
        						
 					<div  class="dropdown" id="regionGroup">
-						<label for="regionSelect">Région :</label> <select
+						<label for="regionSelect">Rï¿½gion :</label> <select
 							id="regionSelect" name="region" class="form-control">
 							<option value="">Toute la France</option>
 							<% List<String> regions = dao.getCommunes();
@@ -74,7 +74,6 @@
 
 						<label for="codePostalInput">Code Postal :</label>
 
-						 
 
 						<input
 							type="text" id="codePostalInput" name="codePostal"
@@ -85,7 +84,7 @@
 			            <button type="submit" class="submitButton">Rechercher</button>
 			            <a class="dropdown-item"
 					href="components/Maps.jsp?searchType=<%=URLEncoder.encode(request.getParameter("searchType"), "UTF-8")%>&region=<%=URLEncoder.encode(request.getParameter("region"), "UTF-8")%>&federation=<%=URLEncoder.encode(federation, "UTF-8")%>&codePostal=<%=URLEncoder.encode(request.getParameter("codePostal"), "UTF-8")%>">Voir
-					les résultats sur la map >>></a>
+					les rï¿½sultats sur la map >>></a>
 			        </div>
     </div>
 </form>

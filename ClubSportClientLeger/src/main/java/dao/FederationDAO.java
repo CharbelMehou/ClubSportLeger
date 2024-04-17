@@ -25,7 +25,94 @@ public class FederationDAO extends ConnexionDao {
 	  * @return ArrayList<Federation>
 	  */
 
-	    
+	    /**
+	     * Pour recupérer une liste de federation en fonction des filtres 
+	     * @param codeFederation
+	     * @param libelleFederation
+	     * @param nomDepartement
+	     * @param nomRegion
+	     * @param codeCommune
+	     * @return ArrayList<Federation>
+	     */
+	 public ArrayList<Federation> getListFederation(String libelleFederation, String nomDepartement, String nomRegion, String nomCommune, int page, int pageSize) {
+		    ArrayList<Federation> federations = new ArrayList<>();
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    ResultSet rs = null;
+		    CommuneDAO communeDao = new CommuneDAO();
+		    Commune commune = null;
+		    int offset = (page - 1) * pageSize;
+
+		    try {
+		        con = DriverManager.getConnection(URL, LOGIN, PASS);
+		        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM federation WHERE ");
+		        ArrayList<String> conditions = new ArrayList<>();
+		        ArrayList<Object> parameters = new ArrayList<>();
+
+		        if (libelleFederation != null && !libelleFederation.isEmpty()) {
+		            conditions.add("LibelleFederation LIKE ?");
+		            parameters.add("%" + libelleFederation + "%");
+		        }
+		        if (nomDepartement != null && !nomDepartement.isEmpty()) {
+		            conditions.add("NomDepartement LIKE ?");
+		            parameters.add("%" + nomDepartement + "%");
+		        }
+		        if (nomRegion != null && !nomRegion.isEmpty()) {
+		            conditions.add("NomRegion LIKE ?");
+		            parameters.add("%" + nomRegion + "%");
+		        }
+		        if (nomCommune != null && !nomCommune.isEmpty()) {
+		            conditions.add("CodeCommune IN (SELECT CodeCommune FROM commune WHERE NomCommune LIKE ?)");
+		            parameters.add("%" + nomCommune + "%");
+		        }
+
+		        queryBuilder.append(String.join(" AND ", conditions));
+		        queryBuilder.append(" ORDER BY NomRegion ASC LIMIT ? OFFSET ?");
+		        ps = con.prepareStatement(queryBuilder.toString());
+
+		        int index = 1;
+		        for (Object param : parameters) {
+		            ps.setObject(index++, param);
+		        }
+		        ps.setInt(index++, pageSize);
+		        ps.setInt(index, offset);
+
+		        rs = ps.executeQuery();
+
+		        while (rs.next()) {
+		            commune = communeDao.getCommuneByCommuneCode(rs.getInt("CodeCommune"));
+		            Federation federation = new Federation(
+			                rs.getString("Code_Commune"),
+			                rs.getString("Commune"),
+			                rs.getString("Departement"),
+			                rs.getString("Region"),
+			                rs.getString("Statut_geo"),
+			                rs.getString("Code"),
+			                rs.getString("Federation"),
+			                rs.getInt("Clubs"),
+			                rs.getInt("EPA"),
+			                rs.getInt("Total")
+			            );
+		            federations.add(federation);
+		        }
+		    } catch (SQLException ee) {
+		        ee.printStackTrace();
+		    } finally {
+		        close(con, ps, rs);
+		    }
+		    return federations;
+		}
+
+		private void close(Connection con, PreparedStatement ps, ResultSet rs) {
+		    try {
+		        if (rs != null) rs.close();
+		        if (ps != null) ps.close();
+		        if (con != null) con.close();
+		    } catch (SQLException ex) {
+		        ex.printStackTrace();
+		    }
+		}
+
 	 
 	/**
 	 * Pour recupérerer une federation en fonction des filtres
@@ -49,9 +136,7 @@ public class FederationDAO extends ConnexionDao {
 		        ps.setString(2, nomDepartement);
 		        ps.setString(3, nomRegion);
 		        ps.setString(4, nomCommune);
-		        System.out.println("FedeQuery: " + query);
-		        System.out.println("Federation: " + nomFederation + ", Departement: " + nomDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
-
+		        
 		        rs = ps.executeQuery();
 
 		        if (rs.next()) {
@@ -86,6 +171,7 @@ public class FederationDAO extends ConnexionDao {
 	  * Pour avoir le nombres de federations en base pour la pagination
 	  * @return le nombre de federation
 	  */
+
 
 	 public int countFederations() {
 		    int count = 0;
