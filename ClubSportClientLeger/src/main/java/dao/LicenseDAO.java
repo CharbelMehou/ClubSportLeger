@@ -28,9 +28,7 @@ public class LicenseDAO extends ConnexionDao{
 		        ps.setString(2, nomCommune);
 		        ps.setString(3, nomRegion);
 		        ps.setString(4, nomFederation);
-		        System.out.println("LicenseQuery: " + query);
-		        System.out.println("Federation: " + nomFederation + ", Departement: " + codeDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
-
+		        
 		        rs = ps.executeQuery();
 
 		        if (rs.next()) {
