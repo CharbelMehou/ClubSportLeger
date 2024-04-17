@@ -227,7 +227,7 @@
     }
 }
 .dataDisplayer {
-    width: 50%;
+	margin-left:20px;
     border-collapse: collapse; 
     font-family: 'Arial', sans-serif; 
     font-size: 16px; 
