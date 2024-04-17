@@ -193,7 +193,7 @@
             <% for (int i=0;i<stat.size();i++) { %>
                 var marker = L.marker([<%= stat.get(i).getLatitude() %>, <%= stat.get(i).getLongitude() %>])
                     .addTo(map)
-                    .bindPopup('<b>Station</b><br>Adresse: <%= stat.get(i).getZipCode() %>');
+                   .bindPopup('<b>Clubs</b><br>Adresse : <%= stat.get(i).getZipCode() %><br>Région : <%= regio %><br>Féderation : <%= federatio %><br>Latitude : <%= stat.get(i).getLatitude() %><br>Longitude : <%= stat.get(i).getLongitude() %>')
 
                 // Ajouter un événement click pour ouvrir la popup
                 marker.on('click', function() {
@@ -248,5 +248,6 @@
         getPosition();
     </script>
    </div>
+   <jsp:include page="Footer.jsp" />
 </body>
 </html>

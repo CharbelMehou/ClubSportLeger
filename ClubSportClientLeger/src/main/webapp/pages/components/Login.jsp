@@ -9,6 +9,7 @@
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ page import="javax.servlet.http.HttpServletResponse"%>
 <%@ page import="javax.servlet.http.HttpSession"%>
+<%@ page import="model.Utilisateur"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,9 +33,9 @@
             RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
             dispatcher.forward(request, response);
         } else {
-            if (db.getUtilisateur(email, hashedPass) != null) {
-                session.setAttribute("email", email);
-                session.setAttribute("motdepasse", hashedPass);
+        	Utilisateur utilisateur = db.getUtilisateur(email, hashedPass);
+            if (utilisateur != null) {
+                session.setAttribute("utilisateur", utilisateur);
                 String message = "Vous êtes connecté";
                 request.setAttribute("message", message);
                 response.sendRedirect("../Acceuil.jsp");
@@ -42,7 +43,6 @@
                 String message = "Adresse e-mail ou mot de passe invalide";
                 request.setAttribute("message", message);
                 response.sendRedirect("../Acceuil.jsp");
-
             }
         }
     %>
