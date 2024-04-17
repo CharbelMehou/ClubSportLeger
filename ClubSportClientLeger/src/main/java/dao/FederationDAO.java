@@ -139,9 +139,7 @@ public class FederationDAO extends ConnexionDao {
 		        ps.setString(2, nomDepartement);
 		        ps.setString(3, nomRegion);
 		        ps.setString(4, nomCommune);
-		        System.out.println("FedeQuery: " + query);
-		        System.out.println("Federation: " + nomFederation + ", Departement: " + nomDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
-
+		        
 		        rs = ps.executeQuery();
 
 		        if (rs.next()) {
