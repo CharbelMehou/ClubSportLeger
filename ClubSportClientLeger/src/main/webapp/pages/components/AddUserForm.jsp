@@ -93,7 +93,7 @@ button {
 				class="form-control" id="motdepasse" name="motdepasse"
 				placeholder="Mot de passe">
 		</div>
-		<button type="submit" class="btn btn-primary">Creer</button>
+		<button type="submit" class="btn btn-primary">S'Inscrire</button>
 	</form>
 
 	<% String message = (String)request.getAttribute("message"); %>
