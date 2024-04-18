@@ -16,22 +16,42 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Inclure la bibliothèque JavaScript de Leaflet -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Ajouter le CSS pour spécifier la taille de la carte -->
     <style>
-        /* Utiliser la taille de la fenêtre pour la carte */
-        html, body, #map {
-            height: 85%;
-            margin: 0;
+         #map {
+            height: 700px;
+             width:70vw;
+             margin-bottom:20px;
+        }
+        .map-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        }
+        .form-container{
+        padding:20px;
+        }
+        .form-sub-container{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        }
+        .submit-group{
+        display:flex;
+        flex-direction:column;
+        }
+        .form-group label{
+        font-weight:bold;
+        }
+        .submit-group label{
+        font-weight:bold;
         }
     </style>
 </head>
 <body>
-<jsp:include page="../components/Header.jsp" />
-<div class="container mt-6">
+<jsp:include page="Header.jsp" />
+<div class="form-container">
         <form id="searchForm" class="mb-5" method="post" action="Maps.jsp">
-            <div class="row">
- 
-                <div class="col-md-3">
+            <div class="form-sub-container">
                     <div class="form-group">
                         <label for="federationSelect">Fédération :</label> <select
                             id="federation" name="federation" class="form-control">
@@ -49,8 +69,6 @@
                             %>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3">
                     <div class="form-group">
                         <label for="searchTypeSelect">Rechercher par :</label> <select
                             id="searchTypeSelect" name="searchType" class="form-control"
@@ -60,8 +78,7 @@
                             <option value="position" <%= "position".equals(request.getParameter("searchType")) ? "selected" : "" %>>Par rapport à votre position</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3">
+                
                     <div class="form-group" id="regionGroup"
                         <% if ("region".equals(request.getParameter("searchType"))) { %>style="display: block;"
                         <% } else { %>style="display: none;" <% } %>>
@@ -94,25 +111,19 @@
                         <label for="distanceSelect">Distance (km) :</label> <select
                             id="distanceSelect" name="distance" class="form-control"
                             onchange="updateSearchRadius(this.value)">
- 
                             <option value="10000" <%= "10000".equals(request.getParameter("distance")) ? "selected" : "" %>>A proximité km</option>
                             <option value="20000" <%= "20000".equals(request.getParameter("distance")) ? "selected" : "" %>>20 km</option>
-                              <option value="50000" <%= "50000".equals(request.getParameter("distance")) ? "selected" : "" %>>50 km</option>
-                                <option value="100000" <%= "100000".equals(request.getParameter("distance")) ? "selected" : "" %>>100 km</option>
-                                  <option value="200000" <%= "200000".equals(request.getParameter("distance")) ? "selected" : "" %>>200 km</option>
-                                    <option value="500000" <%= "500000".equals(request.getParameter("distance")) ? "selected" : "" %>>500 km</option>
-                                    
-                            <!-- Ajoutez autant d'options que vous le souhaitez -->
+                            <option value="50000" <%= "50000".equals(request.getParameter("distance")) ? "selected" : "" %>>50 km</option>
+                            <option value="100000" <%= "100000".equals(request.getParameter("distance")) ? "selected" : "" %>>100 km</option>
+                            <option value="200000" <%= "200000".equals(request.getParameter("distance")) ? "selected" : "" %>>200 km</option>
+                            <option value="500000" <%= "500000".equals(request.getParameter("distance")) ? "selected" : "" %>>500 km</option>                                    
                         </select>
-                    </div>
-                </div>
-                
-                  <div class="col-md-3">
-                <label for="distanceSelect">Rechercher les clubs :</label> <button
-                    type="submit" class="btn btn-primary">Rechercher</button>
-            </div>
-            </div>
-            
+                    </div>          
+                <div class="submit-group">
+                   <label for="distanceSelect">Rechercher les clubs :</label> 
+                   <button type="submit" class="btn btn-primary">Rechercher</button>
+               </div>
+            </div>          
         </form>
     </div>
     <script>
@@ -136,6 +147,7 @@
         // Appel de la fonction toggleSearchType pour afficher les éléments au chargement de la page
         toggleSearchType();
     </script>
+<div class="map-container">
 <div id="map">
 <script>
     <%  
@@ -161,10 +173,10 @@
         if(critère.equals("region")) {
             stat = dao1.getClubsLites(regio, federatio);
         }
-        else if(critère.equals("codePostal")) { // Modification de la condition
+        else if(critère.equals("codePostal")) { 
             stat = dao1.getClubsLitesByCodePostal(codePostal, federatio);
         }
-        else if(critère.equals("position")) { // Nouvelle ligne
+        else if(critère.equals("position")) { 
             CalculDistance calcul=new CalculDistance(6371);
             List<CodeCoordonnees> coordonnees =dao1.getClubsLitesFederation( federatio);
             Double lat =49.42438814251053;
@@ -177,13 +189,11 @@
              if(proximite>distance){
             	 stat.add(coordonnees.get(i));
              }
-            }
-            
-        	// Ajoutez ici la logique pour gérer la recherche par proximité
+            }            
         }
         
         if (stat != null && !stat.isEmpty()) { %>
-            var map = L.map('map').setView([48.8566, 2.3522], 5); // Zoom initial ajusté à 5
+            var map = L.map('map').setView([48.8566, 2.3522], 7); 
  
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
@@ -201,7 +211,7 @@
                 });
             <% } %>
         <% } else { %>
-            var map = L.map('map').setView([48.8566, 2.3522], 5); // Zoom initial ajusté à 5
+            var map = L.map('map').setView([48.8566, 2.3522], 6); // Zoom initial ajusté à 5
  
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
@@ -225,7 +235,7 @@
                 color: 'yellow',
                 fillColor: '#FFFF00',
                 fillOpacity: 0.5,
-                radius:<%=proximite%>// en mètres
+                radius:<%=proximite%>
             }).addTo(map);
         }
  
@@ -235,7 +245,7 @@
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var latitude = position.coords.latitude;
                     var longitude = position.coords.longitude;
-                    addCurrentUserMarker(latitude, longitude); // Ajouter le marqueur avec le popup pour la position de l'utilisateur
+                    addCurrentUserMarker(latitude, longitude);
                 }, function(error) {
                     console.error('Erreur de géolocalisation:', error);
                 }, { enableHighAccuracy: true }); // Activer la haute précision
@@ -247,7 +257,8 @@
         // Appeler la fonction getPosition() pour obtenir la position de l'utilisateur lors du chargement de la carte
         getPosition();
     </script>
-   </div>
+</div>
+</div>
    <jsp:include page="Footer.jsp" />
 </body>
 </html>

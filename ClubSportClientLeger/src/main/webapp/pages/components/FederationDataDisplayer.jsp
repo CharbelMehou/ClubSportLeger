@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<table class="dataDisplayer">
+<table class="dataDisplayer" >
       <tbody>
         <%
 	String nomFederation = request.getParameter("federation");

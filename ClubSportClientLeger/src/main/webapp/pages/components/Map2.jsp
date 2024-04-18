@@ -16,11 +16,11 @@
     <!-- Inclure la bibliothèque JavaScript de Leaflet -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Ajouter le CSS pour spécifier la taille de la carte -->
-    <style>
-    </style>
+    <link rel="stylesheet" href="./components/componentStyle.css">
+
 </head>
 <body>
-    <div id="map" class=" col-md-8"></div>
+    <div id="map" class=" classMap "></div>
     <script>
         <%  
         String nomFederation = request.getParameter("federation");
@@ -35,7 +35,7 @@
         
         // Ajoutez ici la logique pour gérer la recherche par proximité
         %>
-        var map = L.map('map').setView([48.8566, 2.3522], 5); // Zoom initial ajusté à 5
+        var map = L.map('map').setView([48.8566, 2.3522], 5.5);
  
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'

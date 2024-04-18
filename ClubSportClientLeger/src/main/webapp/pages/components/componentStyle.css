@@ -2,7 +2,7 @@
 .navbar {
     background-color: #11559C; /* Bleu de l'en-tête */
     color: #ffffff;
-    padding: 0 20px;
+    padding:10px;
     min-height: 50px;
 }
 
@@ -232,6 +232,7 @@
     font-family: 'Arial', sans-serif; 
     font-size: 16px; 
     color: #333; 
+  
 }
 
 .dataDisplayer td, .dataDisplayer th {
@@ -254,5 +255,21 @@
     background-color: #4CAF50;
     color: white;
 }
-
- 
+.classMap{
+	width:600px;
+	height:650px;
+}
+.map-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        }
+.form-container{
+        
+        }
+.middle-nav-link{
+		background: none;
+}
+.middle-nav-link:hover {
+		    text-decoration: underlined; 	
+}
