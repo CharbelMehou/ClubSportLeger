@@ -5,6 +5,7 @@
 <%@ page import="java.util.HashSet" %>
 <%@ page import="model.Federation" %>
 <%@ page import="dao.FederationDAO" %>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +78,13 @@
 							
 					 <div class="submit-group">
 			            <button type="submit" class="submitButton">Rechercher</button>
-			            <a type="button" class="mapLink">Voir les résultats sur la map >>></a>
-			        </div>			
+							       
+					 </div>			
     </div>
 </form>
+	<a 
+					href="components/Maps.jsp?searchType=<%=URLEncoder.encode(request.getParameter("searchType"), "UTF-8")%>&region=<%=URLEncoder.encode(request.getParameter("region"), "UTF-8")%>&federation=<%=URLEncoder.encode(federation, "UTF-8")%>&codePostal=<%=URLEncoder.encode(request.getParameter("codePostal"), "UTF-8")%>">Voir
+					les résultats sur la map >>></a>
 <script>
     function toggleSearchType() {
         var searchType = document.getElementById('searchTypeSelect').value;

@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import model.CodeCoordonnees;
 import model.License;
 
 public class LicenseDAO extends ConnexionDao{
@@ -89,4 +91,44 @@ public class LicenseDAO extends ConnexionDao{
 		    }
 		    return license;
 	}
+	public ArrayList<CodeCoordonnees> getCodeLicenseByDepartementAndRegionAndCommuneAndFederation(String codeDepartement,String nomCommune,String nomRegion,String nomFederation) {
+		Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    ArrayList<CodeCoordonnees> codeCoordonneesList = new ArrayList<>();
+ 
+	    try {
+	        con = DriverManager.getConnection(URL, LOGIN, PASS);
+	        String query = " SELECT * FROM codecoordonnee WHERE Insee_code IN (SELECT Code_Commune FROM licence WHERE Departement=? AND Commune=? AND Region=? AND Federation=?)";
+	        ps = con.prepareStatement(query);
+	        ps.setString(1, codeDepartement);
+	        ps.setString(2, nomCommune);
+	        ps.setString(3, nomRegion);
+	        ps.setString(4, nomFederation);
+	        System.out.println("LicenseQuery: " + query);
+	        System.out.println("Federation: " + nomFederation + ", Departement: " + codeDepartement + ", Region: " + nomRegion + ", Commune: " + nomCommune);
+ 
+	        rs = ps.executeQuery();
+ 
+	        while (rs.next()) {
+	        	  CodeCoordonnees code = new CodeCoordonnees(
+	                        rs.getString("Insee_code"),
+	                        rs.getString("Zip_code"),
+	                        rs.getDouble("Latitude"),
+	                        rs.getDouble("Longitude"));
+	            codeCoordonneesList.add(code);
+	        }
+	    } catch (SQLException ee) {
+	        ee.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        } catch (SQLException ignore) {
+	            ignore.printStackTrace();
+	        }
+	    }
+	    return codeCoordonneesList;
+}
 }
