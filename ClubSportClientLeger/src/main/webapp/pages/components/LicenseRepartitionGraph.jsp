@@ -32,7 +32,6 @@
 <script>
 	const ctx = document.getElementById('LicenseRepartitionGraph').getContext('2d');
 	
-	//Pour Calculer les pourcentages
 	const totalHommes = <%= license.getTotalMales() %>;
 	const totalFemmes = <%= license.getTotalFemales() %>;
 	const totalLicenses = <%= license.getTotal() %>;

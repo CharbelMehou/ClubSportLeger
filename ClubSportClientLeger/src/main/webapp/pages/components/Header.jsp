@@ -18,8 +18,9 @@
             <% } %>
         </div>
         <div>
-		    <a href="../Acceuil.jsp" class="middle-nav-link">Acceuil</a>    			   
-			<a href="components/Maps.jsp?searchType=" class="middle-nav-link">Map</a> 
+		    <a href="Acceuil.jsp" class="middle-nav-link">Acceuil</a>    			   
+			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
+			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 			 
 		 </div>
         <div class="navbar-link2">
             <% if (session.getAttribute("utilisateur") == null) { %>

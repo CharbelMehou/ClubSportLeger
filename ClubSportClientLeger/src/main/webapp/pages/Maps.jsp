@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="components/Header.jsp" />
 <div class="form-container">
         <form id="searchForm" class="mb-5" method="post" action="Maps.jsp">
             <div class="form-sub-container">
@@ -211,8 +211,7 @@
                 });
             <% } %>
         <% } else { %>
-            var map = L.map('map').setView([48.8566, 2.3522], 6); // Zoom initial ajusté à 5
- 
+            var map = L.map('map').setView([48.8566, 2.3622], 6);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
             }).addTo(map);
@@ -259,6 +258,6 @@
     </script>
 </div>
 </div>
-   <jsp:include page="Footer.jsp" />
+   <jsp:include page="components/Footer.jsp" />
 </body>
 </html>

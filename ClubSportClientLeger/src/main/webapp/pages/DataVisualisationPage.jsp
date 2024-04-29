@@ -9,9 +9,6 @@
 </head>
 <body>
 <jsp:include page="./components/Header.jsp" />
-    <form action="Acceuil.jsp" method="GET">
-        <button type="submit" class="back-button">&#x2190; Retour</button>
-    </form>
 <div class="dataVisualisationPage">
 <div class="datadisplayer">
 	<jsp:include page="./components/FederationDataDisplayer.jsp" />

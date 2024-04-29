@@ -36,7 +36,7 @@
                 FederationDAO dao = new FederationDAO();
                 List<String> federationList = dao.getFederations();
                 for (String federation : federationList) { %>
-                    <option value="<%= federation %>"><%= federation %></option>
+                    <option value="<%= federation %>"><%= federation.replace("''", "'") %></option>
                 <% } %>
             </select>
         </div>
@@ -64,7 +64,7 @@
 							<option value="">Toute la France</option>
 							<% List<String> regions = dao.getCommunes();
                            for (String region : regions) { %>
-							<option value="<%= region %>"><%= region %></option>
+							<option value="<%= region %>"><%= region.replace("''", "'") %></option>
 							<% } %>
 						</select>
 					</div>

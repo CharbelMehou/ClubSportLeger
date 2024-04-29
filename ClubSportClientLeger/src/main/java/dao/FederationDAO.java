@@ -24,24 +24,20 @@ public class FederationDAO extends ConnexionDao {
 	  * Cela incluant une pagination coté serveur
 	  * @return ArrayList<Federation>
 	  */
-	 public ArrayList<Federation> getFederationsSortedByRegion(int page, int pageSize) {
+	 public ArrayList<Federation> getAllFederations() {
 		    ArrayList<Federation> federations = new ArrayList<>();
 		    Connection con = null;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
-		    int offset = (page - 1) * pageSize;
 
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        String query = "SELECT * FROM federation ORDER BY Region ASC LIMIT ? OFFSET ?";
+		        String query = "SELECT * FROM federation";
 		        ps = con.prepareStatement(query);
-		        ps.setInt(1, pageSize);
-		        ps.setInt(2, offset);
+		       
 		        rs = ps.executeQuery();
 
-		        CommuneDAO communeDao = new CommuneDAO();
 		        while (rs.next()) {
-		            //Commune commune = communeDao.getCommuneByCommuneCode(rs.getInt("CodeCommune"));
 		            Federation federation = new Federation(
 		                rs.getString("Code_Commune"),
 		                rs.getString("Commune"),
@@ -248,10 +244,10 @@ public class FederationDAO extends ConnexionDao {
 	 public ArrayList<String> getAllDepartements() {
 		 ArrayList<String> departements = new ArrayList<>();
 		    try (Connection con = DriverManager.getConnection(URL, LOGIN, PASS);
-		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT NomDepartement FROM federation ORDER BY NomDepartement ASC");
+		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT Departement FROM federation ORDER BY Departement ASC");
 		         ResultSet rs = ps.executeQuery()) {
 		        while (rs.next()) {
-		            departements.add(rs.getString("NomDepartement"));
+		            departements.add(rs.getString("Departement"));
 		        }
 		    } catch (SQLException e) {
 		        e.printStackTrace();
@@ -266,10 +262,10 @@ public class FederationDAO extends ConnexionDao {
 		public ArrayList<String> getAllRegions() {
 			ArrayList<String> regions = new ArrayList<>();
 		    try (Connection con = DriverManager.getConnection(URL, LOGIN, PASS);
-		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT NomRegion FROM federation ORDER BY NomRegion ASC");
+		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT Region FROM federation ORDER BY Region ASC");
 		         ResultSet rs = ps.executeQuery()) {
 		        while (rs.next()) {
-		            regions.add(rs.getString("NomRegion"));
+		            regions.add(rs.getString("Region"));
 		        }
 		    } catch (SQLException e) {
 		        e.printStackTrace();
@@ -283,10 +279,10 @@ public class FederationDAO extends ConnexionDao {
 		public ArrayList<String> getAllCommunes() {
 			ArrayList<String> communes = new ArrayList<>();
 		    try (Connection con = DriverManager.getConnection(URL, LOGIN, PASS);
-		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT NomCommune FROM commune ORDER BY NomCommune ASC");
+		         PreparedStatement ps = con.prepareStatement("SELECT DISTINCT Commune FROM federation ORDER BY Commune ASC");
 		         ResultSet rs = ps.executeQuery()) {
 		        while (rs.next()) {
-		            communes.add(rs.getString("NomCommune"));
+		            communes.add(rs.getString("Commune"));
 		        }
 		    } catch (SQLException e) {
 		        e.printStackTrace();
@@ -527,5 +523,5 @@ public class FederationDAO extends ConnexionDao {
 	        // Retourne la liste de clubs obtenue
 	        return returnValue;
 	    }
-
+	    
 }

@@ -52,11 +52,11 @@
                 <input type="hidden" name="departement" value="<%= eachfederation.getDepartement() %>">
                 <input type="hidden" name="region" value="<%= eachfederation.getRegion() %>">
                 <input type="hidden" name="commune" value="<%= eachfederation.getCommune() %>">
-                <button type="submit" class="link-button"><%= eachfederation.getFederation() %></button>
+                <button type="submit" class="link-button"><%= eachfederation.getFederation().replace("''", "'") %></button>
             </form></td>
             <td><%= manager.getDepartementName(eachfederation.getDepartement()) %></td>
-            <td><%= eachfederation.getRegion() %></td>
-            <td><%= eachfederation.getCommune() %></td>
+            <td><%= eachfederation.getRegion().replace("''", "'") %></td>
+            <td><%= eachfederation.getCommune().replace("''", "'") %></td>
         </tr>
         <% } %>
     </tbody>
@@ -64,17 +64,17 @@
 <div class="pagination">
     <% 
     // Récupération et encodage des valeurs actuelles des filtres
-    String currentFederation = request.getParameter("federation") != null ? URLEncoder.encode(request.getParameter("federation"), "ISO-8859-1") : "";
-    String currentSearchType = request.getParameter("searchType") != null ? URLEncoder.encode(request.getParameter("searchType"), "ISO-8859-1") : "";
-    String currentRegion = request.getParameter("region") != null ? URLEncoder.encode(request.getParameter("region"), "ISO-8859-1") : "";
-    String currentCodePostal = request.getParameter("codePostal") != null ? URLEncoder.encode(request.getParameter("codePostal"), "ISO-8859-1") : "";
+    String currentFederation = request.getParameter("federation") != null ? URLEncoder.encode(request.getParameter("federation"), "UTF-8") : "";
+    String currentSearchType = request.getParameter("searchType") != null ? URLEncoder.encode(request.getParameter("searchType"), "UTF-8") : "";
+    String currentRegion = request.getParameter("region") != null ? URLEncoder.encode(request.getParameter("region"), "UTF-8") : "";
+    String currentCodePostal = request.getParameter("codePostal") != null ? URLEncoder.encode(request.getParameter("codePostal"), "UTF-8") : "";
 
     int startPage = Math.max(1, currentPage - 5);
     int endPage = Math.min(totalPages, currentPage + 4);
 
     if (currentPage > 1) {
     %>
-        <a href="./Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Prï¿½cï¿½dente</a>
+        <a href="./Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Précédente</a>
     <% 
     }
     for (int i = startPage; i <= endPage; i++) {
