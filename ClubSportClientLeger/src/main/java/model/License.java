@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class License {
 	private String codeCommune;
 	private String commune;
@@ -351,5 +353,5 @@ public class License {
     public int getTotalMales() {
         return H_1_4_ans + H_5_9_ans + H_10_14_ans + H_15_19_ans + H_20_24_ans + H_25_29_ans + H_30_34_ans + H_35_39_ans + H_40_44_ans + H_45_49_ans + H_50_54_ans + H_55_59_ans + H_60_64_ans + H_65_69_ans + H_70_74_ans + H_75_79_ans + H_80_99_ans;
     }
-	
+    
 }

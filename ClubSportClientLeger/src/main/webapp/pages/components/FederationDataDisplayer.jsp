@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<table class="dataDisplayer">
+<table class="dataDisplayer" >
       <tbody>
         <%
 	String nomFederation = request.getParameter("federation");
@@ -33,7 +33,7 @@
 %>     
         <tr>
           <td><strong>Federation</strong></td>
-          <td><%=nomFederation%></td>
+          <td><%=nomFederation.replace("''", "'")%></td>
         </tr>
         <tr>
           <td><strong>Département</strong></td>
@@ -45,7 +45,7 @@
         </tr>
         <tr>
           <td><strong>Commune</strong></td>
-          <td><%= nomCommune %></td>
+          <td><%= nomCommune.replace("''", "'") %></td>
         </tr>
         <tr>
           <td><strong>Nombre total de licenciés </strong></td>

@@ -121,6 +121,7 @@ public class DepartementManager {
         departements.put("987", "Polynésie française");
         departements.put("988", "Nouvelle-Calédonie");
         departements.put("989", "Île de Clipperton");
+        departements.put("ETR", "ETRANGER");
     }
 
     public String getDepartementName(String code) {

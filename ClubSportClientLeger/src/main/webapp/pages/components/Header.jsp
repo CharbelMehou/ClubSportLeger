@@ -1,21 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Utilisateur"%>
+<%@ page import="java.net.URLEncoder" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./components/componentStyle.css">
+<link rel="stylesheet" href="../components/componentStyle.css">
 </head>
 <body>
 <nav class="navbar">
-    <div class="navbar-links" style="display: flex; justify-content: space-between; width: 100%;">
+    <div class="navbar-links">
         <div class="navbar-link1">
             <% if (session.getAttribute("utilisateur") != null) { %>
                 <span>Bienvenue, <%= ((Utilisateur) session.getAttribute("utilisateur")).getNom().toUpperCase() %></span>
             <% } %>
         </div>
+        <div>
+		    <a href="Acceuil.jsp" class="middle-nav-link">Acceuil</a>    			   
+			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
+			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 			 
+		 </div>
         <div class="navbar-link2">
             <% if (session.getAttribute("utilisateur") == null) { %>
                 <a href="components/LoginForm.jsp">Se connecter</a>

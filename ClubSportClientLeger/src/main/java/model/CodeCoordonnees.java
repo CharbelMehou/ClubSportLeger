@@ -1,7 +1,7 @@
 package model;
 /**
- * 
- */
+*
+*/
 public class CodeCoordonnees {
 	private String InseeCode;
 	private String ZipCode;
@@ -73,3 +73,4 @@ public class CodeCoordonnees {
 	
 	
 }
+ 

@@ -9,10 +9,7 @@
 </head>
 <body>
 <jsp:include page="./components/Header.jsp" />
-    <form action="Acceuil.jsp" method="GET">
-        <button type="submit" class="back-button">&#x2190; Retour</button>
-    </form>
-
+<div class="dataVisualisationPage">
 <div class="datadisplayer">
 	<jsp:include page="./components/FederationDataDisplayer.jsp" />
 	<div class="diagramsdisplayer">
@@ -24,6 +21,11 @@
 		</div>
 	</div>
 </div>
+<div class="federation-map">
+ <jsp:include page="./components/Map2.jsp" />
+</div>
+ </div> 
+
 <jsp:include page="./components/Footer.jsp" />
 </body>
 </html>

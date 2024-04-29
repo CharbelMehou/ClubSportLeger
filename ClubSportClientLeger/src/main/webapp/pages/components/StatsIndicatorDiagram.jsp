@@ -40,8 +40,6 @@
     var femaleData = <%= Arrays.toString(femaleData) %>;
 
     var statsctx = document.getElementById("StatsIndicatorDiagram").getContext('2d');
-    console.log(statsctx);
-    console.log(maleData, femaleData);
 
     var ageGroupChart = new Chart(statsctx, {
         type: 'bar',

@@ -93,10 +93,16 @@ body {
 	flex-direction:row;
 	justify-content:space-between;
 }
+.dataVisualisationPage{
+	display:flex;
+	flex-direction:row;
+	padding:20px;
+}
 .datadisplayer{
 	display:flex;
 	flex-direction:column;
-	width:50%;
+	margin-right:30px;
+	margin-top:20px;
 }
 .licenseRepartitionGraph{
 	margin-bottom:20px;
@@ -104,4 +110,27 @@ body {
 }
 .statsIndicatorDiagram{
 	margin-bottom:20px;
+}
+.federation-map{
+	display:flex;
+	width:100%;
+	margin-right:20px;
+    margin-top:20px;
+	
+}
+
+.spinner {
+   width: 56px;
+   height: 56px;
+   border-radius: 50%;
+   border: 9px solid;
+   border-color: #dbdcef;
+   border-right-color: #11559c;
+   animation: spinner-d3wgkg 1s infinite linear;
+}
+
+@keyframes spinner-d3wgkg {
+   to {
+      transform: rotate(1turn);
+   }
 }
