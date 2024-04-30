@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Set" %>
@@ -27,11 +27,11 @@
  
     <form action="Acceuil.jsp" method="POST" id="searchForm">
     <div class="search-box">
-        <!-- S�lection de f�d�ration -->
+        <!-- Sï¿½lection de fï¿½dï¿½ration -->
         <div class="dropdown">
-            <label for="federationSelect">F�d�ration :</label>
+            <label for="federationSelect">Fédération :</label>
             <select id="federationSelect" name="federation" class="form-control">
-                <option value="">Toutes les f�d�rations</option>
+                <option value="">Toutes les fédérations</option>
                 <%
                 FederationDAO dao = new FederationDAO();
                 List<String> federationList = dao.getFederations();
@@ -42,7 +42,7 @@
         </div>
  
         <%
-        // R�cup�ration du terme de recherche
+        // Rï¿½cupï¿½ration du terme de recherche
         String federation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
         int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
@@ -53,13 +53,13 @@
 						<label for="searchTypeSelect">Rechercher par :</label> <select
 							id="searchTypeSelect" name="searchType" class="form-control"
 							onchange="toggleSearchType()">
-							<option value="region">R�gion</option>
+							<option value="region">Région</option>
 							<option value="codePostal">Code Postal</option>
 						</select>
 	                </div>
        						
 					<div  class="dropdown" id="regionGroup">
-						<label for="regionSelect">R�gion :</label> <select
+						<label for="regionSelect">Région :</label> <select
 							id="regionSelect" name="region" class="form-control">
 							<option value="">Toute la France</option>
 							<% List<String> regions = dao.getCommunes();
@@ -70,11 +70,10 @@
 					</div>
 					
 					<div class="dropdown" id="codePostalGroup" style="display: none;">
-<<<<<<< HEAD
+
 						<label for="codePostalInput">Code Postal :</label>
-=======
+
 						<label for="codePostalInput">Code Postal :</label> 
->>>>>>> ac01ac872bb7ac24c2502308841894d312de850e
 						<input
 							type="text" id="codePostalInput" name="codePostal"
 							class="form-control">

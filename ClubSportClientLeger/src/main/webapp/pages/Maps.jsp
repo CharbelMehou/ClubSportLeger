@@ -21,37 +21,110 @@
             height: 700px;
              width:70vw;
              margin-bottom:20px;
+             margin-top:20px;
         }
         .map-container{
         display:flex;
         justify-content:center;
         align-items:center;
         }
+        .search-box {
+	       display: flex;
+	       flex-direction: row;
+	       justify-content: space-between;
+		   align-items: center;
+	    }
+	    .search-box label {
+	       display: block; 
+		   font-weight: bold;
+		   margin-bottom: 5px;
+		   color: white;  
+	    }
+	    .search-box select{           
+		   padding: 8px;        
+		   font-size: 14px;          
+		   border: 1px solid #ccc;   
+		   border-radius: 4px;       
+		   box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+		   background-color: white;  
+		   color: #333;              
+		   margin-top: 5px;
+		   cursor: pointer; 
+	    }
+	    .search-box select:focus{
+	       border-color: #11559C;
+           outline: none;
+	    }
+	    .form-select {
+	        background-color: #f8f9fa;
+	        border: 1px solid #ccc;
+	        border-radius: 4px;
+	        padding: 8px;
+	        color: #333;
+	        width: 100%;
+	    }
+	    .form-select:focus {
+            border-color: #80bdff;
+	        outline: none;
+	    }
+        .submit-group{
+        display:flex;
+        flex-direction:column;
+        }
         .form-container{
-        padding:20px;
+        background-color: #4B4B4B;
+		height: 100px;
+		margin-bottom:50px;
         }
         .form-sub-container{
         display:flex;
         flex-direction:row;
         justify-content:space-between;
         }
-        .submit-group{
-        display:flex;
-        flex-direction:column;
-        }
-        .form-group label{
-        font-weight:bold;
-        }
-        .submit-group label{
-        font-weight:bold;
-        }
+        .sub-part-navbar{
+		background-color: #e5e5f7;
+	    opacity: 0.8;
+	    background-image: radial-gradient(#11559C 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
+	    background-size: 17px 17px;
+	    min-height: 170px;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	    padding-top:10px;
+		}
+		.sub-part-navbar h1,	
+		.sub-part-navbar p{
+			margin-left: 40px;
+			font-weight:bold;
+			font-size:30px;
+			color: #11559C;
+		}
+		.sub-part-navbar-bottom-side{
+		    background-color: #1E1E1E;
+		    color: #ffffff;
+		    height: 40px;
+		    width: 250px;
+		    display:flex;
+		    align-items:center;
+		 }
+		 .sub-part-navbar-bottom-side p{
+		     color: #ffffff;
+		     font-size:15px;
+		 }
     </style>
 </head>
 <body>
 <jsp:include page="components/Header.jsp" />
+<div class="sub-part-navbar">
+        <h1>EXPLOREZ LES DONNEES GEOGRAPHIQUES DES FEDERATIONS</h1>
+        <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHE DE CHEZ VOUS</p>
+        <div class="sub-part-navbar-bottom-side">
+            <p>Affinez votre recherche</p>
+        </div>
+</div>
 <div class="form-container">
         <form id="searchForm" class="mb-5" method="post" action="Maps.jsp">
-            <div class="form-sub-container">
+            <div class="search-box">
                     <div class="form-group">
                         <label for="federationSelect">Fédération :</label> <select
                             id="federation" name="federation" class="form-control">
