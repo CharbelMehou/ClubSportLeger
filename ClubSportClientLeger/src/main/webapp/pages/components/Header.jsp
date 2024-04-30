@@ -11,6 +11,7 @@
 </head>
 <body>
 <nav class="navbar">
+
     <div class="navbar-links">
         <div class="navbar-link1">
             <% if (session.getAttribute("utilisateur") != null) { %>
@@ -20,7 +21,9 @@
         <div>
 		    <a href="Acceuil.jsp" class="middle-nav-link">Acceuil</a>    			   
 			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
-			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 			 
+			<% if ( session.getAttribute("utilisateur")!=null && ((Utilisateur) session.getAttribute("utilisateur")).getRole()==1) { %>
+		    	<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 	
+			<% }%>		 
 		 </div>
         <div class="navbar-link2">
             <% if (session.getAttribute("utilisateur") == null) { %>
