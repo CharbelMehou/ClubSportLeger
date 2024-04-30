@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class LicenseUtils {
 	
-	public static int getTotalAllMales(ArrayList<License> licenses) {
-        int totalMales = 0;
+	public static double getTotalAllMales(ArrayList<License> licenses) {
+        double totalMales = 0;
         for (License license : licenses) {
             totalMales += license.getTotalMales();
         }
         return totalMales;
     }
 
-    public  static int getTotalAllFemales(ArrayList<License> licenses) {
-        int totalFemales = 0;
+    public  static double getTotalAllFemales(ArrayList<License> licenses) {
+        double totalFemales = 0;
         for (License license : licenses) {
             totalFemales += license.getTotalFemales();
         }
         return totalFemales;
     }
 
-    public static int getTotalAllLicenses(ArrayList<License> licenses) {
-        int total = 0;
+    public static double getTotalAllLicenses(ArrayList<License> licenses) {
+        double total = 0;
         for (License license : licenses) {
             total += license.getTotal();
         }

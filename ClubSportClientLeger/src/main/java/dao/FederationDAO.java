@@ -32,7 +32,7 @@ public class FederationDAO extends ConnexionDao {
 
 		    try {
 		        con = DriverManager.getConnection(URL, LOGIN, PASS);
-		        String query = "SELECT * FROM federation";
+		        String query = "SELECT * FROM federation ORDER BY Departement ASC";
 		        ps = con.prepareStatement(query);
 		       
 		        rs = ps.executeQuery();
@@ -61,9 +61,7 @@ public class FederationDAO extends ConnexionDao {
 		}
 
 	 
-<<<<<<< HEAD
-	 
-=======
+
 	    /**
 	     * Pour recupérer une liste de federation en fonction des filtres 
 	     * @param codeFederation
@@ -78,8 +76,7 @@ public class FederationDAO extends ConnexionDao {
 		    Connection con = null;
 		    PreparedStatement ps = null;
 		    ResultSet rs = null;
-		    CommuneDAO communeDao = new CommuneDAO();
-		    Commune commune = null;
+		    
 		    int offset = (page - 1) * pageSize;
 
 		    try {
@@ -119,7 +116,6 @@ public class FederationDAO extends ConnexionDao {
 		        rs = ps.executeQuery();
 
 		        while (rs.next()) {
-		            commune = communeDao.getCommuneByCommuneCode(rs.getInt("CodeCommune"));
 		            Federation federation = new Federation(
 			                rs.getString("Code_Commune"),
 			                rs.getString("Commune"),
@@ -210,7 +206,6 @@ public class FederationDAO extends ConnexionDao {
 	  * Pour avoir le nombres de federations en base pour la pagination
 	  * @return le nombre de federation
 	  */
->>>>>>> ac01ac872bb7ac24c2502308841894d312de850e
 	 public int countFederations() {
 		    int count = 0;
 		    Connection con = null;

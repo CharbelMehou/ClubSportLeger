@@ -141,32 +141,32 @@ public class LicenseDAO extends ConnexionDao{
 	            con = DriverManager.getConnection(URL, LOGIN, PASS);
 	            StringBuilder query = new StringBuilder("SELECT * FROM licence WHERE 1=1");
 
-	            if (codeDepartement != null) {
+	            if (codeDepartement != null && !codeDepartement.isEmpty()) {
 	                query.append(" AND Departement = ?");
 	            }
-	            if (nomCommune != null) {
+	            if (nomCommune != null && !nomCommune.isEmpty()) {
 	                query.append(" AND Commune = ?");
 	            }
-	            if (nomRegion != null) {
+	            if (nomRegion != null && !nomRegion.isEmpty()) {
 	                query.append(" AND Region = ?");
 	            }
-	            if (nomFederation != null) {
+	            if (nomFederation != null && !nomFederation.isEmpty()) {
 	                query.append(" AND Federation = ?");
 	            }
 
 	            ps = con.prepareStatement(query.toString());
 	            int index = 1;
 
-	            if (codeDepartement != null) {
+	            if (codeDepartement != null && !codeDepartement.isEmpty()) {
 	                ps.setString(index++, codeDepartement);
 	            }
-	            if (nomCommune != null) {
+	            if (nomCommune != null && !nomCommune.isEmpty()) {
 	                ps.setString(index++, nomCommune);
 	            }
-	            if (nomRegion != null) {
+	            if (nomRegion != null && !nomRegion.isEmpty()) {
 	                ps.setString(index++, nomRegion);
 	            }
-	            if (nomFederation != null) {
+	            if (nomFederation != null && !nomFederation.isEmpty()) {
 	                ps.setString(index++, nomFederation);
 	            }
 
