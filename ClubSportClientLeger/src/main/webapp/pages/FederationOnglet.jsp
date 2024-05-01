@@ -296,7 +296,7 @@
             <% } %>
         </div>
         <div>
-		    <a href="Acceuil.jsp" class="middle-nav-link">Acceuil</a>    			   
+		    <a href="Acceuil.jsp" class="middle-nav-link">Accueil</a>    			   
 			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
 			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 			 
 		 </div>
