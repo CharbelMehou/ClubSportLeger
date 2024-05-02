@@ -298,7 +298,8 @@
         <div>
 		    <a href="Acceuil.jsp" class="middle-nav-link">Accueil</a>    			   
 			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
-			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 			 
+			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 	
+			<a href="ClassementPage.jsp" class="middle-nav-link">Classement</a> 			 		 
 		 </div>
         <div class="navbar-link2">
             <% if (session.getAttribute("utilisateur") == null) { %>
