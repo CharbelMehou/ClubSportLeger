@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LicenseUtils {
 	
@@ -274,4 +277,100 @@ public class LicenseUtils {
         }
         return total;
     }
+ // Classe pour représenter le classement
+    public static class Ranking {
+        private String name;
+        private int totalLicenses;
+
+        public Ranking(String name, int totalLicenses) {
+            this.name = name;
+            this.totalLicenses = totalLicenses;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getTotalLicenses() {
+            return totalLicenses;
+        }
+    }
+
+    // Méthode pour obtenir et trier les licences par commune
+    public static ArrayList<Ranking> getAndSortCommuneTotals(ArrayList<License> licenses) {
+        HashMap<String, Integer> totals = new HashMap<>();
+        for (License license : licenses) {
+            totals.put(license.getCommune(), totals.getOrDefault(license.getCommune(), 0) + license.getTotal());
+        }
+        return sortAndConvertRankings(totals);
+    }
+    public static ArrayList<Ranking> getAndSortDepartementTotals(ArrayList<License> licenses) {
+        HashMap<String, Integer> totals = new HashMap<>();
+        for (License license : licenses) {
+            totals.put(license.getDepartement(), totals.getOrDefault(license.getDepartement(), 0) + license.getTotal());
+        }
+        return sortAndConvertRankings(totals);
+    } 
+    public static ArrayList<Ranking> getAndSortRegionTotals(ArrayList<License> licenses) {
+        HashMap<String, Integer> totals = new HashMap<>();
+        for (License license : licenses) {
+            totals.put(license.getRegion(), totals.getOrDefault(license.getRegion(), 0) + license.getTotal());
+        }
+        return sortAndConvertRankings(totals);
+    }
+    // Méthode auxiliaire pour trier et convertir les totaux en une liste de Ranking
+    private static ArrayList<Ranking> sortAndConvertRankings(HashMap<String, Integer> totals) {
+    	ArrayList<Ranking> rankings = new ArrayList<>();
+        totals.entrySet().stream()
+            .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+            .forEach(entry -> rankings.add(new Ranking(entry.getKey(), entry.getValue())));
+        return rankings;
+    }
+    public static ArrayList<String> extractFederations(ArrayList<License> licences) {
+        Set<String> federationsSet = new HashSet<>();
+        for (License licence : licences) {
+        	federationsSet.add(licence.getFederation());
+        }
+        return new ArrayList<>(federationsSet);
+    }
+    
+    public static String calculateProportionHF(ArrayList<License> licenses,int totalLicences) {
+        double totalMales = getTotalAllMales(licenses);
+        double totalFemales = getTotalAllFemales(licenses);
+
+        double ratioMales;
+        double ratioFemales;
+        String proportion;
+
+        if (totalFemales == 0 && totalMales == 0) {          
+                proportion = "Pas de données";
+        } else {
+        	ratioMales = (totalMales / totalLicences)*100;
+        	ratioFemales = (totalFemales / totalLicences)*100;
+
+            proportion = String.format("%.2f %(H) - %.2f %(F)", ratioMales,ratioFemales);
+        }
+
+        return proportion;
+    }
+    public static String calculateProportionHF(License license,int totalLicences) {
+        double totalMales = license.getTotalMales();
+        double totalFemales =license.getTotalFemales();
+
+        double ratioMales;
+        double ratioFemales;
+        String proportion;
+
+        if (totalFemales == 0 && totalMales == 0) {          
+                proportion = "Pas de données";
+        } else {
+        	ratioMales = (totalMales / totalLicences)*100;
+        	ratioFemales = (totalFemales / totalLicences)*100;
+
+            proportion = String.format("%.2f %%(H) - %.2f %%(F)", ratioMales,ratioFemales);
+        }
+
+        return proportion;
+    }
+
 }
