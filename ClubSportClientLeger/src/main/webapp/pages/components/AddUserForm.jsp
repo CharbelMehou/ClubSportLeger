@@ -1,107 +1,142 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.HashSet"%>
+<%@ page import="model.Federation"%>
+<%@ page import="dao.FederationDAO"%>
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="ISO-8859-1">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<title>Formulaire de Connexion</title>
-
 <style>
+.container {
+	width: 80%; /* Largeur du formulaire */
+	max-width: 600px; /* Largeur maximale */
+	padding: 20px; /* Espacement intérieur */
+	border-radius: 8px; /* Bord arrondi */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre */
+	background-color: #FFFFFF;
+}
+ 
+.card-body {
+	background-color: #11559C; /* Couleur de fond */
+}
+ 
+.custom-btn {
+	background-color: #11559C; /* Couleur de fond */
+	border-color: #11559C; /* Couleur de bord */
+	color: #ffffff; /* Couleur du texte */
+}
+ 
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-}
-
-.card {
-	margin-bottom: 20px;
-}
-
-form {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	width: 300px;
-	margin-top: 20px;
-}
-
-label {
-	display: block;
-	margin-bottom: 8px;
-}
-
-input {
-	width: 100%;
-	padding: 8px;
-	margin-bottom: 16px;
-	box-sizing: border-box;
-}
-
-button {
-	background-color: #4caf50;
-	color: #fff;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.alert {
-	margin-top: 20px;
+	background-color: #e5e5f7;
+	opacity: 0.8;
+	background-image: radial-gradient(#232aab 0.5px, #e5e5f7 0.5px);
+	background-size: 10px 10px;
 }
 </style>
+<title>Inscription</title>
 </head>
 <body>
-	<div class="card bg-primary text-white">
-		<div class="card-body">Veuillez saisir vos informations
-			personnel</div>
+	<jsp:include page="Header.jsp" />
+	<div class="container">
+		<div class="card bg-primary text-white">
+			<div class="card-body">Veuillez saisir vos informations
+				personnel</div>
+		</div>
+		<div></div>
+		<form method="POST" action="AddUser.jsp">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="nom">Nom</label> <input type="text"
+							class="form-control" id="nom" name="nom"
+							placeholder="Entrez votre nom">
+					</div>
+				</div>
+				<div class="col-md-8">
+					<!-- Correction de la classe de colonne -->
+					<div class="form-group">
+						<label for="prenom">Prénom</label> <input type="text"
+							class="form-control" id="prenom" name="prenom"
+							placeholder="Entrez votre prénom">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="email">Email</label> <input type="email"
+							class="form-control" id="email" name="email"
+							placeholder="Entrez votre email...">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<!-- Correction de la classe de colonne -->
+					<div class="form-group">
+						<label for="password">Mot de passe</label> <input type="password"
+							class="form-control" id="password" name="password"
+							placeholder="Entrez votre mot de passe">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="federationSelect">Fédération :</label> <select
+							id="federation" name="federation" class="form-control">
+							<%
+                                    FederationDAO dao = new FederationDAO();
+                                    List<String> federationList = dao.getFederations();
+                                    for (String federation : federationList) { %>
+							<option value="<%= federation %>"><%= federation %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<!-- Correction de la classe de colonne -->
+					<div class="form-group">
+						<label for="club">Club</label> <input type="text"
+							class="form-control" id="club" name="club"
+							placeholder="Entrez le club">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="federationSelect">Statut:</label> <select id="statut"
+							name="statut" class="form-control">
+							<option value="Président de Club">Président de Club</option>
+							<option value="Entraineur">Entraineur</option>
+							<option value="Maire">Maire</option>
+							<option value="Deputé">Deputé</option>
+						</select>
+					</div>
+				</div>
+ 
+			</div>
+			<div class="mb-3 form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Check me
+					out</label>
+			</div>
+			<button type="submit" class="btn btn-primary custom-btn">Submit</button>
+		</form>
+		<% String message = (String)request.getAttribute("message"); %>
+    <% if(message != null && !message.isEmpty()) { %>
+        <div class="alert alert-danger">
+            <strong>News!</strong> <%= message %>
+        </div>
+    <% } %>
 	</div>
-
-	<form action="AddUser.jsp" method="post">
-		<h2>Inscription</h2>
-
-		<div class="form-group">
-			<label for="nom">Nom</label> <input type="text"
-				class="form-control" id="nom" name="nom"
-				aria-describedby="emailHelp"
-				placeholder="Entrez votre nom">
-		</div>
-		<div class="form-group">
-			<label for="prenom">Prenom</label> <input type="text"
-				class="form-control" id="prenom" name="prenom"
-				placeholder="Prenom">
-		</div>
-		<div class="form-group">
-			<label for="email">Adresse e-mail</label> <input type="text"
-				class="form-control" id="email" name="email"
-				aria-describedby="emailHelp"
-				placeholder="Entrez votre adresse e-mail">
-		</div>
-		<div class="form-group">
-			<label for="motdepasse">Mot de passe</label> <input type="password"
-				class="form-control" id="motdepasse" name="motdepasse"
-				placeholder="Mot de passe">
-		</div>
-		<button type="submit" class="btn btn-primary">S'Inscrire</button>
-	</form>
-
-	<% String message = (String)request.getAttribute("message"); %>
-	<% if(message != null && !message.isEmpty()) { %>
-	<div class="alert alert-danger">
-		<strong>News!</strong>
-		<%= message %>
-	</div>
-	<% } %>
+	<jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -8,8 +8,6 @@
 <%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="javax.mail.internet.MimeMessage" %>
 <%@ page import="java.util.Properties" %>
- 
- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,57 +18,27 @@
     String nom = request.getParameter("nom");
 	String prenom = request.getParameter("prenom");
 	String email = request.getParameter("email");
-	String motdepasse = request.getParameter("password");
+	String motdepasse = request.getParameter("motdepasse");
 	String federation = request.getParameter("federation");
 	String club = request.getParameter("club");
 	String statut = request.getParameter("statut");
- 
-	// Fonction pour hasher le mot de passe
-	String hashedPass = hashPassword(motdepasse);
- 
 	UtilisateurDAO db = new UtilisateurDAO();
- 
-	if (nom == null || prenom == null || email == null || motdepasse == null || nom.isEmpty() || prenom.isEmpty()
-			|| email.isEmpty() || motdepasse.isEmpty()) {
-		String message = "Veuillez remplir toutes les informations";
+	if (db.utilisateurExist(email)) {
+		String message = "L'utilisateur existait déjà";
+		db.deleteUtilisateur(email,motdepasse);
 		request.setAttribute("message", message);
-		response.sendRedirect("AddUserForm.jsp");
+		String messages="Merci pour votre inscription sur notre site.Mais malheusement votre demande n'a pas été validé.En effet ,il exite un compte avec votre email";
+		String subject = "Invalidation de votre candidature";
+		sendEmail(email,subject,messages);
+		request.getRequestDispatcher("ListeUtilisateurs.jsp").forward(request, response);
 	} else {
-		if (db.utilisateurExists(email)) {
-			String message = "L'utilisateur exite déjà";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
-		} else {
-			if (db.adds(nom, prenom, email, hashedPass,federation,club,statut) == 0) {
-				String message = "Votre demande d'inscription à été prise en compte";
-				String messages="Merci pour votre inscription sur notre site.Vous recevrez un autre mail de comfirmation d'ici 2 semaines.Bien cordialement";
-				request.setAttribute("message", message);
-				String subject = "Inscription sur le site du groupe 3";
-				sendEmail(email,subject,messages);
-				request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
-			} else {
-				String message = "L'utilisateur ne peut pas être ajouté";
-				request.setAttribute("message", message);
-				request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
-			}
-		}
-	}
-	// TODO Auto-generated method stub
- 
-    %>
- 
-	<%!
-        public String hashPassword(String password1) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                byte[] hashedBytes = md.digest(password1.getBytes());
-                return Base64.getEncoder().encodeToString(hashedBytes);
-            } catch (NoSuchAlgorithmException e) {
-                // Gérer l'exception NoSuchAlgorithmException
-                e.printStackTrace();
-                return null;
-            }
-        }
+		db.ValidateUser(nom,prenom,email,motdepasse,federation,club,statut);
+		db.deleteUtilisateur(email,motdepasse);
+		String messages="Merci pour votre inscription sur notre site.Et félicitation votre demande a  été validé.";
+		String subject = "Validation de votre candidature";
+		sendEmail(email,subject,messages);
+		response.sendRedirect("ListeUtilisateurs.jsp");
+		}		
     %>
     
     <%!private void sendEmail(String email, String subject, String message) {

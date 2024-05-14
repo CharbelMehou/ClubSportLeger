@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-    <link rel="stylesheet" href="./components/componentStyle.css">
+    <link rel="stylesheet" href="componentStyle.css">
 </head>
 <body>
 <div class="footer">

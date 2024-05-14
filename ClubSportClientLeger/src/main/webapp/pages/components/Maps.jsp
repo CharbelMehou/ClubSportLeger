@@ -16,22 +16,115 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Inclure la bibliothèque JavaScript de Leaflet -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Ajouter le CSS pour spécifier la taille de la carte -->
     <style>
-        /* Utiliser la taille de la fenêtre pour la carte */
-        html, body, #map {
-            height: 85%;
-            margin: 0;
+         #map {
+            height: 700px;
+             width:70vw;
+             margin-bottom:20px;
+             margin-top:20px;
         }
+        .map-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        }
+        .search-box {
+	       display: flex;
+	       flex-direction: row;
+	       justify-content: space-between;
+		   align-items: center;
+	    }
+	    .search-box label {
+	       display: block; 
+		   font-weight: bold;
+		   margin-bottom: 5px;
+		   color: white;  
+	    }
+	    .search-box select{           
+		   padding: 8px;        
+		   font-size: 14px;          
+		   border: 1px solid #ccc;   
+		   border-radius: 4px;       
+		   box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+		   background-color: white;  
+		   color: #333;              
+		   margin-top: 5px;
+		   cursor: pointer; 
+	    }
+	    .search-box select:focus{
+	       border-color: #11559C;
+           outline: none;
+	    }
+	    .form-select {
+	        background-color: #f8f9fa;
+	        border: 1px solid #ccc;
+	        border-radius: 4px;
+	        padding: 8px;
+	        color: #333;
+	        width: 100%;
+	    }
+	    .form-select:focus {
+            border-color: #80bdff;
+	        outline: none;
+	    }
+        .submit-group{
+        display:flex;
+        flex-direction:column;
+        }
+        .form-container{
+        background-color: #4B4B4B;
+		height: 100px;
+		margin-bottom:50px;
+        }
+        .form-sub-container{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        }
+        .sub-part-navbar{
+		background-color: #e5e5f7;
+	    opacity: 0.8;
+	    background-image: radial-gradient(#11559C 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
+	    background-size: 17px 17px;
+	    min-height: 170px;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	    padding-top:10px;
+		}
+		.sub-part-navbar h1,	
+		.sub-part-navbar p{
+			margin-left: 40px;
+			font-weight:bold;
+			font-size:30px;
+			color: #11559C;
+		}
+		.sub-part-navbar-bottom-side{
+		    background-color: #1E1E1E;
+		    color: #ffffff;
+		    height: 40px;
+		    width: 250px;
+		    display:flex;
+		    align-items:center;
+		 }
+		 .sub-part-navbar-bottom-side p{
+		     color: #ffffff;
+		     font-size:15px;
+		 }
     </style>
 </head>
 <body>
- <jsp:include page="Header1.jsp" />
-<div class="container mt-6">
+<jsp:include page="Header.jsp" />
+<div class="sub-part-navbar">
+        <h1>EXPLOREZ LES DONNEES GEOGRAPHIQUES DES FEDERATIONS</h1>
+        <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHE DE CHEZ VOUS</p>
+        <div class="sub-part-navbar-bottom-side">
+            <p>Affinez votre recherche</p>
+        </div>
+</div>
+<div class="form-container">
         <form id="searchForm" class="mb-5" method="post" action="Maps.jsp">
-            <div class="row">
-
-                <div class="col-md-3">
+            <div class="search-box">
                     <div class="form-group">
                         <label for="federationSelect">Fédération :</label> <select
                             id="federation" name="federation" class="form-control">
@@ -49,8 +142,6 @@
                             %>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3">
                     <div class="form-group">
                         <label for="searchTypeSelect">Rechercher par :</label> <select
                             id="searchTypeSelect" name="searchType" class="form-control"
@@ -60,8 +151,7 @@
                             <option value="position" <%= "position".equals(request.getParameter("searchType")) ? "selected" : "" %>>Par rapport à votre position</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3">
+                
                     <div class="form-group" id="regionGroup"
                         <% if ("region".equals(request.getParameter("searchType"))) { %>style="display: block;"
                         <% } else { %>style="display: none;" <% } %>>
@@ -73,7 +163,7 @@
                                 String selectedRegion = request.getParameter("region");
                                 for (String region : regions) {
                             %>
-
+ 
                             <option value="<%=region%>"
                                 <%= region.equals(selectedRegion) ? "selected" : "" %>><%=region%></option>
                             <%
@@ -94,25 +184,19 @@
                         <label for="distanceSelect">Distance (km) :</label> <select
                             id="distanceSelect" name="distance" class="form-control"
                             onchange="updateSearchRadius(this.value)">
-
                             <option value="10000" <%= "10000".equals(request.getParameter("distance")) ? "selected" : "" %>>A proximité km</option>
                             <option value="20000" <%= "20000".equals(request.getParameter("distance")) ? "selected" : "" %>>20 km</option>
-                              <option value="50000" <%= "50000".equals(request.getParameter("distance")) ? "selected" : "" %>>50 km</option>
-                                <option value="100000" <%= "100000".equals(request.getParameter("distance")) ? "selected" : "" %>>100 km</option>
-                                  <option value="200000" <%= "200000".equals(request.getParameter("distance")) ? "selected" : "" %>>200 km</option>
-                                    <option value="500000" <%= "500000".equals(request.getParameter("distance")) ? "selected" : "" %>>500 km</option>
-                                    
-                            <!-- Ajoutez autant d'options que vous le souhaitez -->
+                            <option value="50000" <%= "50000".equals(request.getParameter("distance")) ? "selected" : "" %>>50 km</option>
+                            <option value="100000" <%= "100000".equals(request.getParameter("distance")) ? "selected" : "" %>>100 km</option>
+                            <option value="200000" <%= "200000".equals(request.getParameter("distance")) ? "selected" : "" %>>200 km</option>
+                            <option value="500000" <%= "500000".equals(request.getParameter("distance")) ? "selected" : "" %>>500 km</option>                                    
                         </select>
-                    </div>
-                </div>
-                
-                  <div class="col-md-3">
-                <label for="distanceSelect">Rechercher les clubs :</label> <button
-                    type="submit" class="btn btn-primary">Rechercher</button>
-            </div>
-            </div>
-            
+                    </div>          
+                <div class="submit-group">
+                   <label for="distanceSelect">Rechercher les clubs :</label> 
+                   <button type="submit" class="btn btn-primary">Rechercher</button>
+               </div>
+            </div>          
         </form>
     </div>
     <script>
@@ -136,6 +220,7 @@
         // Appel de la fonction toggleSearchType pour afficher les éléments au chargement de la page
         toggleSearchType();
     </script>
+<div class="map-container">
 <div id="map">
 <script>
     <%  
@@ -146,25 +231,25 @@
         String codePostal =  request.getParameter("codePostal");
         String distanceParameter = request.getParameter("distance");
         Double proximite = null;
-
+ 
         if (distanceParameter != null && !distanceParameter.isEmpty()) {
             proximite = Double.parseDouble(distanceParameter);
         } else {
             // Gérer le cas où le paramètre "distance" est null ou vide
             proximite=10000.0;
         }
-
-
+ 
+ 
         CodeDAO dao1 = new CodeDAO();
         List<CodeCoordonnees> stat =new ArrayList <CodeCoordonnees>();
         
         if(critère.equals("region")) {
             stat = dao1.getClubsLites(regio, federatio);
         }
-        else if(critère.equals("codePostal")) { // Modification de la condition
+        else if(critère.equals("codePostal")) { 
             stat = dao1.getClubsLitesByCodePostal(codePostal, federatio);
         }
-        else if(critère.equals("position")) { // Nouvelle ligne
+        else if(critère.equals("position")) { 
             CalculDistance calcul=new CalculDistance(6371);
             List<CodeCoordonnees> coordonnees =dao1.getClubsLitesFederation( federatio);
             Double lat =49.42438814251053;
@@ -177,37 +262,34 @@
              if(proximite>distance){
             	 stat.add(coordonnees.get(i));
              }
-            }
-            
-        	// Ajoutez ici la logique pour gérer la recherche par proximité
+            }            
         }
         
         if (stat != null && !stat.isEmpty()) { %>
-            var map = L.map('map').setView([48.8566, 2.3522], 5); // Zoom initial ajusté à 5
-
+            var map = L.map('map').setView([48.8566, 2.3522], 7); 
+ 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
             }).addTo(map);
-
+ 
             // Parcourir les données et ajouter des marqueurs avec des popups
             <% for (int i=0;i<stat.size();i++) { %>
                 var marker = L.marker([<%= stat.get(i).getLatitude() %>, <%= stat.get(i).getLongitude() %>])
                     .addTo(map)
-                    .bindPopup('<b>Station</b><br>Adresse: <%= stat.get(i).getZipCode() %>');
-
+                   .bindPopup('<b>Clubs</b><br>Adresse : <%= stat.get(i).getZipCode() %><br>Région : <%= regio %><br>Féderation : <%= federatio %><br>Latitude : <%= stat.get(i).getLatitude() %><br>Longitude : <%= stat.get(i).getLongitude() %>')
+ 
                 // Ajouter un événement click pour ouvrir la popup
                 marker.on('click', function() {
                     this.openPopup();
                 });
             <% } %>
         <% } else { %>
-            var map = L.map('map').setView([48.8566, 2.3522], 5); // Zoom initial ajusté à 5
-
+            var map = L.map('map').setView([48.8566, 2.3622], 6);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
             }).addTo(map);
         <% } %>
-
+ 
         // Fonction pour ajouter un marqueur avec un popup pour la position de l'utilisateur
         function addCurrentUserMarker(lat, lng) {
             var redMarker = L.divIcon({
@@ -215,27 +297,27 @@
                 html: "<div style='background-color:#FF5733; width: 25px; height: 25px; border-radius: 50%;'></div>",
                 iconSize: [25, 25]
             });
-
+ 
             var marker = L.marker([lat, lng], { icon: redMarker }).addTo(map)
                 .bindPopup('<b>Votre position actuelle</b><br>Latitude: ' + lat + '<br>Longitude: ' + lng)
                 .openPopup();
-
+ 
             // Ajouter un cercle jaune autour de la position de l'utilisateur avec un rayon de 5 km
             L.circle([lat, lng], {
                 color: 'yellow',
                 fillColor: '#FFFF00',
                 fillOpacity: 0.5,
-                radius:<%=proximite%>// en mètres
+                radius:<%=proximite%>
             }).addTo(map);
         }
-
+ 
         // Appeler la fonction getPosition() pour obtenir la position de l'utilisateur
         function getPosition() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var latitude = position.coords.latitude;
                     var longitude = position.coords.longitude;
-                    addCurrentUserMarker(latitude, longitude); // Ajouter le marqueur avec le popup pour la position de l'utilisateur
+                    addCurrentUserMarker(latitude, longitude);
                 }, function(error) {
                     console.error('Erreur de géolocalisation:', error);
                 }, { enableHighAccuracy: true }); // Activer la haute précision
@@ -243,10 +325,12 @@
                 alert("La géolocalisation n'est pas prise en charge par votre navigateur.");
             }
         }
-
+ 
         // Appeler la fonction getPosition() pour obtenir la position de l'utilisateur lors du chargement de la carte
         getPosition();
     </script>
-   </div>
+</div>
+</div>
+   <jsp:include page="Footer.jsp" />
 </body>
 </html>

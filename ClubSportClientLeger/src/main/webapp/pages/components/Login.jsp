@@ -9,7 +9,7 @@
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ page import="javax.servlet.http.HttpServletResponse"%>
 <%@ page import="javax.servlet.http.HttpSession"%>
-<%@ page import="model.Utilisateur"%>
+<%@ page import="model.Utilisateurs"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,40 +18,49 @@
 </head>
 <body>
     <%
+        // Récupération des paramètres de la requête
         String email = request.getParameter("email");
         String motdepasse = request.getParameter("motdepasse");
-
-        // Fonction pour hasher le mot de passe
-        String hashedPass = hashPassword(motdepasse);
-
-        UtilisateurDAO db = new UtilisateurDAO();
-         session = request.getSession();
-
+ 
+        // Vérification si les paramètres sont vides
         if (email == null || motdepasse == null || email.isEmpty() || motdepasse.isEmpty()) {
             String message = "Veuillez fournir votre adresse e-mail et votre mot de passe";
             request.setAttribute("message", message);
             RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
             dispatcher.forward(request, response);
         } else {
-        	Utilisateur utilisateur = db.getUtilisateur(email, hashedPass);
+            // Fonction pour hasher le mot de passe
+            String hashedPass = hashPassword(motdepasse);
+ 
+            // Accès à la base de données pour vérifier les informations de connexion
+            UtilisateurDAO db = new UtilisateurDAO();
+            Utilisateurs utilisateur = db.getUtilisateur(email, hashedPass);
+ 
             if (utilisateur != null) {
+                // Utilisateur trouvé, connexion réussie
+                session = request.getSession();
                 session.setAttribute("utilisateur", utilisateur);
+                session.setAttribute("nom", utilisateur.getNom());
+                session.setAttribute("id", db.getIdUtilisateur(email, hashedPass));// Sauvegarde de l'idUtilisateur dans la session
                 String message = "Vous êtes connecté";
                 request.setAttribute("message", message);
-                response.sendRedirect("../Acceuil.jsp");
+                response.sendRedirect("Acceuil.jsp");
             } else {
+                // Adresse e-mail ou mot de passe invalide
                 String message = "Adresse e-mail ou mot de passe invalide";
                 request.setAttribute("message", message);
-                response.sendRedirect("../Acceuil.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("LoginForm.jsp");
+                dispatcher.forward(request, response);
             }
         }
     %>
+ 
     <%-- Méthode pour hasher le mot de passe --%>
     <%!
-        public String hashPassword(String password1) {
+        public String hashPassword(String password) {
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
-                byte[] hashedBytes = md.digest(password1.getBytes());
+                byte[] hashedBytes = md.digest(password.getBytes());
                 return Base64.getEncoder().encodeToString(hashedBytes);
             } catch (NoSuchAlgorithmException e) {
                 // Gérer l'exception NoSuchAlgorithmException

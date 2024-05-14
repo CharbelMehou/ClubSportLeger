@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <jsp:include page="./components/Header.jsp" />
+    <jsp:include page="Header.jsp" />
  
     <div class="sub-part-navbar">
         <h1>LE PORTAIL DES CLUBS ET FEDERATIONS</h1>
@@ -104,7 +104,7 @@
         var codePostal = document.getElementById('codePostalInput').value;
     }
 </script>
-    <jsp:include page="./components/FederationTable.jsp" />
-    <jsp:include page="./components/Footer.jsp" />
+    <jsp:include page="FederationTable.jsp" />
+    <jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -8,24 +8,24 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<jsp:include page="./components/Header.jsp" />
+<jsp:include page="Header.jsp" />
 <div class="dataVisualisationPage">
 <div class="datadisplayer">
-	<jsp:include page="./components/FederationDataDisplayer.jsp" />
+	<jsp:include page="FederationDataDisplayer.jsp" />
 	<div class="diagramsdisplayer">
 		<div class="licenseRepartitionGraph">
-		  <jsp:include page="./components/LicenseRepartitionGraph.jsp" />
+		  <jsp:include page="LicenseRepartitionGraph.jsp" />
 		</div>
 		<div class="statsIndicatorDiagram">
-		   <jsp:include page="./components/StatsIndicatorDiagram.jsp" />
+		   <jsp:include page="StatsIndicatorDiagram.jsp" />
 		</div>
 	</div>
 </div>
 <div class="federation-map">
- <jsp:include page="./components/Map2.jsp" />
+ <jsp:include page="Map2.jsp" />
 </div>
  </div> 
 
-<jsp:include page="./components/Footer.jsp" />
+<jsp:include page="Footer.jsp" />
 </body>
 </html>

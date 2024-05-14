@@ -74,17 +74,17 @@
 
     if (currentPage > 1) {
     %>
-        <a href="./Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Précédente</a>
+        <a href="Acceuil.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Précédente</a>
     <% 
     }
     for (int i = startPage; i <= endPage; i++) {
     %>
-        <a href="./Acceuil.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
+        <a href="Acceuil.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
     <% 
     }
     if (currentPage < totalPages) {
     %>
-        <a href="./Acceuil.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Suivante</a>
+        <a href="Acceuil.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= currentFederation %>&searchType=<%= currentSearchType %>&region=<%= currentRegion %>&codePostal=<%= currentCodePostal %>">Suivante</a>
     <% 
     } 
     %>

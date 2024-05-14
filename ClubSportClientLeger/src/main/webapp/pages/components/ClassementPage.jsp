@@ -5,7 +5,7 @@
 <%@ page import="dao.FederationDAO" %>
 <%@ page import="dao.LicenseDAO" %>
 <%@ page import="model.License" %>
-<%@ page import="model.Utilisateur"%>
+<%@ page import="model.Utilisateurs"%>
 <%@ page import="model.FederationUtils" %>
 <%@ page import="utils.DepartementManager" %>
 <%@ page import="java.util.List" %>
@@ -15,6 +15,7 @@
 <%@ page import="java.util.Arrays" %>
 
 <%
+
     // Récupération des paramètres du formulaire
     int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
     int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
@@ -33,7 +34,6 @@
     
     ArrayList<License> federationList = dao.getAllLicensesFromFilters(null,null,null,null);
     ArrayList<String> federations = LicenseUtils.extractFederations(federationList);
-    
 %>
 <!DOCTYPE html>
 <html>
@@ -308,32 +308,9 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-    <div class="navbar-links">
-        <div class="navbar-link1">
-            <% if (session.getAttribute("utilisateur") != null) { %>
-                <span>Bienvenue, <%= ((Utilisateur) session.getAttribute("utilisateur")).getNom().toUpperCase() %></span>
-            <% } %>
-        </div>
-        <div>
-		    <a href="Acceuil.jsp" class="middle-nav-link">Accueil</a>    			   
-			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
-			<% if ( session.getAttribute("utilisateur")!=null && ((Utilisateur) session.getAttribute("utilisateur")).getRole()==1) { %>
-		    	<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 
-		    	<a href="ClassementPage.jsp" class="middle-nav-link">Classement</a> 	
-		    		
-			<% }%>				 		 
-		 </div>
-        <div class="navbar-link2">
-            <% if (session.getAttribute("utilisateur") == null) { %>
-                <a href="components/LoginForm.jsp">Se connecter</a>
-            <% } else { %>
-                <a href="components/AddUserForm.jsp">Inscrire un admin</a>
-                <a href="components/LogOut.jsp">Déconnexion</a>
-            <% } %>
-        </div>
-    </div>
-</nav>
+
+   <jsp:include page="Header.jsp" />
+   
     <div class="sub-part-navbar">
         <h1>VISUALISER LE CLASSEMENT DES DEPARTEMENTS REGIONS ET COMMUNES</h1>
         <p>BASEE SUR LES PROPORTIONS DE LICENSIES DES FEDERATIONS SPORTIVES</p>
@@ -407,48 +384,22 @@
 	
 	    if (currentPage > 1) {
 	    %>
-	        <a href="./ClassementPage.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Précédente</a>
+	        <a href="ClassementPage.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Précédente</a>
 	    <% 
 	    }
 	    for (int i = startPage; i <= endPage; i++) {
 	    %>
-	        <a href="./ClassementPage.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
+	        <a href="ClassementPage.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
 	    <% 
 	    }
 	    if (currentPage < totalPages) {
 	    %>
-	        <a href="./ClassementPage.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Suivante</a>
+	        <a href="ClassementPage.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Suivante</a>
 	    <% 
 	    } 
 	    %>
 	</div>
 </div>
-
-    <div class="footer">
-	  <div>
-	    <ul>
-	      <li>Présentation</li>
-	      <li>Fonctionnalités</li>
-	      <li>Offres</li>
-	      <li>Inscription</li>
-	      <li>Qui sommes-nous ?</li>
-	    </ul>
-	  </div>
-	  <div>
-	    <ul>
-	      <li>Portail Sports regions</li>
-	      <li>Annuaire des clubs</li>
-	      <li>Accès club abonnés</li>
-	    </ul>
-	  </div>
-	  <div>
-	    <ul>
-	      <li>Une question ?</li>
-	      <li>Consulter notre FAQ</li>
-	      <li>Questions fréquentes</li>
-	      <li>Nous contacter</li>
-	    </ul>
-	  </div>
-	</div>
+<jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -4,7 +4,7 @@
 <%@ page import="dao.FederationDAO" %>
 <%@ page import="dao.LicenseDAO" %>
 <%@ page import="model.License" %>
-<%@ page import="model.Utilisateur"%>
+<%@ page import="model.Utilisateurs"%>
 <%@ page import="model.FederationUtils" %>
 <%@ page import="utils.DepartementManager" %>
 <%@ page import="java.util.List" %>
@@ -288,29 +288,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-    <div class="navbar-links">
-        <div class="navbar-link1">
-            <% if (session.getAttribute("utilisateur") != null) { %>
-                <span>Bienvenue, <%= ((Utilisateur) session.getAttribute("utilisateur")).getNom().toUpperCase() %></span>
-            <% } %>
-        </div>
-        <div>
-		    <a href="Acceuil.jsp" class="middle-nav-link">Accueil</a>    			   
-			<a href="Maps.jsp?searchType=" class="middle-nav-link">Map</a>
-			<a href="FederationOnglet.jsp" class="middle-nav-link">Statistiques</a> 	
-			<a href="ClassementPage.jsp" class="middle-nav-link">Classement</a> 			 		 
-		 </div>
-        <div class="navbar-link2">
-            <% if (session.getAttribute("utilisateur") == null) { %>
-                <a href="components/LoginForm.jsp">Se connecter</a>
-            <% } else { %>
-                <a href="components/AddUserForm.jsp">Inscrire un admin</a>
-                <a href="components/LogOut.jsp">Déconnexion</a>
-            <% } %>
-        </div>
-    </div>
-</nav>
+
+<jsp:include page="Header.jsp" />
+    
 <div class="sub-part-navbar">
         <h1>DECOUVREZ LES DONNEES RELATIVES AUX FEDERATIONS</h1>
         <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHE DE CHEZ VOUS</p>
@@ -423,7 +403,7 @@
 	            });
 	          </script>
 	          <div id="export-container"> 
-	          	<form id="exportForm" action="./components/GeneratePDF.jsp" method="POST">
+	          	<form id="exportForm" action="GeneratePDF.jsp" method="POST">
 				    <input type="hidden" id="image1" name="image1">
 				    <input type="hidden" id="image2" name="image2">
 				    <input type="hidden" id="filters" name="filters">
@@ -539,31 +519,6 @@
         out.println("<script>document.addEventListener(\"DOMContentLoaded\", function() {handleDataLoaded(false);});</script>");
     }
  %>
-	<div class="footer">
-	  <div>
-	    <ul>
-	      <li>Présentation</li>
-	      <li>Fonctionnalités</li>
-	      <li>Offres</li>
-	      <li>Inscription</li>
-	      <li>Qui sommes-nous ?</li>
-	    </ul>
-	  </div>
-	  <div>
-	    <ul>
-	      <li>Portail Sports regions</li>
-	      <li>Annuaire des clubs</li>
-	      <li>Accès club abonnés</li>
-	    </ul>
-	  </div>
-	  <div>
-	    <ul>
-	      <li>Une question ?</li>
-	      <li>Consulter notre FAQ</li>
-	      <li>Questions fréquentes</li>
-	      <li>Nous contacter</li>
-	    </ul>
-	  </div>
-	</div>
+	<jsp:include page="Footer.jsp" />
 </body>
 </html>
