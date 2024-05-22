@@ -15,6 +15,13 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <style>
+.big-container{
+	background-color: #e5e5f7;
+	opacity: 0.8;
+	background-image: radial-gradient(#232aab 0.5px, #e5e5f7 0.5px);
+	background-size: 10px 10px;
+	padding:40px;
+}
 .container {
 	width: 80%; /* Largeur du formulaire */
 	max-width: 600px; /* Largeur maximale */
@@ -35,16 +42,13 @@
 }
  
 body {
-	background-color: #e5e5f7;
-	opacity: 0.8;
-	background-image: radial-gradient(#232aab 0.5px, #e5e5f7 0.5px);
-	background-size: 10px 10px;
 }
 </style>
 <title>Inscription</title>
 </head>
 <body>
 	<jsp:include page="Header.jsp" />
+	<div class="big-container"> 
 	<div class="container">
 		<div class="card bg-primary text-white">
 			<div class="card-body">Veuillez saisir vos informations
@@ -136,7 +140,9 @@ body {
             <strong>News!</strong> <%= message %>
         </div>
     <% } %>
+	 </div>
 	</div>
+	
 	<jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -46,7 +46,7 @@ public class AjoutPublication1 extends HttpServlet {
 			} catch (IOException e) {
 				e.printStackTrace();
 				// Gérer l'exception de stockage
-			}
+			} 
 		}
  
  

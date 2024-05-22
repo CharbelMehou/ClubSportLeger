@@ -14,11 +14,15 @@
  
 <style>
     body {
-        background-color: #e5e5f7;
-        opacity: 0.8;
+       
+    }
+    .container{
+     background-color: #e5e5f7;
+       opacity: 0.8;
         background-image: linear-gradient(#444cf7 1px, transparent 1px),
             linear-gradient(to right, #444cf7 1px, #e5e5f7 1px);
-        background-size: 20px 20px;
+            height:100vh;
+            width:100vw;
     }
 </style>
  
@@ -66,5 +70,7 @@
             %>
         </div>
     </div>
+        <jsp:include page="Footer.jsp" />
+    
 </body>
 </html>

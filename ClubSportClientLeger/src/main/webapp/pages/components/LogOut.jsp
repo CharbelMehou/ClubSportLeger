@@ -9,7 +9,7 @@
 <body>
 <%
     session.removeAttribute("utilisateur");
-    response.sendRedirect("../Acceuil.jsp");
+    response.sendRedirect("Acceuil.jsp");
 %>
 </body>
 </html>

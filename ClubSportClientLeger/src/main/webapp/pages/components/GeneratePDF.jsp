@@ -15,7 +15,7 @@
     response.setContentType("application/pdf");
     response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
-    // Lire les données du formulaire envoyé
+    //Pour Lire les données du formulaire envoyé
     String base64Image1 = request.getParameter("image1");
     String base64Image2 = request.getParameter("image2");
     String filters = new String(request.getParameter("filters").getBytes("ISO-8859-1"), "UTF-8");

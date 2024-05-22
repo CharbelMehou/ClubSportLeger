@@ -233,78 +233,7 @@
 	.pagination a:hover:not(.active) {
 	    background-color: #ddd;
 	}
-	/* Styles de la navbar */
-		.navbar {
-		    background-color: #11559C;
-		    color: #ffffff;
-		    padding:10px;
-		    min-height: 50px;    
-		}
 	
-		.navbar-links {
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    width: 100%;
-		}
-		.navbar-link1, .navbar-link2 {
-		    display: flex;
-		    align-items: center;
-		}
-		
-		.navbar-link1 {
-		    justify-content: flex-start;
-		}
-		
-		.navbar-link2 {
-		    justify-content: flex-end;
-		}
-		.navbar a{
-		    text-decoration: none;
-		    color: #ffffff;
-		    margin-left: 20px;
-		    padding: 10px;
-		    font-weight:bold;
-		    transition: background-color 0.3s ease;
-		}
-		.navbar span{
-		    text-decoration: none;
-		    color: #ffffff;
-		    margin-left: 20px;
-		    padding: 10px;
-		    font-size:20px;
-		    font-weight:bold;
-		    transition: background-color 0.3s ease;
-		}
-		.navbar a:hover,
-		.navbar a:focus {
-		    background-color: #ffffff;
-		    color: #002F6C;
-		    border-radius: 5px;
-		}
-	 	  /*Style du footer*/
-		.footer {
-			  background-color: #333;
-			  color: white;
-			  display: flex;
-			  justify-content: space-between;
-			  padding: 20px; 
-			  font-size: 0.8em;
-			  margin-top:20px;
-		}
-		
-		.footer div {
-		  margin: 0 20px;
-		 }
-		
-		.footer div ul {
-		  list-style-type: none;
-		  padding: 0;
-		}
-		
-		.footer div ul li {
-		  margin-bottom: 10px;
-		}
     </style>
 </head>
 <body>
@@ -312,8 +241,8 @@
    <jsp:include page="Header.jsp" />
    
     <div class="sub-part-navbar">
-        <h1>VISUALISER LE CLASSEMENT DES DEPARTEMENTS REGIONS ET COMMUNES</h1>
-        <p>BASEE SUR LES PROPORTIONS DE LICENSIES DES FEDERATIONS SPORTIVES</p>
+        <h1>VISUALISER LE CLASSEMENT DES DÉPARTEMENTS RÉGIONS ET COMMUNES</h1>
+        <p>BASÉE SUR LES PROPORTIONS DES LICENCIÉS DES FÉDÉRATIONS SPORTIVES</p>
         <div class="sub-part-navbar-bottom-side">
             <p>Affinez votre recherche</p>
         </div>

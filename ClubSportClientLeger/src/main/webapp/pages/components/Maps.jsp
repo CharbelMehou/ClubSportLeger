@@ -116,8 +116,8 @@
 <body>
 <jsp:include page="Header.jsp" />
 <div class="sub-part-navbar">
-        <h1>EXPLOREZ LES DONNEES GEOGRAPHIQUES DES FEDERATIONS</h1>
-        <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHE DE CHEZ VOUS</p>
+        <h1>EXPLOREZ LES DONNÉES GÉOGRAPHIQUES DES FÉDÉRATIONS</h1>
+        <p>DES DÉPARTEMENTS RÉGIONS ET COMMUNES PROCHES DE CHEZ VOUS</p>
         <div class="sub-part-navbar-bottom-side">
             <p>Affinez votre recherche</p>
         </div>

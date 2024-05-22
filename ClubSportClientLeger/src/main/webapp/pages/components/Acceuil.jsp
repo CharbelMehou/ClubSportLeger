@@ -18,8 +18,8 @@
     <jsp:include page="Header.jsp" />
  
     <div class="sub-part-navbar">
-        <h1>LE PORTAIL DES CLUBS ET FEDERATIONS</h1>
-        <p>DECOUVREZ TOUTE L'ACTUALITE DES CLUBS ET FEDERATIONS PROCHE DE CHEZ VOUS</p>
+        <h1>LE PORTAIL DES CLUBS ET FÉDÉRATIONS</h1>
+        <p>DECOUVREZ TOUTE L'ACTUALITÉ DES CLUBS ET FÉDERATIONS PROCHEs DE CHEZ VOUS</p>
         <div class="sub-part-navbar-bottom-side">
             <p>Affinez votre recherche</p>
         </div>

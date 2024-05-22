@@ -8,10 +8,15 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+          <style>
+          .container{
+			padding:20px;
+			}
+          </style>
 </head>
 <body>
 <jsp:include page="Header.jsp" />
- 
+<div class="container">
 <div class="col-md-12">
     <h1>Faire une publication</h1>
     <form action="../../AjoutPublication1" method="POST" enctype="multipart/form-data">
@@ -31,6 +36,7 @@
             <button class="btn btn-outline-primary" type="submit">Ajouter</button>
         </div>
     </form>
+</div>
 </div>
  
 <jsp:include page="Footer.jsp" />
