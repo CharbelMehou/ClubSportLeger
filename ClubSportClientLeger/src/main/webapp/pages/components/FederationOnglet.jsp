@@ -309,8 +309,14 @@
                     FederationDAO dao = new FederationDAO();
                     ArrayList<Federation> federationList = dao.getAllFederations();
                     ArrayList<String> federations = FederationUtils.extractFederations(federationList);
+            	   
+                    String nomFederation = request.getParameter("federation")!=null? request.getParameter("federation"): "FF de Football";
+            	    String codeDepartement = request.getParameter("departement");
+            	    String nomRegion = request.getParameter("region");
+            	    String nomCommune = request.getParameter("commune");
+            	    
                     for (String federation : federations) { %>
-                        <option value="<%= federation %>"><%= federation %></option>
+                        <option value="<%= federation %>"<%= federation.equals(nomFederation) ? "selected" : "" %>><%= federation %></option>
                     <% } %>
                 </select>
             </div>
@@ -322,7 +328,7 @@
                     <% 
                     ArrayList<String> departementList = FederationUtils.extractDepartements(federationList);
                     for (String departement : departementList) { %>
-                        <option value="<%= departement %>"><%= departement %></option>
+                        <option value="<%= departement %>"<%= departement.equals(codeDepartement) ? "selected" : "" %>><%= departement %></option>
                     <% } %>
                 </select>
             </div>
@@ -334,7 +340,7 @@
                     <% 
                     ArrayList<String> regionList = FederationUtils.extractRegions(federationList);
                     for (String region : regionList) { %>
-                        <option value="<%= region %>"><%= region %></option>
+                        <option value="<%= region %>"<%= region.equals(nomRegion) ? "selected" : "" %>><%= region %></option>
                     <% } %>
                 </select>
             </div>
@@ -346,7 +352,7 @@
                     <% 
                     ArrayList<String> communeList = FederationUtils.extractCommunes(federationList);
                     for (String commune : communeList) { %>
-                        <option value="<%= commune %>"><%= commune %></option>
+                        <option value="<%= commune %>"<%= commune.equals(nomCommune) ? "selected" : "" %>><%= commune %></option>
                     <% } %>
                 </select>
             </div>
@@ -361,11 +367,7 @@
       <div id="spinner"></div>
     </div>
     <img id="noData" src="./Pics/NoData.jpg" alt="No Data Available"/>  
-    <%
-	    String nomFederation = request.getParameter("federation");
-	    String codeDepartement = request.getParameter("departement");
-	    String nomRegion = request.getParameter("region");
-	    String nomCommune = request.getParameter("commune");
+       <%
 		boolean allDataLoaded=false;
 		%>
 		<script>

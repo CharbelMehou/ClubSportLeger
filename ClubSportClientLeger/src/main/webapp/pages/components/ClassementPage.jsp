@@ -22,11 +22,15 @@
     LicenseDAO dao = new LicenseDAO();
     
     String nomfederation = request.getParameter("federation")!=null? request.getParameter("federation"): "FF de Football";
-    String sortOption = request.getParameter("sortOption")!=null? request.getParameter("sortOption") :"DESC";
+    String nomsortOption = request.getParameter("sortOption")!=null? request.getParameter("sortOption") :"DESC";
+   
+    ArrayList<String> sortOptions =new ArrayList<>();
+    sortOptions.add("DESC");
+    sortOptions.add("ASC"); 
     
     int totalRecords = dao.countLicencesRelatedToFederation(nomfederation);
     
-    ArrayList<License> federationListTab=dao.getAllLicensesFromFederation(nomfederation,sortOption,currentPage,pageSize);
+    ArrayList<License> federationListTab=dao.getAllLicensesFromFederation(nomfederation,nomsortOption,currentPage,pageSize);
     
     int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
 	
@@ -257,15 +261,17 @@
 		                    <option value="">Toutes les fédérations</option>
 		                    <% 	               
 		                    for (String federation : federations) { %>
-		                        <option value="<%= federation %>"><%= federation.replace("''", "'") %></option>
+		                        <option value="<%= federation %>"<%= federation.equals(nomfederation) ? "selected" : "" %>><%= federation.replace("''", "'") %></option>
 		                    <% } %>
 		                </select>
 		            </div>
 		            <div class="">
 					    <label for="sortOptionSelect">Option de Tri :</label>
 					    <select id="sortOptionSelect" name="sortOption"	>
-					        <option value="DESC">Décroissant</option>
-					        <option value="ASC">Croissant</option>				        
+					        <% 	               
+		                    for (String sortOption : sortOptions) { %>
+		                        <option value="<%= sortOption %>"<%= sortOption.equals(nomsortOption) ? "selected" : "" %>><%= sortOption %></option>
+		                    <% } %>			        
 					    </select>
 					</div>
 	            </div> 
@@ -308,22 +314,22 @@
 	<div class="pagination">
 	    <% 
 	    // Récupération et encodage des valeurs actuelles des filtres
-	    int startPage = Math.max(1, currentPage - 5);
-	    int endPage = Math.min(totalPages, currentPage + 4);
+	    int startPage = Math.max(1, currentPage - 9);
+	    int endPage = Math.min(totalPages, currentPage + 8);
 	
 	    if (currentPage > 1) {
 	    %>
-	        <a href="ClassementPage.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Précédente</a>
+	        <a href="ClassementPage.jsp?page=<%= currentPage - 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= nomsortOption %>">Précédente</a>
 	    <% 
 	    }
 	    for (int i = startPage; i <= endPage; i++) {
 	    %>
-	        <a href="ClassementPage.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
+	        <a href="ClassementPage.jsp?page=<%= i %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= nomsortOption %>" <%= i == currentPage ? "class='active'" : "" %>><%= i %></a>
 	    <% 
 	    }
 	    if (currentPage < totalPages) {
 	    %>
-	        <a href="ClassementPage.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= sortOption %>">Suivante</a>
+	        <a href="ClassementPage.jsp?page=<%= currentPage + 1 %>&pageSize=<%= pageSize %>&federation=<%= nomfederation %>&sortOption=<%= nomsortOption %>">Suivante</a>
 	    <% 
 	    } 
 	    %>
