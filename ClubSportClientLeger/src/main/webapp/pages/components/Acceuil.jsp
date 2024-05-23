@@ -30,7 +30,7 @@
         <!-- Sï¿½lection de fï¿½dï¿½ration -->
         <div class="dropdown">
             <label for="federationSelect">Fédération :</label>
-            <select id="federationSelect" name="federation" class="form-control">
+            <select id="federationSelect" name="federation" class="form-control" onchange="this.form.submit()">
                 <option value="">Toutes les fédérations</option>
                 <%
                 FederationDAO dao = new FederationDAO();
@@ -63,10 +63,10 @@
 	                </div>
        						
 					<div  class="dropdown" id="regionGroup">
-						<label for="regionSelect">Région :</label> <select
-							id="regionSelect" name="region" class="form-control">
+						<label for="regionSelect">Région :</label> 
+						<select id="regionSelect" name="region" class="form-control" onchange="this.form.submit()">
 							<option value="">Toute la France</option>
-							<% List<String> regions = dao.getCommunes();
+							<% List<String> regions = dao.getCommunes(nomfederation);
                            for (String region : regions) { %>
 							<option value="<%= region %>"<%= region.equals(nomRegion) ? "selected" : "" %>><%= region.replace("''", "'") %></option>
 							<% } %>

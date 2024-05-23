@@ -434,7 +434,7 @@ public class FederationDAO extends ConnexionDao {
 	     * Pour récupérer la liste des communes des fédérationss
 	     * @return listes des communes 
 	     */
-	    public ArrayList<String> getCommunes() {
+	    public ArrayList<String> getCommunes(String nomFederation) {
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        ResultSet rs = null;
@@ -442,14 +442,24 @@ public class FederationDAO extends ConnexionDao {
 	        try {
 	            // Connexion à la base de données
 	            con = DriverManager.getConnection(URL, LOGIN, PASS);
-	            // Requête SQL pour récupérer les clubs en fonction de la région et de la fédération
 	            
-	                ps = con.prepareStatement("SELECT  DISTINCT  Region FROM federation ");
-	                
+	            // Préparation de la requête SQL
+	            String sql = "SELECT DISTINCT Region FROM federation";
+	            if (nomFederation != null && !nomFederation.isEmpty()) {
+	                sql += " WHERE Federation = ?";
+	            }
+	            
+	            ps = con.prepareStatement(sql);
+	            
+	            // Si le nom de la fédération est fourni, on l'ajoute au PreparedStatement
+	            if (nomFederation != null && !nomFederation.isEmpty()) {
+	                ps.setString(1, nomFederation);
+	            }
+	            
 	            // Exécution de la requête et traitement des résultats
 	            rs = ps.executeQuery();
 	            while (rs.next()) {
-	                // Création d'un objet Club à partir des données de la base de données
+	                // Ajout de la région à la liste des résultats
 	                returnValue.add(rs.getString("Region"));
 	            }
 	        } catch (Exception ee) {
@@ -473,7 +483,7 @@ public class FederationDAO extends ConnexionDao {
 	            } catch (Exception ignore) {
 	            }
 	        }
-	        // Retourne la liste de clubs obtenue
+	        // Retourne la liste des régions obtenues
 	        return returnValue;
 	    }
 	    /**

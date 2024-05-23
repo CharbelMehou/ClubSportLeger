@@ -19,37 +19,10 @@
     <title>Statistiques des fédérations</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
 
     
     <style>
-	    * {
-	    margin: 0;
-	    padding: 0;
-	    box-sizing: border-box;
-		}
-		
-		body {
-		    font-family: 'Arial', sans-serif;
-		    height: 100vh;
-		}
-        .chart-container {
-            display: flex;
-            flex-direction: colum;
-            padding: 10px;
-            width:100vw;
-            margin-bottom:20px;
-        }
-        .chart-container label{
-        	color:#333;
-        	font-size: 16px;
-        }
-        .chart-sub-container {
-            display: flex;
-            flex-direction: row;
-            padding: 10px;
-            width:48vw;
-            margin-bottom:20px;
-        }
   		#StatsIndicatorDiagram{
   		    width:200px;
             heigth:400px;
@@ -58,216 +31,6 @@
   		    width:200px;
             heigth:400px;
   		}
-        #spinner-container{
-        	display:block;
-        	flex-direction:row;
-        	justify-content:center;
-        	align-items:center;
-        	heigth:100vh;
-        	
-        }
-       #spinner {
-           display: none;
-           margin: auto;
-		   width: 100px;
-		   height: 100px;
-		   border-radius: 50%;
-		   border: 9px solid;
-		   border-color: #dbdcef;
-		   border-right-color: #11559C;
-		   animation: spinner-d3wgkg 1s infinite linear;
-		}
-		@keyframes spinner-d3wgkg {
-		   to {
-		      transform: rotate(1turn);
-		   }
-		}
-        #noData {
-           display: none;
-           margin: auto;
-           width: 800px;
-           height: 800px;
-        }
-        
-        .search-box {
-	       background-color: #4B4B4B;
-	       display: flex;
-	       flex-direction: row;
-	       justify-content: space-between;
-	       height: 150px;
-	       padding: 20px;
-		   align-items: center;
-	    }
-	    .search-box label {
-	       display: block; 
-		   font-weight: bold;
-		   margin-bottom: 5px;
-		   color: white;  
-	    }
-	    .search-box select{
-	       width:150px;              
-		   padding: 8px;        
-		   font-size: 14px;          
-		   border: 1px solid #ccc;   
-		   border-radius: 4px;       
-		   box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-		   background-color: white;  
-		   color: #333;              
-		   margin-top: 5px;
-		   cursor: pointer; 
-	    }
-	    .search-box select:focus{
-	       border-color: #11559C;
-           outline: none;
-	    }
-	    .form-select {
-	        background-color: #f8f9fa;
-	        border: 1px solid #ccc;
-	        border-radius: 4px;
-	        padding: 8px;
-	        color: #333;
-	        width: 100%;
-	    }
-	    .form-select:focus {
-            border-color: #80bdff;
-	        outline: none;
-	    }
-	    .search-button {
-	        background-color: #007bff;
-	        color: white;
-	        border: none;
-	        padding: 10px 20px;
-	        border-radius: 4px;
-	        font-size: 18px;
-	        cursor: pointer;
-	        transition: background-color 0.3s;
-	    }
-	    .search-button:hover {
-	        background-color: #0056b3;
-	    }
-	    /* Styles de la navbar */
-		.navbar {
-		    background-color: #11559C;
-		    color: #ffffff;
-		    padding:10px;
-		    min-height: 50px;    
-		}
-	
-		.navbar-links {
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    width: 100%;
-		}
-		.navbar-link1, .navbar-link2 {
-		    display: flex;
-		    align-items: center;
-		}
-		
-		.navbar-link1 {
-		    justify-content: flex-start;
-		}
-		
-		.navbar-link2 {
-		    justify-content: flex-end;
-		}
-		.navbar a{
-		    text-decoration: none;
-		    color: #ffffff;
-		    margin-left: 20px;
-		    padding: 10px;
-		    font-weight:bold;
-		    transition: background-color 0.3s ease;
-		}
-		.navbar span{
-		    text-decoration: none;
-		    color: #ffffff;
-		    margin-left: 20px;
-		    padding: 10px;
-		    font-size:20px;
-		    font-weight:bold;
-		    transition: background-color 0.3s ease;
-		}
-		.navbar a:hover,
-		.navbar a:focus {
-		    background-color: #ffffff;
-		    color: #002F6C;
-		    border-radius: 5px;
-		}
-		  /*Style du footer*/
-		.footer {
-			  background-color: #333;
-			  color: white;
-			  display: flex;
-			  justify-content: space-between;
-			  padding: 20px; 
-			  font-size: 0.8em;
-			  margin-top:20px;
-		}
-		
-		.footer div {
-		  margin: 0 20px;
-		 }
-		
-		.footer div ul {
-		  list-style-type: none;
-		  padding: 0;
-		}
-		
-		.footer div ul li {
-		  margin-bottom: 10px;
-		}
-    .submitButton {
-		  width: 200px;
-		  height: 50px;
-		  border: 1px solid #11559C;
-		  background: #11559C;
-		  text-align: center;
-		  margin-top: 30px;
-		  color: #fff;
-		  border-radius: 0 5px 5px 0;
-		  cursor: pointer;
-		  font-size: 20px;
-		}
-		.sub-part-navbar{
-		background-color: #e5e5f7;
-	    opacity: 0.8;
-	    background-image: radial-gradient(#11559C 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
-	    background-size: 17px 17px;
-	    min-height: 170px;
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: space-between;
-	    padding-top:10px;
-	}
-	.sub-part-navbar h1,	
-	.sub-part-navbar p{
-		margin-left: 40px;
-		font-weight:bold;
-		font-size:30px;
-		color: #11559C;
-	}
-	.sub-part-navbar-bottom-side{
-	    background-color: #1E1E1E;
-	    color: #ffffff;
-	    height: 40px;
-	    width: 250px;
-	    display:flex;
-	    align-items:center;
-	 }
-	 .sub-part-navbar-bottom-side p{
-	     color: #ffffff;
-	     font-size:15px;
-	 }
-	 .btn-export {
-	  background-color: DodgerBlue;
-	  border: none;
-	  color: white;
-	  padding: 12px 30px;
-	  border-radius: 0 5px 5px 0;
-	  cursor: pointer;
-	  font-size: 20px;
-	}
     </style>
     <script>
 	    function showSpinner() {
@@ -303,7 +66,7 @@
             <!-- Sélection de fédération -->
             <div class="">
                 <label for="federationSelect">Fédération :</label>
-                <select id="federationSelect" name="federation" class="">
+                <select id="federationSelect" name="federation" class="" onchange="this.form.submit()">
                     <option value="">Toutes les fédérations</option>
                     <% 
                     FederationDAO dao = new FederationDAO();
@@ -320,27 +83,28 @@
                     <% } %>
                 </select>
             </div>
-            <!-- Sélection de département -->
-            <div class="">
-                <label for="departementSelect">Département :</label>
-                <select id="departementSelect" name="departement" class="">
-                    <option value="">Toute la France</option>
-                    <% 
-                    ArrayList<String> departementList = FederationUtils.extractDepartements(federationList);
-                    for (String departement : departementList) { %>
-                        <option value="<%= departement %>"<%= departement.equals(codeDepartement) ? "selected" : "" %>><%= departement %></option>
-                    <% } %>
-                </select>
-            </div>
             <!-- Sélection de région -->
             <div class="">
                 <label for="regionSelect">Région :</label>
-                <select id="regionSelect" name="region" class="">
+                <select id="regionSelect" name="region" class="" onchange="this.form.submit()" >
                     <option value="">Toute la France</option>
                     <% 
-                    ArrayList<String> regionList = FederationUtils.extractRegions(federationList);
+                    ArrayList<String> regionList = FederationUtils.extractRegions(federationList,nomFederation);
                     for (String region : regionList) { %>
                         <option value="<%= region %>"<%= region.equals(nomRegion) ? "selected" : "" %>><%= region %></option>
+                    <% } %>
+                </select>
+            </div>
+            <!-- Sélection de département -->
+            <div class="">
+                <label for="departementSelect">Département :</label>
+                <select id="departementSelect" name="departement" class="" onchange="this.form.submit()">
+                    <option value="">Toute la France</option>
+                    <% 
+                    ArrayList<String> departementList = FederationUtils.extractDepartements(federationList,nomRegion);
+                    DepartementManager departementManager =new DepartementManager();
+                    for (String departement : departementList) { %>
+                        <option value="<%= departement %>"<%= departement.equals(codeDepartement) ? "selected" : "" %>><%= departementManager.getDepartementName(departement) %></option>
                     <% } %>
                 </select>
             </div>
@@ -350,7 +114,7 @@
                 <select id="communeSelect" name="commune" class="">
                     <option value="">Toute la France</option>
                     <% 
-                    ArrayList<String> communeList = FederationUtils.extractCommunes(federationList);
+                    ArrayList<String> communeList = FederationUtils.extractCommunes(federationList,codeDepartement);
                     for (String commune : communeList) { %>
                         <option value="<%= commune %>"<%= commune.equals(nomCommune) ? "selected" : "" %>><%= commune %></option>
                     <% } %>
@@ -499,7 +263,7 @@
     		<script>
     		function prepareAndSubmit() {
     		    // Construire la chaîne de filtres
-				var filterString = "Fédération: " + '<%= nomFederation %>' + ", Département: " + '<%= codeDepartement %>' + ", Région: " + '<%= nomRegion %>' + ", Commune: " + '<%= nomCommune %>';
+				var filterString = "Fédération: " + '<%= nomFederation %>' + ", Département: " + '<%= departementManager.getDepartementName(codeDepartement) %>' + " , Région: " + '<%= nomRegion %>' + ", Commune: " + '<%=nomCommune %>';
 				var fileName ='<%= nomFederation %>' + "_" + '<%= codeDepartement %>' + "_" + '<%= nomRegion %>' + "_" + '<%= nomCommune %>';
 
 				document.getElementById('filters').value = filterString;
