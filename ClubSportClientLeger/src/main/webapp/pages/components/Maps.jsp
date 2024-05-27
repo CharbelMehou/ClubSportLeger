@@ -145,7 +145,7 @@
                     <div class="form-group">
                         <label for="searchTypeSelect">Rechercher par :</label> <select
                             id="searchTypeSelect" name="searchType" class="form-control"
-                            onchange="toggleSearchType()">
+                            onchange="toggleSearchType()" >
                             <option value="region" <%= "region".equals(request.getParameter("searchType")) ? "selected" : "" %>>Région</option>
                             <option value="codePostal" <%= "codePostal".equals(request.getParameter("searchType")) ? "selected" : "" %>>Code Postal</option>
                             <option value="position" <%= "position".equals(request.getParameter("searchType")) ? "selected" : "" %>>Par rapport à votre position</option>
@@ -159,7 +159,7 @@
                             id="regionSelect" name="region" class="form-control">
                             <option value="">Toute la France</option>
                             <%
-                                List<String> regions = a.getCommunes();
+                                List<String> regions = a.getCommunes(selectedFederation);
                                 String selectedRegion = request.getParameter("region");
                                 for (String region : regions) {
                             %>
@@ -202,6 +202,7 @@
     <script>
         // Fonction pour afficher les éléments en fonction du type de recherche sélectionné
         function toggleSearchType() {
+        	this.form.submit();
             var searchType = document.getElementById('searchTypeSelect').value;
             document.getElementById('distanceSliderGroup').style.display = searchType === 'position' ? 'block' : 'none';
             document.getElementById('regionGroup').style.display = searchType === 'region' ? 'block' : 'none';

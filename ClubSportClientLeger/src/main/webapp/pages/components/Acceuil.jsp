@@ -30,20 +30,24 @@
         <!-- Sï¿½lection de fï¿½dï¿½ration -->
         <div class="dropdown">
             <label for="federationSelect">Fédération :</label>
-            <select id="federationSelect" name="federation" class="form-control">
+            <select id="federationSelect" name="federation" class="form-control" onchange="this.form.submit()">
                 <option value="">Toutes les fédérations</option>
                 <%
                 FederationDAO dao = new FederationDAO();
                 List<String> federationList = dao.getFederations();
+			    String nomfederation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
+			    String nomCritere = request.getParameter("searchType") != null ? request.getParameter("searchType").trim() : "";
+			    String nomRegion = request.getParameter("region") != null ? request.getParameter("region").trim() : "";
+			    String nomCodePostal = request.getParameter("codePostal") != null ? request.getParameter("codePostal").trim() : "";
+			    
                 for (String federation : federationList) { %>
-                    <option value="<%= federation %>"><%= federation.replace("''", "'") %></option>
+                    <option value="<%= federation %>"<%= federation.equals(nomfederation) ? "selected" : "" %>><%= federation.replace("''", "'") %></option>
                 <% } %>
             </select>
         </div>
  
         <%
-        // Rï¿½cupï¿½ration du terme de recherche
-        String federation = request.getParameter("federation") != null ? request.getParameter("federation").trim() : "";
+        // Récupération du terme de recherche
         int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         int pageSize = request.getParameter("pageSize") != null ? Integer.parseInt(request.getParameter("pageSize")) : 15;
  
@@ -59,24 +63,21 @@
 	                </div>
        						
 					<div  class="dropdown" id="regionGroup">
-						<label for="regionSelect">Région :</label> <select
-							id="regionSelect" name="region" class="form-control">
+						<label for="regionSelect">Région :</label> 
+						<select id="regionSelect" name="region" class="form-control" onchange="this.form.submit()">
 							<option value="">Toute la France</option>
-							<% List<String> regions = dao.getCommunes();
+							<% List<String> regions = dao.getCommunes(nomfederation);
                            for (String region : regions) { %>
-							<option value="<%= region %>"><%= region.replace("''", "'") %></option>
+							<option value="<%= region %>"<%= region.equals(nomRegion) ? "selected" : "" %>><%= region.replace("''", "'") %></option>
 							<% } %>
 						</select>
 					</div>
 					
 					<div class="dropdown" id="codePostalGroup" style="display: none;">
-
 						<label for="codePostalInput">Code Postal :</label>
-
-						<label for="codePostalInput">Code Postal :</label> 
 						<input
 							type="text" id="codePostalInput" name="codePostal"
-							class="form-control">
+							class="form-control" <%= nomCodePostal.equals(nomRegion) ? "selected" : "" %>>
 					</div>
 							
 					 <div class="submit-group">

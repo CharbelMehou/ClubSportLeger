@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../components/componentStyle.css">
+<link rel="stylesheet" href="componentStyle.css">
 </head>
 <body>
 <nav class="navbar">
