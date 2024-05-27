@@ -31,6 +31,12 @@
   		    width:200px;
             heigth:400px;
   		}
+  		#export-container{
+		display:flex;
+		flex-direction:row;
+		gap:20px;
+		margin-bottom:40px;
+		}
     </style>
     <script>
 	    function showSpinner() {
@@ -49,6 +55,7 @@
 	    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -177,7 +184,43 @@
 					<button onclick="prepareAndSubmit()" class="btn-export" ><i class="fa fa-download"></i> Export PDF </button>
 				</form>
 	          	
+		          	<form id="exportFormExcel" onsubmit="generateExcel(); return false;">
+				    <input type="hidden" id="ageLabels" name="ageLabels" value='["1-4 ans", "5-9 ans", "10-14 ans", "15-19 ans", "20-24 ans", "25-29 ans", "30-34 ans", "35-39 ans", "40-44 ans", "45-49 ans", "50-54 ans", "55-59 ans", "60-64 ans", "65-69 ans", "70-74 ans", "75-79 ans", "80+ ans"]'>
+				    <input type="hidden" id="maleData" name="maleData" value='<%= java.util.Arrays.toString(maleData) %>'>
+				    <input type="hidden" id="femaleData" name="femaleData" value='<%= java.util.Arrays.toString(femaleData) %>'>
+				    <button type="submit" class="btn-export"><i class="fa fa-download"></i> Export Excel</button>
+				   </form>
 	          </div>
+	          <script>
+				function generateExcel() {
+				    // Récupére les données à partir des inputs cachés ou des éléments HTML
+				    var ageLabels = JSON.parse(document.getElementById('ageLabels').value);
+				    var maleData = JSON.parse(document.getElementById('maleData').value);
+				    var femaleData = JSON.parse(document.getElementById('femaleData').value);
+				 
+				   
+				    var wb = XLSX.utils.book_new();
+				    
+				    var ws_data = [
+				        ["Âge", "Nombre de licenciés Hommes", "Nombre de licenciés Femmes"]
+				    ];
+				 
+				    // Ajoute les données au tableau
+				    for (var i = 0; i < ageLabels.length; i++) {
+				        // Ajoute une ligne pour chaque âge avec le nombre de licenciés hommes et femmes
+				        ws_data.push([ageLabels[i], parseInt(maleData[i]), parseInt(femaleData[i])]);
+				    }
+				 
+				    // Convertis les données du tableau en une feuille de calcul
+				    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+				 
+				    // Ajoute la feuille de calcul au classeur
+				    XLSX.utils.book_append_sheet(wb, ws, "Statistiques");
+				 
+				    // Génére et télécharger le fichier Excel
+				    XLSX.writeFile(wb, 'statistiques_federation.xlsx');
+				}
+				</script>
                 <div class='chart-container'>
                 	<label> </label>
 	                <div class='chart-sub-container'>
