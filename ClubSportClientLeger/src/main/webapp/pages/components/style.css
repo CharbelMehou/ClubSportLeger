@@ -333,7 +333,7 @@ body {
       border: none;
       color: white;
       padding: 12px 30px;
-      border-radius: 0 5px 5px 0;
+      border-radius: 5px 5px 5px 5px;
       cursor: pointer;
       font-size: 20px;
     }
@@ -349,3 +349,4 @@ body {
 		  cursor: pointer;
 		  font-size: 20px;
 		}
+		
