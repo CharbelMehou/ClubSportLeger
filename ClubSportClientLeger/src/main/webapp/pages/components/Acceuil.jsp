@@ -19,7 +19,7 @@
  
     <div class="sub-part-navbar">
         <h1>LE PORTAIL DES CLUBS ET FÉDÉRATIONS</h1>
-        <p>DECOUVREZ TOUTE L'ACTUALITÉ DES CLUBS ET FÉDERATIONS PROCHEs DE CHEZ VOUS</p>
+        <p>DÉCOUVREZ TOUTE L'ACTUALITÉ DES CLUBS ET FÉDÉRATIONS PROCHES DE CHEZ VOUS</p>
         <div class="sub-part-navbar-bottom-side">
             <p>Affinez votre recherche</p>
         </div>

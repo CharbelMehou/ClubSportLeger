@@ -41,16 +41,22 @@
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
 		} else {
+			if(validatePassword(motdepasse)){			
 			if (db.adds(nom, prenom, email, hashedPass,federation,club,statut) == 0) {
 				String message = "Votre demande d'inscription à été prise en compte";
+				String messageStatus="good";
 				String messages="Merci pour votre inscription sur notre site.Vous recevrez un autre mail de comfirmation d'ici 2 semaines.Bien cordialement";
 				request.setAttribute("message", message);
+				request.setAttribute("messageStatus", messageStatus);
 				String subject = "Inscription sur le site du groupe 3";
 				sendEmail(email,subject,messages);
 				request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
+			}
 			} else {
-				String message = "L'utilisateur ne peut pas être ajouté";
+				String message = "Le mot de passe ne respecte pas les instructions";
+				String messageStatus="bad";
 				request.setAttribute("message", message);
+				request.setAttribute("messageStatus", messageStatus);
 				request.getRequestDispatcher("AddUserForm.jsp").forward(request, response);
 			}
 		}
@@ -71,7 +77,55 @@
                 return null;
             }
         }
+   		boolean validatePassword(String password) {
+        // Vérification de la longueur (minimum 12 caractères)
+        if (password.length() < 12) {
+            return false;
+        } 
+        // Vérification de la présence d'au moins une majuscule et une minuscule
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            }
+        }
+        if (!hasUpperCase || !hasLowerCase) {
+            return false;
+        }
+        
+        // Vérification de la présence de chiffres
+        boolean hasDigit = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+                break;
+            }
+        }
+        if (!hasDigit) {
+            return false;
+        }
+        
+        // Vérification de la présence de caractères spéciaux
+        String specialCharacters = "!@#$%^&*()-+=`~[]{}|;:',.<>/?";
+        boolean hasSpecialCharacter = false;
+        for (char c : password.toCharArray()) {
+            if (specialCharacters.contains(String.valueOf(c))) {
+                hasSpecialCharacter = true;
+                break;
+            }
+        }
+        if (!hasSpecialCharacter) {
+            return false;
+        }
+        
+        return true;
+    }
+
     %>
+    
     
     <%!private void sendEmail(String email, String subject, String message) {
         Properties props = new Properties();

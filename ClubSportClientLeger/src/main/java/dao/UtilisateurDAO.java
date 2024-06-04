@@ -24,7 +24,7 @@ public class UtilisateurDAO extends ConnexionDao {
  
  
 	public UtilisateurDAO() {
-		super();
+		super(); 
 	}
  
 	/**
@@ -367,6 +367,7 @@ public class UtilisateurDAO extends ConnexionDao {
 		// Retourne la liste de codes de coordonnées obtenue
 		return returnValue;
 	}
+	
  
 	public boolean deleteUtilisateur(String email, String password) {
 	    Connection con = null;
@@ -469,5 +470,46 @@ public class UtilisateurDAO extends ConnexionDao {
  
 	    return rowsAffected;
 	}
+	/**
+     * Méthode pour mettre à jour le profil utilisateur avec de nouvelles informations.
+     * 
+     * @param utilisateur L'utilisateur avec les nouvelles informations à mettre à jour.
+     * @return true si la mise à jour a réussi, false sinon.
+     */
+    public boolean updateUtilisateur(Utilisateurs utilisateur) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean updated = false;
+
+        try {
+            con = DriverManager.getConnection(URL, LOGIN, PASS);
+            String sql = "UPDATE utilisateur SET nom = ?, prenom = ?, email = ?, motdepasse = ?, federation = ?, club = ?, statut = ? , role = ? WHERE id = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, utilisateur.getNom());
+            ps.setString(2, utilisateur.getPrenom());
+            ps.setString(3, utilisateur.getEmail());
+            ps.setString(4, utilisateur.getMotdepasse());
+            ps.setString(5, utilisateur.getFederation());
+            ps.setString(6, utilisateur.getClubs());
+            ps.setString(7, utilisateur.getStatut());
+            ps.setInt(8, utilisateur.getRole());
+//            ps.setInt(9, utilisateur.getId());
+
+
+            int rowsAffected = ps.executeUpdate();
+            updated = rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException ignore) {
+                ignore.printStackTrace();
+            }
+        }
+
+        return updated;
+    }
  
 }

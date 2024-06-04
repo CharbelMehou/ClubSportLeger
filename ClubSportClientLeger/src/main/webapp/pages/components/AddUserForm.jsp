@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -25,7 +25,7 @@
 .container {
 	width: 80%; /* Largeur du formulaire */
 	max-width: 600px; /* Largeur maximale */
-	padding: 20px; /* Espacement intérieur */
+	padding: 20px; /* Espacement intÃ¯Â¿Â½rieur */
 	border-radius: 8px; /* Bord arrondi */
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre */
 	background-color: #FFFFFF;
@@ -40,8 +40,19 @@
 	border-color: #11559C; /* Couleur de bord */
 	color: #ffffff; /* Couleur du texte */
 }
- 
-body {
+
+.password-adverstising{
+	background-color:#bae7e9;
+	width:600px;
+	margin-left:15px;
+	margin-right:15px;	
+	padding:10px;
+	color:#8faab0;
+}
+.inscrire-container{
+display:flex;
+flex-direction:row;
+justify-content:center
 }
 </style>
 <title>Inscription</title>
@@ -67,9 +78,9 @@ body {
 				<div class="col-md-8">
 					<!-- Correction de la classe de colonne -->
 					<div class="form-group">
-						<label for="prenom">Prénom</label> <input type="text"
+						<label for="prenom">PrÃ©nom</label> <input type="text"
 							class="form-control" id="prenom" name="prenom"
-							placeholder="Entrez votre prénom">
+							placeholder="Entrez votre prÃ©nom">
 					</div>
 				</div>
 			</div>
@@ -91,9 +102,20 @@ body {
 				</div>
 			</div>
 			<div class="row">
+				<div class=" password-adverstising">
+					<p>Votre mot de passe doit respecter les instructions suivantes :</p>
+				    <ul>
+				        <li>Contenir Minimum 12 caractÃ¨res</li>
+				        <li>Contenir au minimum une majuscule</li>
+				        <li>Contenir des chiffres</li>
+				        <li>Contenir au minimum un caractÃ¨re spÃ©cial</li>
+				    </ul>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label for="federationSelect">Fédération :</label> <select
+						<label for="federationSelect">FÃ©dÃ©ration :</label> <select
 							id="federation" name="federation" class="form-control">
 							<%
                                     FederationDAO dao = new FederationDAO();
@@ -118,10 +140,10 @@ body {
 					<div class="form-group">
 						<label for="federationSelect">Statut:</label> <select id="statut"
 							name="statut" class="form-control">
-							<option value="Président de Club">Président de Club</option>
+							<option value="PrÃ©sident de Club">PrÃ©sident de Club</option>
 							<option value="Entraineur">Entraineur</option>
 							<option value="Maire">Maire</option>
-							<option value="Deputé">Deputé</option>
+							<option value="DeputÃ©">DÃ©putÃ©</option>
 						</select>
 					</div>
 				</div>
@@ -132,14 +154,26 @@ body {
 				<label class="form-check-label" for="exampleCheck1">Check me
 					out</label>
 			</div>
-			<button type="submit" class="btn btn-primary custom-btn">Submit</button>
+			<div class="inscrire-container">
+			<button type="submit" class="btn btn-primary custom-btn">Inscrire</button>
+			</div>
 		</form>
-		<% String message = (String)request.getAttribute("message"); %>
-    <% if(message != null && !message.isEmpty()) { %>
+		<% String message = (String)request.getAttribute("message");
+			String messageStatus = (String)request.getAttribute("messageStatus");			%>
+    <% if(message != null && !message.isEmpty()) {
+    	if(messageStatus.equals("bad")){
+    	%>
         <div class="alert alert-danger">
             <strong>News!</strong> <%= message %>
         </div>
-    <% } %>
+    <%}
+    	else if(messageStatus.equals("good")){%>
+        <div class="alert alert-success">
+            <strong>News!</strong> <%= message %>
+        </div>
+    
+   <%  }
+    	} %>
 	 </div>
 	</div>
 	

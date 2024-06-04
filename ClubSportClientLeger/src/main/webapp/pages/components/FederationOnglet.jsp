@@ -63,7 +63,7 @@
     
 <div class="sub-part-navbar">
         <h1>DECOUVREZ LES DONNEES RELATIVES AUX FEDERATIONS</h1>
-        <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHE DE CHEZ VOUS</p>
+        <p>DES DEPARTEMENTS REGIONS ET COMMUNES PROCHES DE CHEZ VOUS</p>
         <div class="sub-part-navbar-bottom-side">
             <p>Affinez votre recherche</p>
         </div>
